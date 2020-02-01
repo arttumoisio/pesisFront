@@ -1,0 +1,139 @@
+<form class="form">
+  <div class="mt-2 row form-group">
+    <div class="col-xl-2 col-lg-2 col-md-6 col-6">
+      <label for="kaudetAlku">Kaudet</label>
+      <select 
+      class="form-control"
+      type="text" 
+      id="kaudetAlku" 
+      name="kaudetAlku">
+        <option 
+        *ngFor="let kausi of kaudet;"
+        value="kausi">
+        {{kausi}}
+        </option>
+      </select>
+    </div>
+    <div class="col-xl-2 col-lg-2 col-md-6 col-6">
+      <label for="kaudetLoppu">-</label>
+      <select
+      class="form-control"
+      type="text" 
+      id="kaudetLoppu" 
+      name="kaudetLoppu">
+        <option 
+        *ngFor="let kausi of kaudet;"
+        value="kausi">
+        {{kausi}}
+      </option>
+      </select>
+    </div>
+    <div class="col-xl-2 col-lg-2 col-md-6 col-6">
+      <label for="pelinTyyppi">Pelin tyyppi</label>
+      <select 
+      class="form-control"
+      type="text" 
+      id="pelinTyyppi" 
+      name="pelinTyyppi">
+        <option 
+        *ngFor="let tyyppi of peliTyypit" 
+        value="tyyppi">
+        {{ tyyppi }}
+        </option>
+      </select>
+    </div>
+    <div class="col-xl-2 col-lg-2 col-md-6 col-6">
+      <label for="joukkue">Joukkue</label>
+      <select
+      class="form-control"
+      type="text" 
+      id="joukkue" 
+      name="joukkue">
+      <option 
+      *ngFor="let joukkue of joukkueet" 
+      value="joukkue">
+      {{ joukkue }}
+      </option>
+      </select>
+    </div>
+    <div class="col-xl-4 col-lg-4 col-md-12">
+      <label for="nimi">Etsi pelaajista</label>
+      <input
+      class="form-control"
+      type="text" 
+      id="nimi" 
+      name="nimi">
+    </div>
+
+  </div>
+<div class="my-2 row form-group">
+  <div class="col-xl-2 col-lg-2 col-md-6 col-6">
+    <label for="upPaikka">Ulkopelipaikka</label>
+    <select 
+    class="form-control"
+    type="text" 
+    id="upPaikka" 
+    name="upPaikka">
+      <option 
+      *ngFor="let upPaikka of ulkopeliPaikat" 
+      value="upPaikka">
+      {{ upPaikka }}
+      </option>
+    </select>
+  </div>
+  <div class="col-xl-2 col-lg-2 col-md-6 col-6">
+    <label for="spPaikka">Lyöntinumero</label>
+    <select 
+    class="form-control"
+    type="text" 
+    id="spPaikka" 
+    name="spPaikka">
+      <option
+      value="Mikä tahansa">
+      Mikä tahansa
+      </option>
+      <option 
+      *ngFor="let spPaikka of lyontijarjestys" 
+      value="spPaikka">
+      {{ spPaikka }}
+      </option>
+    </select>
+    
+  </div>
+  <div class="col-xl-2 col-lg-2 col-md-6 col-6">
+    <label for="handness">Kätisyys</label>
+<select 
+    class="form-control"
+    type="text" 
+    id="handness" 
+    name="handness">
+      <option 
+      *ngFor="let kasi of handness" 
+      value="kasi">
+      {{ kasi }}
+      </option>
+    </select>
+    
+  </div>
+
+</div>
+
+
+
+
+
+  <div class="mt-4 row form-group">
+    <div class="col-xl-2 col-lg-2 col-md-6 col-6">
+      <button 
+      class="btn btn-block btn-outline-primary"
+      type="submit">Hae</button>
+    </div>
+    <div class="col-xl-2 col-lg-2 col-md-6 col-6">
+      <button class="btn btn-block btn-outline-info ">Lisää suodattimia</button>
+    </div>
+    <div class="col-xl-2 col-lg-2 col-md-6 col-6">
+      <button class="btn btn-block btn-outline-warning ">Tyhjennä</button>
+    </div>
+    
+  </div>
+</form>

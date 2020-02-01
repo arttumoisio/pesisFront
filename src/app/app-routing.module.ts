@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { PelaajatComponent } from './pelaajat/pelaajat.component';
 
 
 const routes: Routes = [
-  {path:'pelaajat', component:'pelaajatComponent'}
+  {path:'pelaajat', component: PelaajatComponent}
 ];
 
 @NgModule({
