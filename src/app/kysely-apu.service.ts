@@ -123,6 +123,7 @@ export class KyselyApuService {
   ],
 
   filtteri: [
+    "Valitse Filtteri",
     "Pelatut ottelut",
     "Lyödyt juoksut",
     "Tuodut juoksut",

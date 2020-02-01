@@ -1,7 +1,8 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { KyselyApuService } from '../kysely-apu.service';
 import { KyselyApu } from '../kyselyApu.model';
-import { FormControl, NgForm } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FirebaseServiceService } from '../services/firebase-service.service';
 
 @Component({
   selector: 'app-pelaajat',
@@ -10,27 +11,55 @@ import { FormControl, NgForm } from '@angular/forms';
 })
 export class PelaajatComponent implements OnInit {
 
-  lisaaSuodattimia: boolean = false;
-  suodinTeksti: string = "Enemmän";
-  @ViewChild("kyselyForm", {static: false}) kyselyForm: NgForm;
+  reactiveKyselyForm: FormGroup;
+
+  lisaaSuodattimia: boolean = true;
+  suodinTeksti: string = "Vähemmän";
+  //@ViewChild("kyselyForm", {static: false}) kyselyForm: NgForm;
 
   apu: KyselyApu;
 
-  myForm = new FormControl('');
+  //myForm = new FormControl('');
 
-  constructor(private kyselyService: KyselyApuService) { }
+  constructor(
+    private kyselyService: KyselyApuService,
+    private firebase: FirebaseServiceService) { 
+
+    }
 
   ngOnInit() {
-    this.apu = this.kyselyService.kyselyData
+    this.apu = this.kyselyService.kyselyData;
+    this.reactiveKyselyForm = new FormGroup({
+      'kaudetAlku':   new FormControl(2020, [Validators.min(2003),Validators.max(2020)]),
+      'kaudetLoppu':  new FormControl(2020, [Validators.min(2003),Validators.max(2020)]),
+      'summaa':       new FormControl(false),
+      'joukkue':      new FormControl("Mikä tahansa"),
+      'pelinTyyppi':  new FormControl("Mikä tahansa"),
+      'nimi':         new FormControl(null),
+      'upPaikka':     new FormControl("Mikä tahansa"),
+      'spNumero':     new FormControl("Mikä tahansa"),
+      'handness':     new FormControl("Mikä tahansa"),
+      'paikka':       new FormControl("Koti/Vieras"),
+      'tulos':        new FormControl("Voitto/Tappio"),
+      'vastustaja':   new FormControl("Vastustaja"),
+      'suodin':       new FormControl("Valitse Filtteri"),
+      'operator':     new FormControl("gte"),
+      'luku':         new FormControl(null, Validators.min(1)),
+    });
   }
 
   onLisaaSuodattimia(){
+    if (this.lisaaSuodattimia){
+      this.reactiveKyselyForm.addControl('operator', new FormControl('equals'));
+    }
     this.lisaaSuodattimia = !this.lisaaSuodattimia;
     this.suodinTeksti = this.lisaaSuodattimia ? "Vähemmän" : "Enemmän"
   }
 
   onSubmit(){
-    console.log(this.kyselyForm.value);
+    console.log(this.reactiveKyselyForm.value);
+    this.firebase.onCreatePost(this.reactiveKyselyForm.value);
+
   }
 
 }

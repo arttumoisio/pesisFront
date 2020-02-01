@@ -1,4 +1,5 @@
-<form #kyselyForm="ngForm"
+<form 
+[formGroup]="reactiveKyselyForm"
 (ngSubmit)="onSubmit()"
 class="form">
   <div class="mt-2 row form-group">
@@ -9,11 +10,11 @@ class="form">
       class="custom-select"
       type="text" 
       id="kaudetAlku" 
-      ngModel
+      formControlName="kaudetAlku"
       name="kaudetAlku">
         <option 
         *ngFor="let kausi of apu['kaudet'];"
-        value="kausi">
+        [value]="kausi">
         {{kausi}}
         </option>
       </select>
@@ -23,14 +24,14 @@ class="form">
       
 
       <div class="custom-control custom-switch float-right mb-2">
-        <input ngModel type="checkbox" class="custom-control-input" id="summaa" name="summaa">
-        <label class="custom-control-label font-italic font-weight-lighter" for="summaa">Summaa Kaudet</label>
+        <input formControlName="summaa" type="checkbox" class="custom-control-input" id="summaa" name="summaa">
+        <label class="custom-control-label" for="summaa">Yhdistä</label>
       </div>
 
       <select
       class="custom-select"
       type="text" 
-      ngModel
+      formControlName="kaudetLoppu"
       id="kaudetLoppu" 
       name="kaudetLoppu">
         <option 
@@ -40,10 +41,10 @@ class="form">
       </option>
       </select>
     </div>
-    <div class="my-2 col-xl-4 col-lg-4 col-md-12 col-12">
+    <div class="my-2 col-xl-4 col-lg-4 col-12">
       <label for="joukkue">Joukkue</label>
       <select
-      ngModel
+      formControlName="joukkue"
       class="custom-select"
       type="text" 
       id="joukkue" 
@@ -58,7 +59,7 @@ class="form">
     <div class="my-2 col-xl-2 col-lg-2 col-md-6 col-6">
       <label for="pelinTyyppi">Pelin tyyppi</label>
       <select 
-      ngModel
+      formControlName="pelinTyyppi"
       class="custom-select"
       type="text" 
       id="pelinTyyppi" 
@@ -73,38 +74,38 @@ class="form">
     <div class="my-2 col-xl-2 col-lg-2 col-md-6 col-6">
       <label for="paikka">Ottelu/Vastustaja</label>
       <select 
-      ngModel
+      formControlName="paikka"
       class="custom-select"
       type="text" 
       id="paikka" 
       name="paikka">
         <option 
         *ngFor="let paikka of apu['paikka']" 
-        value="paikka">
+        [value]="paikka">
         {{ paikka }}
         </option>
       </select>
       <select 
-      ngModel
+      formControlName="tulos"
       class="custom-select"
       type="text" 
       id="tulos" 
       name="tulos">
         <option 
         *ngFor="let lopputulos of apu['tulos']" 
-        value="lopputulos">
+        [value]="lopputulos">
         {{ lopputulos }}
         </option>
       </select>
       <select 
-      ngModel
+      formControlName="vastustaja"
       class="custom-select"
       type="text" 
       id="vastustaja" 
       name="vastustaja">
         <option 
         *ngFor="let vastustaja of apu['vastustaja']" 
-        value="vastustaja">
+        [value]="vastustaja">
         {{ vastustaja }}
         </option>
       </select>
@@ -117,44 +118,41 @@ class="my-2 row form-group"
 *ngIf="lisaaSuodattimia"
   > 
 
-
-
-  <div class="my-2 col-xl-10 col-lg-10 col-12">
+  <div class="my-2 col-xl-8 col-lg-8 col-12">
     <label for="suodin">Lisää oma suodatin</label>
     <div class="form-inline">
 
     <select 
-    ngModel
+    formControlName="suodin"
     class="custom-select"
     type="text" 
     id="suodin"
-    style="width: 54%;" 
+    style="max-width: 69%;" 
     name="suodin">
       <option 
       *ngFor="let suodin of apu['filtteri']" 
-      value="suodin">
+      [value]="suodin">
       {{ suodin }}
       </option>
     </select>
     <select 
-    ngModel
+    formControlName="operator"
     class="custom-select"
-    style="width: 15%;"
+    style="max-width: 5%; min-width: 65px;"
     type="text" 
     id="operator" 
     name="operator">
-      <option value="gte"> >= </option>
-      <option value="equals"> = </option>
-      <option value="lte"> &lt;= </option>
+      <option [value]="'gte'"> >= </option>
+      <option [value]="'equals'"> = </option>
+      <option [value]="'lte'"> &lt;= </option>
     </select>
     <input
-    ngModel
+    formControlName="luku"
     class="form-control"
-    style="width: 20%;"
+    style="max-width: 5%; min-width: 80px;"
     type="number"
     id="luku" 
-    name="luku"
-    value="1">
+    name="luku">
     <button 
     type="button"
     class="btn btn-primary"
@@ -163,7 +161,10 @@ class="my-2 row form-group"
   </button>
   </div>
   </div>
+
 </div>
+
+
   <div class="mt-4 row form-group">
     <div class="my-2 col-xl-2 col-lg-2 col-md-6 col-6">
       <button 

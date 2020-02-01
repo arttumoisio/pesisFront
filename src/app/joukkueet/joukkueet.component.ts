@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { NgForm, FormControl } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { KyselyApu } from '../kyselyApu.model';
 import { KyselyApuService } from '../kysely-apu.service';
 
@@ -10,18 +10,30 @@ import { KyselyApuService } from '../kysely-apu.service';
 })
 export class JoukkueetComponent implements OnInit {
 
-  lisaaSuodattimia: boolean = false;
-  suodinTeksti: string = "Enemmän";
-  @ViewChild("kyselyForm", {static: false}) kyselyForm: NgForm;
+  reactiveKyselyForm: FormGroup;
+
+  lisaaSuodattimia: boolean = true; // in production this is: false;
+  suodinTeksti: string = "Vähemmän"; // in production this is: "Enemmän"
 
   apu: KyselyApu;
-
-  myForm = new FormControl('');
 
   constructor(private kyselyService: KyselyApuService) { }
 
   ngOnInit() {
-    this.apu = this.kyselyService.kyselyData
+    this.apu = this.kyselyService.kyselyData;
+    this.reactiveKyselyForm = new FormGroup({
+      'kaudetAlku': new FormControl(2020),
+      'kaudetLoppu': new FormControl(2020),
+      'summaa': new FormControl(false),
+      'joukkue': new FormControl("Mikä tahansa"),
+      'pelinTyyppi': new FormControl("Mikä tahansa"),
+      'paikka': new FormControl("Koti/Vieras"),
+      'tulos': new FormControl("Voitto/Tappio"),
+      'vastustaja': new FormControl("Vastustaja"),
+      'suodin': new FormControl("Valitse Filtteri"),
+      'operator': new FormControl("gte"),
+      'luku': new FormControl(null),
+    });
   }
 
   onLisaaSuodattimia(){
@@ -30,6 +42,6 @@ export class JoukkueetComponent implements OnInit {
   }
 
   onSubmit(){
-    console.log(this.kyselyForm.value);
+    console.log(this.reactiveKyselyForm.value);
   }
 }
