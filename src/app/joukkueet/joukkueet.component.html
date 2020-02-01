@@ -1,0 +1,184 @@
+<form #kyselyForm="ngForm"
+(ngSubmit)="onSubmit()"
+class="form">
+  <div class="mt-2 row form-group">
+    <div class="my-2 col-xl-2 col-lg-2 col-md-6 col-6">
+      <label for="kaudetAlku">Kaudet</label>
+      <label for="kaudetLoppu" class="float-right">-</label>
+      <select 
+      class="custom-select"
+      type="text" 
+      id="kaudetAlku" 
+      ngModel
+      name="kaudetAlku">
+        <option 
+        *ngFor="let kausi of apu['kaudet'];"
+        value="kausi">
+        {{kausi}}
+        </option>
+      </select>
+      
+    </div>
+    <div class="my-2 col-xl-2 col-lg-2 col-md-6 col-6">
+      
+
+      <div class="custom-control custom-switch float-right mb-2">
+        <input ngModel type="checkbox" class="custom-control-input" id="summaa" name="summaa">
+        <label class="custom-control-label font-italic font-weight-lighter" for="summaa">Summaa Kaudet</label>
+      </div>
+
+      <select
+      class="custom-select"
+      type="text" 
+      ngModel
+      id="kaudetLoppu" 
+      name="kaudetLoppu">
+        <option 
+        *ngFor="let kausi of apu['kaudet'];"
+        [value]="kausi">
+        {{kausi}}
+      </option>
+      </select>
+    </div>
+    <div class="my-2 col-xl-4 col-lg-4 col-md-12 col-12">
+      <label for="joukkue">Joukkue</label>
+      <select
+      ngModel
+      class="custom-select"
+      type="text" 
+      id="joukkue" 
+      name="joukkue">
+      <option 
+      *ngFor="let joukkue of apu['joukkueet']" 
+      [value]="joukkue">
+      {{ joukkue }}
+      </option>
+      </select>
+    </div>
+    <div class="my-2 col-xl-2 col-lg-2 col-md-6 col-6">
+      <label for="pelinTyyppi">Pelin tyyppi</label>
+      <select 
+      ngModel
+      class="custom-select"
+      type="text" 
+      id="pelinTyyppi" 
+      name="pelinTyyppi">
+        <option 
+        *ngFor="let tyyppi of apu['peliTyypit']" 
+        [value]="tyyppi">
+        {{ tyyppi }}
+        </option>
+      </select>
+    </div>
+    <div class="my-2 col-xl-2 col-lg-2 col-md-6 col-6">
+      <label for="paikka">Ottelu/Vastustaja</label>
+      <select 
+      ngModel
+      class="custom-select"
+      type="text" 
+      id="paikka" 
+      name="paikka">
+        <option 
+        *ngFor="let paikka of apu['paikka']" 
+        value="paikka">
+        {{ paikka }}
+        </option>
+      </select>
+      <select 
+      ngModel
+      class="custom-select"
+      type="text" 
+      id="tulos" 
+      name="tulos">
+        <option 
+        *ngFor="let lopputulos of apu['tulos']" 
+        value="lopputulos">
+        {{ lopputulos }}
+        </option>
+      </select>
+      <select 
+      ngModel
+      class="custom-select"
+      type="text" 
+      id="vastustaja" 
+      name="vastustaja">
+        <option 
+        *ngFor="let vastustaja of apu['vastustaja']" 
+        value="vastustaja">
+        {{ vastustaja }}
+        </option>
+      </select>
+    </div>
+
+  </div>
+
+<div 
+class="my-2 row form-group"
+*ngIf="lisaaSuodattimia"
+  > 
+
+
+
+  <div class="my-2 col-xl-10 col-lg-10 col-12">
+    <label for="suodin">Lisää oma suodatin</label>
+    <div class="form-inline">
+
+    <select 
+    ngModel
+    class="custom-select"
+    type="text" 
+    id="suodin"
+    style="width: 54%;" 
+    name="suodin">
+      <option 
+      *ngFor="let suodin of apu['filtteri']" 
+      value="suodin">
+      {{ suodin }}
+      </option>
+    </select>
+    <select 
+    ngModel
+    class="custom-select"
+    style="width: 15%;"
+    type="text" 
+    id="operator" 
+    name="operator">
+      <option value="gte"> >= </option>
+      <option value="equals"> = </option>
+      <option value="lte"> &lt;= </option>
+    </select>
+    <input
+    ngModel
+    class="form-control"
+    style="width: 20%;"
+    type="number"
+    id="luku" 
+    name="luku"
+    value="1">
+    <button 
+    type="button"
+    class="btn btn-primary"
+    style="width: 10%;font-weight: bold;">
+    +
+  </button>
+  </div>
+  </div>
+</div>
+  <div class="mt-4 row form-group">
+    <div class="my-2 col-xl-2 col-lg-2 col-md-6 col-6">
+      <button 
+      class="btn btn-block btn-outline-primary"
+      type="submit">Hae</button>
+    </div>
+    <div class="my-2 col-xl-2 col-lg-2 col-md-6 col-6">
+      <button 
+      type="button"
+      class="btn btn-block btn-outline-info"
+      (click)="onLisaaSuodattimia()">{{suodinTeksti}} filttereitä</button>
+    </div>
+    <div class="my-2 col-xl-2 col-lg-2 col-md-6 col-6">
+      <button type="button" class="btn btn-block btn-outline-warning ">Tyhjennä</button>
+    </div>
+    
+  </div>
+</form>

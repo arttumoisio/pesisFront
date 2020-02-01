@@ -1,23 +1,24 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { ReactiveFormsModule, NgModel } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { PelaajatComponent } from './pelaajat/pelaajat.component';
 import { NavigointiComponent } from './navigointi/navigointi.component';
+import { JoukkueetComponent } from './joukkueet/joukkueet.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     PelaajatComponent,
-    NavigointiComponent
+    NavigointiComponent,
+    JoukkueetComponent
   ],
   imports: [
     BrowserModule,
-    NgModel,
     AppRoutingModule,
-    ReactiveFormsModule
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

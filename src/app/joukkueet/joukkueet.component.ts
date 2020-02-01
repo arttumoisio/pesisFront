@@ -1,14 +1,14 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { KyselyApuService } from '../kysely-apu.service';
+import { NgForm, FormControl } from '@angular/forms';
 import { KyselyApu } from '../kyselyApu.model';
-import { FormControl, NgForm } from '@angular/forms';
+import { KyselyApuService } from '../kysely-apu.service';
 
 @Component({
-  selector: 'app-pelaajat',
-  templateUrl: './pelaajat.component.html',
-  styleUrls: ['./pelaajat.component.css']
+  selector: 'app-joukkueet',
+  templateUrl: './joukkueet.component.html',
+  styleUrls: ['./joukkueet.component.css']
 })
-export class PelaajatComponent implements OnInit {
+export class JoukkueetComponent implements OnInit {
 
   lisaaSuodattimia: boolean = false;
   suodinTeksti: string = "Enemmän";
@@ -32,5 +32,4 @@ export class PelaajatComponent implements OnInit {
   onSubmit(){
     console.log(this.kyselyForm.value);
   }
-
 }
