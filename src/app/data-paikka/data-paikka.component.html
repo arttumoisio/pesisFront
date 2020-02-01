@@ -1,0 +1,26 @@
+<h1>Data näkyy nyt!</h1>
+
+<div
+*ngIf="dataListana">
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Vuodet</th>
+      <th>Joukkue</th>
+      <th>Sarjavaihe</th>
+    </tr>
+  </thead>
+  <tbody>
+  <tr
+  *ngFor="let rivi of dataListana">
+    <td>{{rivi["kaudetAlku"] + " - " + rivi["kaudetLoppu"]}}</td>
+    <td>{{rivi["joukkue"]}}</td>
+    <td>{{rivi["pelinTyyppi"]}}</td>
+  </tr>
+  </tbody>
+</table>
+
+</div>
+
+<button type="button" (click)="onLog()" class="btn btn-success">Logaa</button>

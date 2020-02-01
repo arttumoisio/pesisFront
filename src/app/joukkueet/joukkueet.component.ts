@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { KyselyApu } from '../kyselyApu.model';
 import { KyselyApuService } from '../kysely-apu.service';
+import { FirebaseServiceService } from '../services/firebase-service.service';
 
 @Component({
   selector: 'app-joukkueet',
@@ -16,8 +17,10 @@ export class JoukkueetComponent implements OnInit {
   suodinTeksti: string = "Vähemmän"; // in production this is: "Enemmän"
 
   apu: KyselyApu;
+  naytaData: boolean;
 
-  constructor(private kyselyService: KyselyApuService) { }
+  constructor(private kyselyService: KyselyApuService,
+    private firebase: FirebaseServiceService) { }
 
   ngOnInit() {
     this.apu = this.kyselyService.kyselyData;
@@ -43,5 +46,12 @@ export class JoukkueetComponent implements OnInit {
 
   onSubmit(){
     console.log(this.reactiveKyselyForm.value);
+    this.firebase.onCreateJoukkuePost(this.reactiveKyselyForm.value);
+
+  }
+
+  onNaytaData(){
+    this.naytaData = !this.naytaData;
+    console.log(this.naytaData);
   }
 }

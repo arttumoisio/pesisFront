@@ -14,6 +14,7 @@ export class PelaajatComponent implements OnInit {
   reactiveKyselyForm: FormGroup;
 
   lisaaSuodattimia: boolean = true;
+  naytaData: boolean = false;
   suodinTeksti: string = "Vähemmän";
   //@ViewChild("kyselyForm", {static: false}) kyselyForm: NgForm;
 
@@ -58,8 +59,13 @@ export class PelaajatComponent implements OnInit {
 
   onSubmit(){
     console.log(this.reactiveKyselyForm.value);
-    this.firebase.onCreatePost(this.reactiveKyselyForm.value);
+    this.firebase.onCreatePelaajaPost(this.reactiveKyselyForm.value);
 
+  }
+
+  onNaytaData(){
+    this.naytaData = !this.naytaData;
+    console.log(this.naytaData);
   }
 
 }

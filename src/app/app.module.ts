@@ -8,13 +8,15 @@ import { AppComponent } from './app.component';
 import { PelaajatComponent } from './pelaajat/pelaajat.component';
 import { NavigointiComponent } from './navigointi/navigointi.component';
 import { JoukkueetComponent } from './joukkueet/joukkueet.component';
+import { DataPaikkaComponent } from './data-paikka/data-paikka.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     PelaajatComponent,
     NavigointiComponent,
-    JoukkueetComponent
+    JoukkueetComponent,
+    DataPaikkaComponent
   ],
   imports: [
     BrowserModule,

@@ -91,6 +91,7 @@ class="my-2 row form-group"
   <div class="my-2 col-xl-2 col-lg-2 col-md-6 col-6">
     <label for="upPaikka">Ulkopelipaikka</label>
     <select 
+    multiple 
     formControlName="upPaikka"
     class="custom-select"
     type="text" 
@@ -243,6 +244,15 @@ class="my-2 row form-group"
     <div class="my-2 col-xl-2 col-lg-2 col-md-6 col-6">
       <button type="button" class="btn btn-block btn-outline-warning ">Tyhjennä</button>
     </div>
+
+    <div class="my-2 col-xl-2 col-lg-2 col-md-6 col-6">
+      <button type="button" 
+      class="btn btn-block btn-outline-danger"
+      (click)="onNaytaData()">Näytä data</button>
+    </div>
     
   </div>
+
+  <app-data-paikka *ngIf="naytaData"></app-data-paikka>
+
 </form>
