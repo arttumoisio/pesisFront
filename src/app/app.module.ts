@@ -9,6 +9,9 @@ import { PelaajatComponent } from './pelaajat/pelaajat.component';
 import { NavigointiComponent } from './navigointi/navigointi.component';
 import { JoukkueetComponent } from './joukkueet/joukkueet.component';
 import { DataPaikkaComponent } from './data-paikka/data-paikka.component';
+import { TilastoSelainComponent } from './tilasto-selain/tilasto-selain.component';
+import { VertailuComponent } from './vertailu/vertailu.component';
+import { TuomaritComponent } from './tuomarit/tuomarit.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +19,10 @@ import { DataPaikkaComponent } from './data-paikka/data-paikka.component';
     PelaajatComponent,
     NavigointiComponent,
     JoukkueetComponent,
-    DataPaikkaComponent
+    DataPaikkaComponent,
+    TilastoSelainComponent,
+    VertailuComponent,
+    TuomaritComponent
   ],
   imports: [
     BrowserModule,
