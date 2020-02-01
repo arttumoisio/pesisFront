@@ -1,28 +1,31 @@
-<form class="form">
+<form 
+class="form"
+[formGroup]="kyselyForm"
+(ngSubmit)="onSubmit()">
   <div class="mt-2 row form-group">
     <div class="col-xl-2 col-lg-2 col-md-6 col-6">
       <label for="kaudetAlku">Kaudet</label>
       <select 
-      class="form-control"
+      class="custom-select"
       type="text" 
       id="kaudetAlku" 
       name="kaudetAlku">
         <option 
-        *ngFor="let kausi of kaudet;"
+        *ngFor="let kausi of apu['kaudet'];"
         value="kausi">
         {{kausi}}
         </option>
       </select>
     </div>
-    <div class="col-xl-2 col-lg-2 col-md-6 col-6">
+    <div class="col-xl-2 col-lg-2 col-md-6 col-6 form-group">
       <label for="kaudetLoppu">-</label>
       <select
-      class="form-control"
+      class="custom-select"
       type="text" 
       id="kaudetLoppu" 
       name="kaudetLoppu">
         <option 
-        *ngFor="let kausi of kaudet;"
+        *ngFor="let kausi of apu['kaudet'];"
         value="kausi">
         {{kausi}}
       </option>
@@ -31,12 +34,12 @@
     <div class="col-xl-2 col-lg-2 col-md-6 col-6">
       <label for="pelinTyyppi">Pelin tyyppi</label>
       <select 
-      class="form-control"
+      class="custom-select"
       type="text" 
       id="pelinTyyppi" 
       name="pelinTyyppi">
         <option 
-        *ngFor="let tyyppi of peliTyypit" 
+        *ngFor="let tyyppi of apu['peliTyypit']" 
         value="tyyppi">
         {{ tyyppi }}
         </option>
@@ -45,12 +48,12 @@
     <div class="col-xl-2 col-lg-2 col-md-6 col-6">
       <label for="joukkue">Joukkue</label>
       <select
-      class="form-control"
+      class="custom-select"
       type="text" 
       id="joukkue" 
       name="joukkue">
       <option 
-      *ngFor="let joukkue of joukkueet" 
+      *ngFor="let joukkue of apu['joukkueet']" 
       value="joukkue">
       {{ joukkue }}
       </option>
@@ -70,12 +73,12 @@
   <div class="col-xl-2 col-lg-2 col-md-6 col-6">
     <label for="upPaikka">Ulkopelipaikka</label>
     <select 
-    class="form-control"
+    class="custom-select"
     type="text" 
     id="upPaikka" 
     name="upPaikka">
       <option 
-      *ngFor="let upPaikka of ulkopeliPaikat" 
+      *ngFor="let upPaikka of apu['ulkopeliPaikat']" 
       value="upPaikka">
       {{ upPaikka }}
       </option>
@@ -84,7 +87,7 @@
   <div class="col-xl-2 col-lg-2 col-md-6 col-6">
     <label for="spPaikka">Lyöntinumero</label>
     <select 
-    class="form-control"
+    class="custom-select"
     type="text" 
     id="spPaikka" 
     name="spPaikka">
@@ -93,7 +96,7 @@
       Mikä tahansa
       </option>
       <option 
-      *ngFor="let spPaikka of lyontijarjestys" 
+      *ngFor="let spPaikka of apu['lyontijarjestys']" 
       value="spPaikka">
       {{ spPaikka }}
       </option>
@@ -102,18 +105,82 @@
   </div>
   <div class="col-xl-2 col-lg-2 col-md-6 col-6">
     <label for="handness">Kätisyys</label>
-<select 
-    class="form-control"
+    <select 
+    class="custom-select"
     type="text" 
     id="handness" 
     name="handness">
       <option 
-      *ngFor="let kasi of handness" 
+      *ngFor="let kasi of apu['handness']" 
       value="kasi">
       {{ kasi }}
       </option>
     </select>
-    
+  </div>
+  <div class="col-xl-2 col-lg-2 col-md-6 col-6">
+    <label for="paikka">Ottelu/Vastustaja</label>
+    <select 
+    class="custom-select"
+    type="text" 
+    id="paikka" 
+    name="paikka">
+      <option 
+      *ngFor="let paikka of apu['paikka']" 
+      value="paikka">
+      {{ paikka }}
+      </option>
+    </select>
+    <select 
+    class="custom-select"
+    type="text" 
+    id="tulos" 
+    name="tulos">
+      <option 
+      *ngFor="let lopputulos of apu['tulos']" 
+      value="lopputulos">
+      {{ lopputulos }}
+      </option>
+    </select>
+    <select 
+    class="custom-select"
+    type="text" 
+    id="vastustaja" 
+    name="vastustaja">
+      <option 
+      *ngFor="let vastustaja of apu['vastustaja']" 
+      value="vastustaja">
+      {{ vastustaja }}
+      </option>
+    </select>
+  </div>
+
+  <div class="col-xl-4 col-lg-4 col-md-12">
+    <label for="suodin">Lisää oma suodatin</label>
+    <select 
+    class="custom-select"
+    type="text" 
+    id="suodin" 
+    name="suodin">
+      <option 
+      *ngFor="let suodin of apu['filtteri']" 
+      value="suodin">
+      {{ vastustaja }}
+      </option>
+    </select>
+    <select 
+    class="custom-select"
+    type="text" 
+    id="operator" 
+    name="operator">
+      <option value="gte"> >= </option>
+      <option value="equals"> = </option>
+      <option value="lte"> &lt;= </option>
+    </select>
+    <input
+    class="form-control"
+    type="number"
+    id="luku" 
+    name="luku">
   </div>
 
 </div>

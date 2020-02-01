@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormService } from '../form.service';
+import { KyselyApuService } from '../kysely-apu.service';
+import { KyselyApu } from '../kyselyApu.model';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-pelaajat',
@@ -7,24 +9,23 @@ import { FormService } from '../form.service';
   styleUrls: ['./pelaajat.component.css']
 })
 export class PelaajatComponent implements OnInit {
-  kyselyApu = {
-  ulkopeliPaikat: string[],
-  lyontijarjestys: number[],
-  kaudet: number[],
-  peliTyypit: string[],
-  joukkueet: string[],
-  handness: string[],
-  }
+  // kyselyApu = {
+  // ulkopeliPaikat: string[],
+  // lyontijarjestys: number[],
+  // kaudet: number[],
+  // peliTyypit: string[],
+  // joukkueet: string[],
+  // handness: string[],
+  // }
 
-  constructor(private kyselyService: FormService) { }
+  apu: KyselyApu;
+
+  myForm = new FormControl('');
+
+  constructor(private kyselyService: KyselyApuService) { }
 
   ngOnInit() {
-    this.ulkopeliPaikat = this.kyselyService.ulkopeliPaikat;
-    this.lyontijarjestys = this.kyselyService.lyontijarjestys;
-    this.kaudet = this.kyselyService.kaudet;
-    this.peliTyypit = this.kyselyService.peliTyypit;
-    this.joukkueet = this.kyselyService.joukkueet;
-    this.handness = this.kyselyService.handness;
+    this.apu = this.kyselyService.kyselyData
   }
 
 }
