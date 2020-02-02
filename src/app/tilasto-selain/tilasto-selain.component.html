@@ -1,1 +1,39 @@
-<p>tilasto-selain works!</p>
+<form class="form-inline">
+  <button type="button" 
+  class="btn btn-primary"
+  (click)=onHae(a.value)>Hae</button>
+  <input 
+  type="number" 
+  class="form-control-lg" 
+  id="number" 
+  name="number"
+  #a>
+  <label for="number">Montako pelaajaa haetaan?</label>
+</form>
+
+<table>
+  <tr>
+    <td>Sija</td>
+    <td>Pelaaja</td>
+    <td>Ottelut</td>
+    <td>K</td>
+    <td>L</td>
+    <td>Yht</td>
+    <td>per peli</td>
+    <td>Yritykset</td>
+    <td>%</td>
+  </tr>
+  <tr
+  *ngFor="let item of testArray; index as i;">
+
+    <td>{{ (montako - ((montako-1) % 100)) +  i }}</td>
+    <td>{{ item.pelaaja }}</td>
+    <td>{{ item.ottelut }}</td>
+    <td> {{ item.kunnarit }}</td>
+    <td>+ {{ item.lyodyt }}</td>
+    <td>= {{ item.lyodyt + item.kunnarit }}</td>
+    <td>{{ ( (item.lyodyt + item.kunnarit) / item.ottelut )  |  number:'1.0-2' }}</td>
+    <td>{{ item.yritykset }}</td>
+    <td>{{ ((item.lyodyt + item.kunnarit)/item.yritykset*100) |  number:'1.0-2' }} %</td>
+  </tr>
+</table>
