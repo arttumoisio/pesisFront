@@ -12,6 +12,8 @@ import { DataPaikkaComponent } from './data-paikka/data-paikka.component';
 import { TilastoSelainComponent } from './tilasto-selain/tilasto-selain.component';
 import { VertailuComponent } from './vertailu/vertailu.component';
 import { TuomaritComponent } from './tuomarit/tuomarit.component';
+import { MatTableModule } from '@angular/material/table';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -30,6 +32,8 @@ import { TuomaritComponent } from './tuomarit/tuomarit.component';
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule,
+    MatTableModule,
+    NoopAnimationsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

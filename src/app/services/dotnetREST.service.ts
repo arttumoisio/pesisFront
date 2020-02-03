@@ -23,5 +23,12 @@ export class DotnetRESTservice {
 
   }
 
+  getlyojatlyhyt(montako?: number) {
+
+    montako = montako ? montako : 0
+
+    return this.onGet(this.lyojaUrl + "lyhyt/" + montako);
+  }
+
   
 }

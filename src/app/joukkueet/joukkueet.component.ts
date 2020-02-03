@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { KyselyApu } from '../kyselyApu.model';
-import { KyselyApuService } from '../kysely-apu.service';
+import { KyselyApu } from '../models/kyselyApu.model';
+import { KyselyApuService } from '../services/kysely-apu.service';
 import { FirebaseServiceService } from '../services/firebase-service.service';
 
 @Component({

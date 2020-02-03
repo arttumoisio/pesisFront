@@ -1,1 +1,24 @@
-<p>tuomarit works!</p>
+<form class="form-inline">
+  <button type="submit" 
+  class="btn btn-primary"
+  (click)=onHae(a.value)>Hae</button>
+  <input 
+  type="number" 
+  class="form-control-lg" 
+  id="number" 
+  name="number"
+  #a>
+  <label for="number">Montako pelaajaa haetaan?</label>
+</form>
+
+<table class="table table-bordered">
+  <tr>
+    <th (click)="sortTulokset('sija')">Sija</th>
+    <th *ngFor="let otsikko of otsikot" (click)="sortTulokset(otsikko)">{{otsikko}}</th>
+  </tr>
+  <tr
+  *ngFor="let rivi of testArray; index as i;">
+    <td>{{i+1}}</td>
+    <td *ngFor="let otsikko of otsikot">{{rivi[otsikko]}}</td>
+  </tr>
+</table>
