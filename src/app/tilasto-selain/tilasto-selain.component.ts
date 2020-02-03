@@ -1,7 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DotnetRESTservice } from '../services/dotnetREST.service';
-import {MatTableDataSource} from '@angular/material/table';
-import { MatSort } from '@angular/material/sort';
 
 export interface LyojaDataInterface {
   pelaaja: string;
@@ -83,16 +81,11 @@ export class TilastoSelainComponent implements OnInit {
     })
   ];
 
-  datasource = new MatTableDataSource(this.testArray);
-
-  @ViewChild(MatSort, {static: true}) sort: MatSort;
-
   constructor(private restService: DotnetRESTservice) {
     this.onHae(10)
   }
 
   ngOnInit() {
-    this.datasource.sort = this.sort;
     
   }
 
@@ -104,9 +97,6 @@ export class TilastoSelainComponent implements OnInit {
       data.forEach(rivi => {
         this.testArray.push(new LyojaDataModel(rivi))
       });
-      console.log(this.datasource.data);
-      this.datasource.data = this.testArray;
-      console.log(this.datasource.data);
     })
   }
 

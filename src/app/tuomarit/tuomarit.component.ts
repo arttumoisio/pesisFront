@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { DotnetRESTservice } from '../services/dotnetREST.service';
-import {MatTableDataSource} from '@angular/material/table';
-import { MatSort } from '@angular/material/sort';
+import { HttpErrorResponse } from '@angular/common/http';
 
 export interface LyojaDataInterface {
   pelaaja: string;
@@ -82,6 +81,7 @@ export class TuomaritComponent implements OnInit {
     
   }
 
+  serverError: string = null;
   onHae(value: number ){
     this.montako = value;
     console.log(this.montako);
@@ -91,8 +91,12 @@ export class TuomaritComponent implements OnInit {
         this.testArray.push(new LyojaDataModel(rivi))
       });
       console.log(this.testArray);
-      this.selvitaOtsikot()
-    })
+      this.selvitaOtsikot();
+      this.serverError = null;
+    }), (error: HttpErrorResponse)=>{
+      this.serverError = error.message;
+      this.testArray = [];
+    }
   }
 
   selvitaOtsikot(){

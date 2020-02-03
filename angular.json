@@ -124,5 +124,8 @@
       }
     }
   },
-  "defaultProject": "pesisStatistiikka"
+  "defaultProject": "pesisStatistiikka",
+  "cli": {
+    "analytics": false
+  }
 }
