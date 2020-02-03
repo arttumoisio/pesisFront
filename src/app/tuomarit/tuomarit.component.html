@@ -18,7 +18,8 @@
   </tr>
   <tr
   *ngFor="let rivi of testArray; index as i;">
-    <td>{{i+1}}</td>
+    <td *ngIf="!reversed">{{i+1}}</td>
+    <td *ngIf="reversed">{{testArray.length-i}}</td>
     <td *ngFor="let otsikko of otsikot">{{rivi[otsikko]}}</td>
   </tr>
 </table>

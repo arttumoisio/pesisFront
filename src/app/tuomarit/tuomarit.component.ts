@@ -103,12 +103,14 @@ export class TuomaritComponent implements OnInit {
       }
     })
   }
-
+  reversed: boolean = false;
   jarjestetty: string = "";
   sortTulokset(sarake: string){
     if (this.jarjestetty === sarake){
       this.testArray.reverse();
+      this.reversed = !this.reversed;
     } else {
+      this.reversed = false;
       this.jarjestetty = sarake;
       this.sortArrayOfObjects(sarake,this.testArray);
     }
