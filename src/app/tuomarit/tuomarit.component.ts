@@ -82,25 +82,33 @@ export class TuomaritComponent implements OnInit {
   }
 
   serverError: string = null;
-  onHae(value: number ){
+  onHae(value: any ){
+    this.testArray = [];
+    if (value === ""){return this.serverError = "Syötä jotakin!"}
+    value = +value;
+    if (value === 0){return this.serverError = "Et voi hakea nollaa pelaajaa!";}
     this.montako = value;
     console.log(this.montako);
-    this.restService.getlyojatlyhyt(this.montako).subscribe((data: LyojaRunkoInterface[])=>{
-      this.testArray = [];
-      data.forEach(rivi => {
-        this.testArray.push(new LyojaDataModel(rivi))
-      });
-      console.log(this.testArray);
-      this.selvitaOtsikot();
-      this.serverError = null;
-    }), (error: HttpErrorResponse)=>{
-      this.serverError = error.message;
-      this.testArray = [];
-    }
+    this.restService.getlyojatlyhyt(this.montako).subscribe(
+      (data: LyojaRunkoInterface[])=>{
+        
+        data.forEach(rivi => {
+          this.testArray.push(new LyojaDataModel(rivi))
+        });
+        console.log(this.testArray);
+        this.selvitaOtsikot();
+        this.serverError = null;
+    }, (error: HttpErrorResponse)=>{
+      this.serverError = error.statusText;
+      
+      console.log(error.message);
+      console.log(error);
+    })
   }
 
   selvitaOtsikot(){
     this.otsikot = [];
+    if(!this.testArray[0]) return;
     Object.keys(this.testArray[0]).forEach(element=>{
       if(this.testArray[0][element]){
         this.otsikot.push(element);
@@ -110,13 +118,15 @@ export class TuomaritComponent implements OnInit {
   reversed: boolean = false;
   jarjestetty: string = "";
   sortTulokset(sarake: string){
-    if (this.jarjestetty === sarake){
+    if (this.jarjestetty === sarake || sarake === "sija"){
       this.testArray.reverse();
       this.reversed = !this.reversed;
+      console.log("reverse");
     } else {
       this.reversed = false;
       this.jarjestetty = sarake;
       this.sortArrayOfObjects(sarake,this.testArray);
+      console.log("sort");
     }
   }
 

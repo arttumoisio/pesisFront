@@ -12,6 +12,8 @@ import { DataPaikkaComponent } from './data-paikka/data-paikka.component';
 import { TilastoSelainComponent } from './tilasto-selain/tilasto-selain.component';
 import { VertailuComponent } from './vertailu/vertailu.component';
 import { TuomaritComponent } from './tuomarit/tuomarit.component';
+import { LyhytSelainComponent } from './lyhyt-selain/lyhyt-selain.component';
+import { KaikkiComponent } from './kaikki/kaikki.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,9 @@ import { TuomaritComponent } from './tuomarit/tuomarit.component';
     DataPaikkaComponent,
     TilastoSelainComponent,
     VertailuComponent,
-    TuomaritComponent
+    TuomaritComponent,
+    LyhytSelainComponent,
+    KaikkiComponent
   ],
   imports: [
     BrowserModule,

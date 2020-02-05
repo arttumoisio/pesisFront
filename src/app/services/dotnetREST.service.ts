@@ -30,5 +30,10 @@ export class DotnetRESTservice {
     return this.onGet(this.lyojaUrl + "lyhyt/" + montako);
   }
 
+  getlyojatkaikki() {
+
+    return this.onGet(this.lyojaUrl + "kaikki/");
+  }
+
   
 }

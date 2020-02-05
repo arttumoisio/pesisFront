@@ -5,6 +5,8 @@ import { JoukkueetComponent } from './joukkueet/joukkueet.component';
 import { TilastoSelainComponent } from './tilasto-selain/tilasto-selain.component';
 import { VertailuComponent } from './vertailu/vertailu.component';
 import { TuomaritComponent } from './tuomarit/tuomarit.component';
+import { LyhytSelainComponent } from './lyhyt-selain/lyhyt-selain.component';
+import { KaikkiComponent } from './kaikki/kaikki.component';
 
 
 const routes: Routes = [
@@ -13,6 +15,8 @@ const routes: Routes = [
   {path:'tilastoselain', component: TilastoSelainComponent},
   {path:'vertailu', component: VertailuComponent},
   {path:'tuomarit', component: TuomaritComponent},
+  {path:'lyhyt', component: LyhytSelainComponent},
+  {path:'kaikki', component: KaikkiComponent},
 
 ];
 
