@@ -29,7 +29,26 @@ export class FirebaseServiceService {
   }
 
   onHaePelaajat(formData: object) {
-    const getUrl = 'https://localhost:5001/';
+    const getUrl = 'https://localhost:5001/pelaajat';
+    let params = new HttpParams();
+    for (const elem in formData) {
+      if (elem) {
+        const param: string = elem;
+        const value: string = formData[elem].toString();
+        params = params.append(param, value);
+        // console.log(param);
+        // console.log(value);
+      }
+    }
+    // console.log(params);
+    // console.log(params.keys());
+    // console.log(params.toString());
+    return this.http.get(getUrl, {params});
+  }
+
+
+  onHaeJoukkueet(formData: object) {
+    const getUrl = 'https://localhost:5001/joukkueet';
     let params = new HttpParams();
     for (const elem in formData) {
       if (elem) {

@@ -8,17 +8,19 @@ import { TuomaritComponent } from './tuomarit/tuomarit.component';
 import { LyhytSelainComponent } from './lyhyt-selain/lyhyt-selain.component';
 import { KaikkiComponent } from './kaikki/kaikki.component';
 import { MVPelaajatComponent } from './mvpelaajat/mvpelaajat.component';
+import { MVJoukkueetComponent } from './mvjoukkueet/mvjoukkueet.component';
 
 
 const routes: Routes = [
-  {path:'pelaajat', component: PelaajatComponent},
-  {path:'joukkueet', component: JoukkueetComponent},
-  {path:'tilastoselain', component: TilastoSelainComponent},
-  {path:'vertailu', component: VertailuComponent},
-  {path:'tuomarit', component: TuomaritComponent},
-  {path:'lyhyt', component: LyhytSelainComponent},
-  {path:'kaikki', component: KaikkiComponent},
-  {path:'mvpelaajat', component: MVPelaajatComponent},
+  {path: 'pelaajat', component: PelaajatComponent},
+  {path: 'joukkueet', component: JoukkueetComponent},
+  {path: 'tilastoselain', component: TilastoSelainComponent},
+  {path: 'vertailu', component: VertailuComponent},
+  {path: 'tuomarit', component: TuomaritComponent},
+  {path: 'lyhyt', component: LyhytSelainComponent},
+  {path: 'kaikki', component: KaikkiComponent},
+  {path: 'mvpelaajat', component: MVPelaajatComponent},
+  {path: 'mvjoukkueet', component: MVJoukkueetComponent},
 
 ];
 
