@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { DotnetRESTservice } from '../services/dotnetREST.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { DotnetRESTservice } from 'src/app/services/dotnetREST.service';
 
 @Component({
   selector: 'app-kaikki',

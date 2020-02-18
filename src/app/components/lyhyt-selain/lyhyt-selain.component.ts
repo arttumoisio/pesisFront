@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { DotnetRESTservice } from '../services/dotnetREST.service';
+import { DotnetRESTservice } from '../../services/dotnetREST.service';
 import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({

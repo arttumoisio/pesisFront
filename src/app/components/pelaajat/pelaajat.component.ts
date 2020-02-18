@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { KyselyApuService } from '../services/kysely-apu.service';
-import { KyselyApu } from '../models/kyselyApu.model';
+import { KyselyApuService } from '../../services/kysely-apu.service';
+import { KyselyApu } from '../../models/kyselyApu.model';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { FirebaseServiceService } from '../services/firebase-service.service';
+import { FirebaseServiceService } from '../../services/firebase-service.service';
 
 @Component({
   selector: 'app-pelaajat',

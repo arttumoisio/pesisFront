@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { PelaajatComponent } from './pelaajat/pelaajat.component';
-import { JoukkueetComponent } from './joukkueet/joukkueet.component';
-import { TilastoSelainComponent } from './tilasto-selain/tilasto-selain.component';
-import { VertailuComponent } from './vertailu/vertailu.component';
-import { TuomaritComponent } from './tuomarit/tuomarit.component';
-import { LyhytSelainComponent } from './lyhyt-selain/lyhyt-selain.component';
-import { KaikkiComponent } from './kaikki/kaikki.component';
-import { MVPelaajatComponent } from './mvpelaajat/mvpelaajat.component';
-import { MVJoukkueetComponent } from './mvjoukkueet/mvjoukkueet.component';
+import { PelaajatComponent } from './components/pelaajat/pelaajat.component';
+import { JoukkueetComponent } from './components/joukkueet/joukkueet.component';
+import { TilastoSelainComponent } from './components/tilasto-selain/tilasto-selain.component';
+import { VertailuComponent } from './components/vertailu/vertailu.component';
+import { TuomaritComponent } from './components/tuomarit/tuomarit.component';
+import { LyhytSelainComponent } from './components/lyhyt-selain/lyhyt-selain.component';
+import { KaikkiComponent } from './components/kaikki/kaikki.component';
+import { MVPelaajatComponent } from './components/mvpelaajat/mvpelaajat.component';
+import { MVJoukkueetComponent } from './components/mvjoukkueet/mvjoukkueet.component';
 
 
 const routes: Routes = [

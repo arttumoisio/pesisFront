@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { DataService } from '../services/dataservice.service';
 import { error } from 'protractor';
+import { DataService } from 'src/app/services/dataservice.service';
 
 @Component({
   selector: 'app-data-paikka',

@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { KyselyApu } from '../models/kyselyApu.model';
-import { KyselyApuService } from '../services/kysely-apu.service';
-import { FirebaseServiceService } from '../services/firebase-service.service';
-import { DataService } from '../services/dataservice.service';
+import { KyselyApu } from '../../models/kyselyApu.model';
+import { KyselyApuService } from '../../services/kysely-apu.service';
+import { FirebaseServiceService } from '../../services/firebase-service.service';
+import { DataService } from '../../services/dataservice.service';
 
 @Component({
   selector: 'app-mvjoukkueet',

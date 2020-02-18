@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DotnetRESTservice } from '../services/dotnetREST.service';
+import { DotnetRESTservice } from '../../services/dotnetREST.service';
 
 export interface LyojaDataInterface {
   pelaaja: string;
