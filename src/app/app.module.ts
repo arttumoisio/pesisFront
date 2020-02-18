@@ -14,6 +14,8 @@ import { VertailuComponent } from './vertailu/vertailu.component';
 import { TuomaritComponent } from './tuomarit/tuomarit.component';
 import { LyhytSelainComponent } from './lyhyt-selain/lyhyt-selain.component';
 import { KaikkiComponent } from './kaikki/kaikki.component';
+import { MVPelaajatComponent } from './mvpelaajat/mvpelaajat.component';
+import { MVJoukkueetComponent } from './mvjoukkueet/mvjoukkueet.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,9 @@ import { KaikkiComponent } from './kaikki/kaikki.component';
     VertailuComponent,
     TuomaritComponent,
     LyhytSelainComponent,
-    KaikkiComponent
+    KaikkiComponent,
+    MVPelaajatComponent,
+    MVJoukkueetComponent
   ],
   imports: [
     BrowserModule,

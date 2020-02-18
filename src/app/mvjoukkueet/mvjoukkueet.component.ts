@@ -3,39 +3,35 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { KyselyApu } from '../models/kyselyApu.model';
 import { KyselyApuService } from '../services/kysely-apu.service';
 import { FirebaseServiceService } from '../services/firebase-service.service';
+import { DataService } from '../services/dataservice.service';
 
 @Component({
-  selector: 'app-joukkueet',
-  templateUrl: './joukkueet.component.html',
-  styleUrls: ['./joukkueet.component.css']
+  selector: 'app-mvjoukkueet',
+  templateUrl: './mvjoukkueet.component.html',
+  styleUrls: ['./mvjoukkueet.component.css']
 })
-export class JoukkueetComponent implements OnInit {
+export class MVJoukkueetComponent implements OnInit {
 
   reactiveKyselyForm: FormGroup;
 
   lisaaSuodattimia = true; // in production this is: false;
   suodinTeksti = 'Vähemmän'; // in production this is: 'Enemmän'
+  submitted = false;
 
   apu: KyselyApu;
   naytaData: boolean;
 
   constructor(private kyselyService: KyselyApuService,
-              private firebase: FirebaseServiceService) { }
+              private firebase: FirebaseServiceService,
+              private dataService: DataService) { }
 
   ngOnInit() {
     this.apu = this.kyselyService.kyselyData;
     this.reactiveKyselyForm = new FormGroup({
-      kaudetAlku: new FormControl(2020),
+      kaudetAlku: new FormControl(2010),
       kaudetLoppu: new FormControl(2020),
-      summaa: new FormControl(false),
-      joukkue: new FormControl('Mikä tahansa'),
-      pelinTyyppi: new FormControl('Mikä tahansa'),
-      paikka: new FormControl('Koti/Vieras'),
-      tulos: new FormControl('Voitto/Tappio'),
-      vastustaja: new FormControl('Vastustaja'),
-      suodin: new FormControl('Valitse Filtteri'),
-      operator: new FormControl('gte'),
-      luku: new FormControl(null),
+      vuosittain: new FormControl(false),
+      joukkue: new FormControl('Mikä tahansa')
     });
   }
 
@@ -46,8 +42,17 @@ export class JoukkueetComponent implements OnInit {
 
   onSubmit() {
     console.log(this.reactiveKyselyForm.value);
-    this.firebase.onCreateJoukkuePost(this.reactiveKyselyForm.value);
-
+    this.firebase.onHaeJoukkueet(this.reactiveKyselyForm.value)
+    .subscribe( (responseData => {
+        const data = [];
+        for (const elem in responseData) {
+          if (elem) {
+            data.push(responseData[elem]);
+          }
+        }
+        this.dataService.setData(data);
+        this.submitted = true;
+    }));
   }
 
   onNaytaData() {
