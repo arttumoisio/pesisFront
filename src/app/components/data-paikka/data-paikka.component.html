@@ -1,11 +1,11 @@
 <div *ngIf="data">
   <table class="table table-bordered">
-    <thead appStickyTableHeader>
+    <thead>
     <tr>
       <th *ngFor="let otsikko of otsikot" (click)="sortTulokset(otsikko)">{{otsikko}}</th>
     </tr>
   </thead>
-  <tbody appStickyTableHeader [isContent]="'true'">
+  <tbody >
     <tr
     *ngFor="let rivi of data; index as i;">
       <td *ngFor="let otsikko of otsikot">{{rivi[otsikko]}}</td>
