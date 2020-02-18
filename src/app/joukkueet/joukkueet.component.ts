@@ -13,44 +13,44 @@ export class JoukkueetComponent implements OnInit {
 
   reactiveKyselyForm: FormGroup;
 
-  lisaaSuodattimia: boolean = true; // in production this is: false;
-  suodinTeksti: string = "Vähemmän"; // in production this is: "Enemmän"
+  lisaaSuodattimia = true; // in production this is: false;
+  suodinTeksti = 'Vähemmän'; // in production this is: 'Enemmän'
 
   apu: KyselyApu;
   naytaData: boolean;
 
   constructor(private kyselyService: KyselyApuService,
-    private firebase: FirebaseServiceService) { }
+              private firebase: FirebaseServiceService) { }
 
   ngOnInit() {
     this.apu = this.kyselyService.kyselyData;
     this.reactiveKyselyForm = new FormGroup({
-      'kaudetAlku': new FormControl(2020),
-      'kaudetLoppu': new FormControl(2020),
-      'summaa': new FormControl(false),
-      'joukkue': new FormControl("Mikä tahansa"),
-      'pelinTyyppi': new FormControl("Mikä tahansa"),
-      'paikka': new FormControl("Koti/Vieras"),
-      'tulos': new FormControl("Voitto/Tappio"),
-      'vastustaja': new FormControl("Vastustaja"),
-      'suodin': new FormControl("Valitse Filtteri"),
-      'operator': new FormControl("gte"),
-      'luku': new FormControl(null),
+      kaudetAlku: new FormControl(2020),
+      kaudetLoppu: new FormControl(2020),
+      summaa: new FormControl(false),
+      joukkue: new FormControl('Mikä tahansa'),
+      pelinTyyppi: new FormControl('Mikä tahansa'),
+      paikka: new FormControl('Koti/Vieras'),
+      tulos: new FormControl('Voitto/Tappio'),
+      vastustaja: new FormControl('Vastustaja'),
+      suodin: new FormControl('Valitse Filtteri'),
+      operator: new FormControl('gte'),
+      luku: new FormControl(null),
     });
   }
 
-  onLisaaSuodattimia(){
+  onLisaaSuodattimia() {
     this.lisaaSuodattimia = !this.lisaaSuodattimia;
-    this.suodinTeksti = this.lisaaSuodattimia ? "Vähemmän" : "Enemmän"
+    this.suodinTeksti = this.lisaaSuodattimia ? 'Vähemmän' : 'Enemmän';
   }
 
-  onSubmit(){
+  onSubmit() {
     console.log(this.reactiveKyselyForm.value);
     this.firebase.onCreateJoukkuePost(this.reactiveKyselyForm.value);
 
   }
 
-  onNaytaData(){
+  onNaytaData() {
     this.naytaData = !this.naytaData;
     console.log(this.naytaData);
   }

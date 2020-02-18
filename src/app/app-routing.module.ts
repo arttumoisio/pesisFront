@@ -7,6 +7,7 @@ import { VertailuComponent } from './vertailu/vertailu.component';
 import { TuomaritComponent } from './tuomarit/tuomarit.component';
 import { LyhytSelainComponent } from './lyhyt-selain/lyhyt-selain.component';
 import { KaikkiComponent } from './kaikki/kaikki.component';
+import { MVPelaajatComponent } from './mvpelaajat/mvpelaajat.component';
 
 
 const routes: Routes = [
@@ -17,6 +18,7 @@ const routes: Routes = [
   {path:'tuomarit', component: TuomaritComponent},
   {path:'lyhyt', component: LyhytSelainComponent},
   {path:'kaikki', component: KaikkiComponent},
+  {path:'mvpelaajat', component: MVPelaajatComponent},
 
 ];
 
