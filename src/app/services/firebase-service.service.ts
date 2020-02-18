@@ -65,6 +65,12 @@ export class FirebaseServiceService {
     return this.http.get(getUrl, {params});
   }
 
+  haeJoukkueetApu(vuosiAlkaen = 2000, vuosiLoppuen = 2020) {
+    const getUrl = 'https://localhost:5001/apu/joukkueet';
+
+    return this.http.get(getUrl);
+  }
+
   onAsyncFetchData(path: string) {
     return this.http.get(this.firebaseUrl + path)
     .subscribe();

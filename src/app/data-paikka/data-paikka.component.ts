@@ -35,6 +35,7 @@ export class DataPaikkaComponent implements OnInit {
       return;
     }
     this.otsikot = Object.keys(this.data[0]);
+    this.errorMessage = '';
   }
 
 
