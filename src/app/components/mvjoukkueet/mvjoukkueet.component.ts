@@ -30,7 +30,7 @@ export class MVJoukkueetComponent implements OnInit {
     this.reactiveKyselyForm = new FormGroup({
       kaudetAlku: new FormControl(2010),
       kaudetLoppu: new FormControl(2020),
-      vuosittain: new FormControl(false),
+      vuosittain: new FormControl(true),
       joukkue: new FormControl('Mikä tahansa')
     });
   }

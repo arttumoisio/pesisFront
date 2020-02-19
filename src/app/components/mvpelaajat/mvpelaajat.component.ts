@@ -30,7 +30,7 @@ export class MVPelaajatComponent implements OnInit {
     this.reactiveKyselyForm = new FormGroup({
       kaudetAlku:   new FormControl(2010, [Validators.min(2003), Validators.max(2020)]),
       kaudetLoppu:  new FormControl(2020, [Validators.min(2003), Validators.max(2020)]),
-      vuosittain:   new FormControl(false),
+      vuosittain:   new FormControl(true),
     });
   }
 

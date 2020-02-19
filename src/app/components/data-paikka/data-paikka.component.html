@@ -2,13 +2,18 @@
   <table class="table table-bordered">
     <thead>
     <tr>
-      <th *ngFor="let otsikko of otsikot" (click)="sortTulokset(otsikko)">{{otsikko}}</th>
+      <th *ngFor="let otsikko of otsikot, index as i," 
+      (click)="sortTulokset(otsikko)"
+      [ngClass]="{ 'sticky': i==0}"
+      >{{otsikko}}</th>
     </tr>
   </thead>
   <tbody >
     <tr
     *ngFor="let rivi of data; index as i;">
-      <td *ngFor="let otsikko of otsikot">{{rivi[otsikko]}}</td>
+      <td *ngFor="let otsikko of otsikot; index as io," 
+      [ngClass]="{ 'sticky': io==0}">
+      {{rivi[otsikko]}}</td>
     </tr>
   </tbody>
   </table>
