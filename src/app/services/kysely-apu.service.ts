@@ -126,7 +126,7 @@ export class KyselyApuService {
 
   };
 
-  constructor(private firebase: DotnetRESTservice) {
+  constructor(private dotnetApi: DotnetRESTservice) {
     const joukkueet: string[] = ['Mikä tahansa'];
     const key = 'joukkue';
     dotnetApi.haeJoukkueetApu().subscribe(data => {

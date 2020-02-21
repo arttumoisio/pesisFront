@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { KyselyApu } from '../../models/kyselyApu.model';
 import { KyselyApuService } from 'src/app/services/kysely-apu.service';
-import { FirebaseServiceService } from 'src/app/services/firebase-service.service';
+import { DotnetRESTservice } from 'src/app/services/dotnetAPI.service';
 
 @Component({
   selector: 'app-joukkueet',
@@ -20,7 +20,7 @@ export class JoukkueetComponent implements OnInit {
   naytaData: boolean;
 
   constructor(private kyselyService: KyselyApuService,
-              private firebase: FirebaseServiceService) { }
+              private dotnetApi: DotnetRESTservice) { }
 
   ngOnInit() {
     this.apu = this.kyselyService.kyselyData;
@@ -46,8 +46,6 @@ export class JoukkueetComponent implements OnInit {
 
   onSubmit() {
     console.log(this.reactiveKyselyForm.value);
-    this.firebase.onCreateJoukkuePost(this.reactiveKyselyForm.value);
-
   }
 
   onNaytaData() {
