@@ -2,8 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { KyselyApu } from '../../models/kyselyApu.model';
 import { KyselyApuService } from '../../services/kysely-apu.service';
-import { FirebaseServiceService } from '../../services/firebase-service.service';
 import { DataService } from '../../services/dataservice.service';
+import { DotnetRESTservice } from 'src/app/services/dotnetAPI.service';
 
 @Component({
   selector: 'app-mvjoukkueet',
@@ -22,7 +22,7 @@ export class MVJoukkueetComponent implements OnInit {
   naytaData: boolean;
 
   constructor(private kyselyService: KyselyApuService,
-              private firebase: FirebaseServiceService,
+              private dotnetApi: DotnetRESTservice,
               private dataService: DataService) { }
 
   ngOnInit() {
@@ -42,7 +42,7 @@ export class MVJoukkueetComponent implements OnInit {
 
   onSubmit() {
     console.log(this.reactiveKyselyForm.value);
-    this.firebase.onHaeJoukkueet(this.reactiveKyselyForm.value)
+    this.dotnetApi.onHaeJoukkueet(this.reactiveKyselyForm.value)
     .subscribe( (responseData => {
         const data = [];
         for (const elem in responseData) {
