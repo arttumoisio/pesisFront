@@ -7,7 +7,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 export class DotnetRESTservice {
 
   serverUrl = 'http://192.168.99.100:5000';
-  pelaajatUrl = this.serverUrl + '/lyodyt';
+  pelaajatUrl = this.serverUrl + '/pelaajat';
   joukkueetUrl = this.serverUrl + '/joukkueet';
 
   constructor(private http: HttpClient) { }
@@ -48,7 +48,7 @@ export class DotnetRESTservice {
   }
 
   haeJoukkueetApu(vuosiAlkaen = 2000, vuosiLoppuen = 2020) {
-    const getUrl = '/apu/joukkueet';
+    const getUrl = this.serverUrl + '/apu/joukkueet';
 
     return this.http.get(getUrl);
   }
