@@ -9,12 +9,15 @@ export class DotnetRESTservice {
 
   // serverUrl = 'http://192.168.99.100:5000';
   // serverUrl = 'https://shrouded-savannah-06829.herokuapp.com';
-  serverUrl = 'https://localhost:5001';
-  pelaajatUrl = this.serverUrl + '/pelaajat';
-  joukkueetUrl = this.serverUrl + '/joukkueet';
+  // serverUrl = 'https://localhost:5001';
+  serverUrl = '';
+  pelaajatUrl = '';
+  joukkueetUrl = '';
 
   constructor(private http: HttpClient) {
     this.serverUrl = environment.serverUrl;
+    this.pelaajatUrl = this.serverUrl + '/pelaajat';
+    this.joukkueetUrl = this.serverUrl + '/joukkueet';
   }
 
   onHaePelaajat(formData: object) {

@@ -11,6 +11,7 @@ import { JoukkueetComponent } from './components/joukkueet/joukkueet.component';
 import { DataPaikkaComponent } from './components/data-paikka/data-paikka.component';
 import { MVPelaajatComponent } from './components/mvpelaajat/mvpelaajat.component';
 import { MVJoukkueetComponent } from './components/mvjoukkueet/mvjoukkueet.component';
+import { SpinnerComponent } from './components/small/spinner/spinner.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { MVJoukkueetComponent } from './components/mvjoukkueet/mvjoukkueet.compo
     DataPaikkaComponent,
     MVPelaajatComponent,
     MVJoukkueetComponent,
+    SpinnerComponent
   ],
   imports: [
     BrowserModule,
