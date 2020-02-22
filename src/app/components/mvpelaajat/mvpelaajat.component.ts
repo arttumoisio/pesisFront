@@ -45,6 +45,8 @@ export class MVPelaajatComponent implements OnInit {
 
   onSubmit() {
     // console.log(this.reactiveKyselyForm.value);
+    this.dataService.startLoading();
+    this.submitted = true;
     this.dotnetApi.onHaePelaajat(this.reactiveKyselyForm.value)
     .subscribe( (responseData => {
         const data = [];
@@ -54,7 +56,6 @@ export class MVPelaajatComponent implements OnInit {
           }
         }
         this.dataService.setData(data);
-        this.submitted = true;
     }));
 
   }
