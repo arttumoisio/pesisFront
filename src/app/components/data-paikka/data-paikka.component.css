@@ -13,7 +13,7 @@ td {
 th, td {
   padding: 0.25rem;
 }
-th {
+th#headers {
   background: white;
   position: sticky;
   top: 0;

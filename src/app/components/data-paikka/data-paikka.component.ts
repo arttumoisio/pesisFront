@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { error } from 'protractor';
 import { DataService } from 'src/app/services/dataservice.service';
 
 @Component({
@@ -13,6 +12,7 @@ export class DataPaikkaComponent implements OnInit {
 
   data: object[];
   otsikot: string[] = [];
+  loading = true;
 
   reversed = false;
   jarjestetty = '';
@@ -24,6 +24,9 @@ export class DataPaikkaComponent implements OnInit {
     this.dataService.dataChangedEmitter.subscribe(() => {
       this.data = this.dataService.getData();
       this.selvitaOtsikot();
+    });
+    this.dataService.dataLoadingEmitter.subscribe((loading) => {
+      this.loading = loading;
     });
   }
 
