@@ -1,16 +1,21 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DotnetRESTservice {
 
-  serverUrl = 'http://192.168.99.100:5000';
+  // serverUrl = 'http://192.168.99.100:5000';
+  // serverUrl = 'https://shrouded-savannah-06829.herokuapp.com';
+  serverUrl = 'https://localhost:5001';
   pelaajatUrl = this.serverUrl + '/pelaajat';
   joukkueetUrl = this.serverUrl + '/joukkueet';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+    this.serverUrl = environment.serverUrl;
+  }
 
   onHaePelaajat(formData: object) {
     let params = new HttpParams();
