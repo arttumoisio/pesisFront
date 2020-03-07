@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { KyselyApuService } from '../services/kysely-apu.service';
-import { KyselyApu } from '../models/kyselyApu.model';
+import { KyselyApuService } from '../../services/kysely-apu.service';
+import { KyselyApu } from '../../models/kyselyApu.model';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { FirebaseServiceService } from '../services/firebase-service.service';
-import { DataService } from '../services/dataservice.service';
+import { DataService } from '../../services/dataservice.service';
+import { DotnetRESTservice } from 'src/app/services/dotnetAPI.service';
 
 @Component({
   selector: 'app-mvpelaajat',
@@ -21,7 +21,7 @@ export class MVPelaajatComponent implements OnInit {
 
   constructor(
     private kyselyService: KyselyApuService,
-    private firebase: FirebaseServiceService,
+    private dotnetApi: DotnetRESTservice,
     private dataService: DataService
     ) {}
 
@@ -30,7 +30,7 @@ export class MVPelaajatComponent implements OnInit {
     this.reactiveKyselyForm = new FormGroup({
       kaudetAlku:   new FormControl(2010, [Validators.min(2003), Validators.max(2020)]),
       kaudetLoppu:  new FormControl(2020, [Validators.min(2003), Validators.max(2020)]),
-      vuosittain:   new FormControl(false),
+      vuosittain:   new FormControl(true),
     });
   }
 
@@ -45,7 +45,9 @@ export class MVPelaajatComponent implements OnInit {
 
   onSubmit() {
     // console.log(this.reactiveKyselyForm.value);
-    this.firebase.onHaePelaajat(this.reactiveKyselyForm.value)
+    this.dataService.startLoading();
+    this.submitted = true;
+    this.dotnetApi.onHaePelaajat(this.reactiveKyselyForm.value)
     .subscribe( (responseData => {
         const data = [];
         for (const elem in responseData) {
@@ -54,7 +56,6 @@ export class MVPelaajatComponent implements OnInit {
           }
         }
         this.dataService.setData(data);
-        this.submitted = true;
     }));
 
   }

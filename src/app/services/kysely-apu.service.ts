@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { KyselyApu } from '../models/kyselyApu.model';
-import { FirebaseServiceService } from './firebase-service.service';
+import { DotnetRESTservice } from './dotnetAPI.service';
 
 @Injectable({
   providedIn: 'root'
@@ -126,10 +126,10 @@ export class KyselyApuService {
 
   };
 
-  constructor(private firebase: FirebaseServiceService) {
+  constructor(private dotnetApi: DotnetRESTservice) {
     const joukkueet: string[] = ['Mikä tahansa'];
     const key = 'joukkue';
-    firebase.haeJoukkueetApu().subscribe(data => {
+    dotnetApi.haeJoukkueetApu().subscribe(data => {
         for (const elem in data) {
           if (elem) {
             joukkueet.push(data[elem][key]);

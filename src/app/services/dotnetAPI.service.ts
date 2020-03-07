@@ -1,35 +1,26 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
-export class FirebaseServiceService {
+export class DotnetRESTservice {
 
-  firebaseUrl = 'https://pesisstats.firebaseio.com/';
-  constructor(private http: HttpClient) { }
+  // serverUrl = 'http://192.168.99.100:5000';
+  // serverUrl = 'https://shrouded-savannah-06829.herokuapp.com';
+  // serverUrl = 'https://localhost:5001';
+  serverUrl = '';
+  pelaajatUrl = '';
+  joukkueetUrl = '';
 
-  onCreatePost(postData: {}, path: string) {
-    console.log('lähti');
-    this.http.post(
-      this.firebaseUrl + path ,
-      postData
-    ).subscribe(respondseData => {
-      console.log(respondseData);
-    });
-
-  }
-
-  onCreatePelaajaPost(postData: {}) {
-    this.onCreatePost(postData, 'pelaajaHaku.json' );
-  }
-
-  onCreateJoukkuePost(postData: {}) {
-    this.onCreatePost(postData, 'joukkueHaku.json' );
+  constructor(private http: HttpClient) {
+    this.serverUrl = environment.serverUrl;
+    this.pelaajatUrl = this.serverUrl + '/pelaajat';
+    this.joukkueetUrl = this.serverUrl + '/joukkueet';
   }
 
   onHaePelaajat(formData: object) {
-    const getUrl = 'https://localhost:5001/pelaajat';
     let params = new HttpParams();
     for (const elem in formData) {
       if (elem) {
@@ -43,12 +34,11 @@ export class FirebaseServiceService {
     // console.log(params);
     // console.log(params.keys());
     // console.log(params.toString());
-    return this.http.get(getUrl, {params});
+    return this.http.get(this.pelaajatUrl, {params});
   }
 
 
   onHaeJoukkueet(formData: object) {
-    const getUrl = 'https://localhost:5001/joukkueet';
     let params = new HttpParams();
     for (const elem in formData) {
       if (elem) {
@@ -62,17 +52,12 @@ export class FirebaseServiceService {
     // console.log(params);
     // console.log(params.keys());
     // console.log(params.toString());
-    return this.http.get(getUrl, {params});
+    return this.http.get(this.joukkueetUrl, {params});
   }
 
   haeJoukkueetApu(vuosiAlkaen = 2000, vuosiLoppuen = 2020) {
-    const getUrl = 'https://localhost:5001/apu/joukkueet';
+    const getUrl = this.serverUrl + '/apu/joukkueet';
 
     return this.http.get(getUrl);
-  }
-
-  onAsyncFetchData(path: string) {
-    return this.http.get(this.firebaseUrl + path)
-    .subscribe();
   }
 }
