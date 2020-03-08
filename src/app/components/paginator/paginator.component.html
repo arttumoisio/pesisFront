@@ -1,0 +1,46 @@
+<div class="d-flex justify-content-end">
+<div class="col-2">
+
+    <button 
+    class="btn btn-primary" 
+    [disabled]="paginationStart===1"
+    (click)="onFirstPage()"
+    >&lt;&lt;</button>
+    <button 
+    class="btn btn-primary" 
+    [disabled]="paginationStart===1"
+    (click)="onPreviousPage()"
+    >&lt;</button>
+    </div>
+    <div class="col-8">
+
+        {{records}} riviä. Sivu 
+        <input type="number" [min]="1" [max]="pages" [(value)]="paginationStart" (change)="changePage($event.target.value)">
+        /{{pages}}
+        <select 
+        name="show" 
+        id="show"
+        (change)="changeShowCount($event.target.value)"
+        >
+        <option 
+        *ngFor="let opt of showArray" 
+        [value]="opt" 
+        [selected]="opt===show"
+        >{{opt}} riviä</option>
+    </select>
+    </div>
+    <div class="col-2">
+
+        <button 
+        class="btn btn-primary" 
+        [disabled]="paginationStart===pages"
+        (click)="onNextPage()"
+        >&gt;</button>
+        <button 
+        class="btn btn-primary" 
+        [disabled]="paginationStart===pages"
+        (click)="onLastPage()"
+        >&gt;&gt;</button>
+    </div>
+        
+</div>

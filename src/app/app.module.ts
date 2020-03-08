@@ -12,6 +12,7 @@ import { DataPaikkaComponent } from './components/data-paikka/data-paikka.compon
 import { MVPelaajatComponent } from './components/mvpelaajat/mvpelaajat.component';
 import { MVJoukkueetComponent } from './components/mvjoukkueet/mvjoukkueet.component';
 import { SpinnerComponent } from './components/small/spinner/spinner.component';
+import { PaginatorComponent } from './components/paginator/paginator.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { SpinnerComponent } from './components/small/spinner/spinner.component';
     DataPaikkaComponent,
     MVPelaajatComponent,
     MVJoukkueetComponent,
-    SpinnerComponent
+    SpinnerComponent,
+    PaginatorComponent
   ],
   imports: [
     BrowserModule,
