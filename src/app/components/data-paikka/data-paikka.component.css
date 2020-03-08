@@ -1,21 +1,41 @@
 table {
-  text-align: left;
   position: relative;
-}
-td {
-  top: 57px;
+  border-collapse: collapse;
 }
 .sticky {
-  background: lightgray;
   position: sticky;
   left: 0;
+  z-index: 1000;
 }
-th, td {
-  padding: 0.25rem;
+td.sticky {
+  z-index: 999;
+  box-shadow: 1px 0px 0px 0px rgba(0, 0, 0, 0.4);
 }
-th#headers {
-  background: white;
+
+.desc-sort::after {
+  content: '\2193';
+}
+
+.asc-sort::after {
+  content: '\2193';
+}
+
+td {
+  padding: 1em;
+}
+th {
+  background: #007bff;
+  color: white;
   position: sticky;
   top: 0;
-  box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.4);
+  z-index: 998;
+  box-shadow: 1px 2px 2px -1px rgba(0, 0, 0, 0.4);
+}
+
+.parillinen{
+  background: white;
+}
+
+.pariton{
+  background: lightgray;
 }

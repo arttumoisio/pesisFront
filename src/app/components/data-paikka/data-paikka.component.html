@@ -1,22 +1,32 @@
-<div *ngIf="data">
-  <div class="table-responsive">
-    <table class="table table-bordered">
+
+<div *ngIf="data && !loading">
+  <div class="">
+    <table class="">
       <thead>
-      <tr>
-        <th *ngFor="let otsikko of otsikot, index as i," 
-        (click)="sortTulokset(otsikko)"
-        [ngClass]="{ 'sticky': i==0}"
-        id="headers"
-        >{{otsikko}}</th>
-      </tr>
-    </thead>
-    <tbody >
-      <tr
-      *ngFor="let rivi of data; index as i;">
-        <td *ngFor="let otsikko of otsikot; index as io," 
-        [ngClass]="{ 'sticky': io==0}">
-        {{rivi[otsikko]}}</td>
-      </tr>
+        <tr>
+          <th *ngFor="let otsikko of otsikot, index as i," 
+          (click)="sortTulokset(otsikko)"
+          [ngClass]="{  'sticky': i==0,
+                        'sorted': jarjestetty
+                  }"
+          id="headers"
+          >{{otsikko}}</th>
+        </tr>
+      </thead>
+      <tbody >
+          <tr
+          *ngFor="let rivi of data; index as i;" 
+          [ngClass]="{ 
+
+          }">
+          <td *ngFor="let otsikko of otsikot; index as io," 
+          [ngClass]="{ 
+            'sticky': io==0,
+            'pariton': i%2==1,
+            'parillinen' :i%2==0
+        }">
+          {{rivi[otsikko]}}</td>
+        </tr>
     </tbody>
     </table>
   </div>
