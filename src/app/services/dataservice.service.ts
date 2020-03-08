@@ -5,12 +5,19 @@ import { Injectable, EventEmitter } from '@angular/core';
 })
 export class DataService {
   private data: object[];
+  private length: number;
   reversed = false;
   jarjestetty = '';
 
-  dataChangedEmitter = new EventEmitter();
+  private pagination = {
+    start:1,
+    pages:1,
+    show:10
+  };
 
+  dataChangedEmitter = new EventEmitter();
   dataLoadingEmitter = new EventEmitter<boolean>();
+  paginatorEmitter = new EventEmitter();
 
   constructor() { }
 
@@ -18,21 +25,39 @@ export class DataService {
     return this.data;
   }
 
+  getLength(): number {
+    return this.length;
+  }
+
   startLoading() {
     this.data = [];
+    this.length = 0;
     this.dataChangedEmitter.emit();
     this.dataLoadingEmitter.emit(true);
   }
 
   setData(data: object[] = undefined): void {
-    if(data){this.data = data;}
+    if(data){
+      this.data = data;
+      this.length = data.length;
+    }
     this.dataLoadingEmitter.emit(false);
     this.dataChangedEmitter.emit();
   }
 
+  getPagination(){
+    return this.pagination;
+  }
+  setPagination(start:number, pages:number, show:number){
+    this.pagination.start = start;
+    this.pagination.show = show;
+    this.pagination.pages = pages;
+    this.paginatorEmitter.emit();
+  }
+
   
   sortData(sarake: string) {
-    this.dataLoadingEmitter.emit(true);
+    //this.dataLoadingEmitter.emit(true);
     if (this.jarjestetty === sarake) {
       this.reversed = !this.reversed;
       this.workerSort(sarake, true);
