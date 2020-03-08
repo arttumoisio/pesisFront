@@ -11,26 +11,51 @@ export class DataPaikkaComponent implements OnInit {
   constructor(private dataService: DataService) { }
 
   data: object[];
+  tableData: object[];
   otsikot: string[] = [];
   loading = true;
+  firstItem: number;
 
-  reversed = this.dataService.reversed;
-  jarjestetty = this.dataService.jarjestetty;
+  reversed: boolean;
+  jarjestetty: string;
   errorMessage = '';
 
   ngOnInit() {
     this.updateData();
+    this.sliceData();
     this.dataService.dataChangedEmitter.subscribe(() => {
       this.updateData();
     });
-    this.dataService.dataLoadingEmitter.subscribe((loading) => {
+    this.dataService.dataLoadingEmitter.subscribe((loading: boolean) => {
       this.loading = loading;
+    });
+    this.dataService.paginatorEmitter.subscribe(()=>{
+      this.sliceData();
     });
   }
 
   updateData(){
     this.data = this.dataService.getData();
+    console.log(this.data);
+    this.jarjestetty = this.dataService.jarjestetty;
+    this.reversed = this.dataService.reversed;
     this.selvitaOtsikot();
+    this.sliceData();
+  }
+
+  sliceData(){
+    const pagination = this.dataService.getPagination();
+    const start = Number(pagination.start);
+    const pages = Number(pagination.pages);
+    const show = Number(pagination.show);
+    const firstItem = (start-1)*show;
+    this.firstItem = firstItem;
+    const lastItem = firstItem+show;
+    this.tableData = this.data.slice(firstItem,firstItem+show);
+    console.log(this.data);
+    console.log(firstItem + " " + lastItem);
+    console.log(pagination);
+    console.log(this.tableData);
   }
 
   selvitaOtsikot() {
@@ -45,6 +70,7 @@ export class DataPaikkaComponent implements OnInit {
 
 
   sortTulokset(sarake: string) {
+    
     this.dataService.sortData(sarake);
   }
 
