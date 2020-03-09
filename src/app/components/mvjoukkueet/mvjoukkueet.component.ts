@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { KyselyApu } from '../../models/kyselyApu.model';
 import { KyselyApuService } from '../../services/kysely-apu.service';
@@ -10,7 +10,7 @@ import { DotnetRESTservice } from 'src/app/services/dotnetAPI.service';
   templateUrl: './mvjoukkueet.component.html',
   styleUrls: ['./mvjoukkueet.component.css']
 })
-export class MVJoukkueetComponent implements OnInit {
+export class MVJoukkueetComponent implements OnInit, AfterViewInit {
 
   reactiveKyselyForm: FormGroup;
 
@@ -33,6 +33,10 @@ export class MVJoukkueetComponent implements OnInit {
       vuosittain: new FormControl(true),
       joukkue: new FormControl('Mikä tahansa')
     });
+    this.onSubmit();
+  }
+
+  ngAfterViewInit(){
   }
 
   onLisaaSuodattimia() {
@@ -41,7 +45,7 @@ export class MVJoukkueetComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.reactiveKyselyForm.value);
+    //console.log(this.reactiveKyselyForm.value);
     this.dataService.startLoading();
     this.submitted = true;
     this.dotnetApi.onHaeJoukkueet(this.reactiveKyselyForm.value)

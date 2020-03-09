@@ -52,10 +52,6 @@ export class DataPaikkaComponent implements OnInit {
     this.firstItem = firstItem;
     const lastItem = firstItem+show;
     this.tableData = this.data.slice(firstItem,firstItem+show);
-    console.log(this.data);
-    console.log(firstItem + " " + lastItem);
-    console.log(pagination);
-    console.log(this.tableData);
   }
 
   selvitaOtsikot() {

@@ -1,91 +1,69 @@
-table {
-  /* position: relative; */
-  width: 100%;
-  border-collapse: collapse;
-}
-.tablediv {
-  overflow-x: auto;
-  padding-left: 0px;
-  padding-right: 0px;
-}
-
-th {
-  position: fixed;
-  top: 0;
-}
-
-th.sticky {
-  text-align: left;
-  z-index: 999;
-}
-.sticky {
-  left: 40px;
-  position: sticky;
-  z-index: 800;
-}
-
-.sticky.sija {
-  max-width: 40px;
-  min-width: 40px;
-  position: sticky;
-  text-align: center;
-  left: 0;
-  z-index: 1000;
-}
-td.sija {
-  text-align: center;
-}
-
-td.sticky {
-  z-index: 799;
-  text-align: left;
-}
-td.sticky.otsikollinen {
-  box-shadow: 1px 0px 0px 0px rgba(0, 0, 0, 0.4);
-}
-
-.desc-sort::after {
-  content: '\2193';
-}
-
-.asc-sort::after {
-  content: '\2191';
-}
-
-.desc-sort {
-  background: #0056b3;;
-}
-
-.asc-sort {
-  background: #0056b3;
-}
-
-td {
-  /* padding: 1em; */
-  text-align: center;
-}
 th {
   background: #007bff;
   color: white;
-  position: sticky !important;
   text-align: center;
-  top: 0px !important;
+  box-shadow: 1px 2px 2px -1px rgba(0, 0, 0, 0.4);}
+.parillinen{background: white;}
+.pariton{background: lightgray;}
+.parillinen.sorted{background: lightgrey;}
+.pariton.sorted{background: darkgray;} 
+.desc-sort::after {content: '\2193';}
+.asc-sort::after {content: '\2191';}
+.desc-sort {background: #0056b3;;}
+.asc-sort {background: #0056b3;}
+
+.tablediv {
+  padding-left: 0;
+  padding-right: 0;
+  overflow: scroll;
+  height: 86vh;
+  width: 100vw;
+}
+table {
+  position: inherit;
+}
+.fixheader, thead{
+  /* top: 0px !important;
+  position: fixed !important; */
+
+}
+
+.paginator {
+  height: 13vh;
+}
+
+th {
+  position: sticky;
+  top: 0;
+  z-index: 999;
+}
+th.sija, th.sticky {
+  position: sticky;
+  z-index: 1000;
+}
+.sija {
+  position: sticky;
+  left: 0;
+  max-width: 40px;
+  min-width: 40px;
   z-index: 900;
-  box-shadow: 1px 2px 2px -1px rgba(0, 0, 0, 0.4);
+}
+.sticky {
+  position: sticky;
+  left: 40px;
+  z-index: 899;
+}
+td {
+  z-index: 800;
 }
 
-.parillinen{
-  background: white;
+
+/* table {
+  width: 100%;
+  border-collapse: collapse;
 }
 
-.pariton{
-  background: lightgray;
+td.sticky.otsikollinen {
+  box-shadow: 1px 0px 0px 0px rgba(0, 0, 0, 0.4);
 }
-
-.parillinen.sorted{
-  background: lightgrey;
-}
-
-.pariton.sorted{
-  background: darkgray;
-}
+*/

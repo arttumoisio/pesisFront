@@ -1,14 +1,14 @@
 <div *ngIf="data && !loading" class="xl-col-6 col-12 tablediv">
-  <div>
     <table >
       <thead>
         <tr>
-          <th id="headers" class="sticky sija">Sija</th>
+          <th id="headers" class="sija">Sija</th>
           <th *ngFor="let otsikko of otsikot, index as i," 
           (click)="sortTulokset(otsikko)"
           [ngClass]="{  'sticky': i==0,
                         'desc-sort': otsikko==jarjestetty&&(!reversed),
-                        'asc-sort': otsikko==jarjestetty&&reversed
+                        'asc-sort': otsikko==jarjestetty&&reversed,
+                        'sortattava' : true
                   }"
           id="headers"
           >{{otsikko}}</th>
@@ -22,7 +22,6 @@
           }">
           <td 
           [ngClass]="{ 
-            'sticky': true,
             'pariton': i%2==1,
             'parillinen' : i%2==0,
             'sija' : true
@@ -39,11 +38,11 @@
         </tr>
     </tbody>
     </table>
-    </div>
-  </div>
-      <div>
-      <app-paginator></app-paginator>
-    </div>
+</div>
+
+<div class="paginator">
+  <app-paginator></app-paginator>
+</div>
 
 <div *ngIf="loading">
   <app-spinner></app-spinner>
