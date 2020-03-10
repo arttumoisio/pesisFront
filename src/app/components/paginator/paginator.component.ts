@@ -10,7 +10,7 @@ import { DataService } from 'src/app/services/dataservice.service';
 export class PaginatorComponent implements OnInit {
   records: number;
   paginationStart: number = 1;
-  show: number = 25;
+  show: number = 40;
   pages: number;
   showArray: number[] = [5, 10, 20, 25, 50, 100, 500]
   

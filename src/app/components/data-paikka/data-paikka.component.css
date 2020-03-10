@@ -22,13 +22,13 @@ th {
 }
 .stickyfix {
   /* overflow-x: scroll; */
-  position: sticky;
+  position: fixed;
   top: 0px;
   left: 0px;
   z-index: 1101;
 }
 .stickyfix th {
-  background: rebeccapurple;
+  position: initial;
 }
 
 .viewportdiv {
@@ -36,9 +36,10 @@ th {
   display: block flex;
   flex-direction: column;
   max-width: 100vw;
+  /* overflow: auto; */
   overflow-x: scroll;
-  overflow-y: scroll;
-  max-height: 100vh;
+  overflow-y: visible;
+/* max-height: 100vh; */
 }
 table {
   /* position: relative; */
@@ -55,6 +56,12 @@ th {
   position: sticky;
   top: 0px;
   z-index: 999;
+  min-height: 80px;
+  max-height: 80px;
+}
+tbody {
+  position: sticky;
+  top: 80px;
 }
 th.sija, th.sticky {
   position: sticky;
@@ -91,8 +98,8 @@ td.sticky {
   max-width: 100px;
 }
 td, th{
-  min-width: 65px;
-  /* max-width: 65px; */
+  min-width: 75px;
+  max-width: 75px;
 }
 /* .stickyfix .sija{
   left: 0px; 

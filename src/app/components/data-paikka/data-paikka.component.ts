@@ -67,31 +67,31 @@ export class DataPaikkaComponent implements OnInit {
     this.dataService.sortData(sarake);
   }
 
-  // offsetTop: number = undefined;
-  // setOffSetTopOnce(ost: number){
-  //   if (this.offsetTop === undefined){
-  //     this.offsetTop = ost + window.scrollY;
-  //   }
-  //   return this.offsetTop;
-  // }
-  // showSticky = false;
-  // @HostListener('window:scroll', ['$event'])
-  // onScroll(event: Event) {
-  //   const theadElem: HTMLElement = document.getElementById("tablehead");
-  //   const {y} = theadElem.getBoundingClientRect();
-  //   const w = window.scrollY
-  //   this.setOffSetTopOnce(y);
-  //   if (w >= this.offsetTop) {
-  //     this.showSticky = true;
-  //   } else {
-  //     this.showSticky = false;
-  //   }
-  // }
+  offsetTop: number = undefined;
+  setOffSetTopOnce(ost: number){
+    if (this.offsetTop === undefined){
+      this.offsetTop = ost + window.scrollY;
+    }
+    return this.offsetTop;
+  }
+  showSticky = false;
+  @HostListener('window:scroll', ['$event'])
+  onScroll(event: Event) {
+    const theadElem: HTMLElement = document.getElementById("tablehead");
+    const {y} = theadElem.getBoundingClientRect();
+    const w = window.scrollY
+    this.setOffSetTopOnce(y);
+    if (w >= this.offsetTop) {
+      this.showSticky = true;
+    } else {
+      this.showSticky = false;
+    }
+  }
   
-  // @HostListener('window:resize', ['$event'])
-  // onResize(event) {
-  //   this.offsetTop = undefined;
-  // }
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    this.offsetTop = undefined;
+  }
   
   // tablepos: number = 0;
   // tablepospx: string = "px"
