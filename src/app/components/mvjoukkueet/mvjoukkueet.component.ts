@@ -14,8 +14,10 @@ export class MVJoukkueetComponent implements OnInit, AfterViewInit {
 
   reactiveKyselyForm: FormGroup;
 
-  lisaaSuodattimia = true; // in production this is: false;
-  suodinTeksti = 'Vähemmän'; // in production this is: 'Enemmän'
+  lisaaSuodattimia = false; // in production this is: false;
+  piilotaValikko = false; // in production this is: false;
+  suodinTeksti = 'Enemmän'; // in production this is: 'Enemmän'
+  piilotusTeksti = 'Piilota Valikko'; // in production this is: 'Enemmän'
   submitted = false;
 
   apu: KyselyApu;
@@ -42,6 +44,10 @@ export class MVJoukkueetComponent implements OnInit, AfterViewInit {
   onLisaaSuodattimia() {
     this.lisaaSuodattimia = !this.lisaaSuodattimia;
     this.suodinTeksti = this.lisaaSuodattimia ? 'Vähemmän' : 'Enemmän';
+  }
+  onPiilotaValikko() {
+    this.piilotaValikko = !this.piilotaValikko;
+    this.piilotusTeksti = this.piilotaValikko ? 'Näytä Valikko' : 'Piilota Valikko';
   }
 
   onSubmit() {

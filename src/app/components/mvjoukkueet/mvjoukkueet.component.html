@@ -1,4 +1,5 @@
-<div class="container-fluid">
+<div class="container-fluid komp" 
+[ngClass]="{'piilota': piilotaValikko}">
 <form 
 [formGroup]="reactiveKyselyForm"
 (ngSubmit)="onSubmit()"
@@ -77,5 +78,14 @@ class="form">
 
   
 </form>
+</div>
+<div class="container-fluid komp">
+<button 
+type="button"
+class="btn btn-block btn-outline-info piilotus"
+[ngClass]="{'btn-outline-primary': !piilotaValikko,
+'btn-primary': piilotaValikko
+}"
+(click)="onPiilotaValikko()">{{piilotusTeksti}}</button>
 </div>
 <app-data-paikka *ngIf="submitted"></app-data-paikka>

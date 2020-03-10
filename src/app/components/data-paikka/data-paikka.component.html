@@ -1,6 +1,7 @@
+<div class="komp">
 <div *ngIf="data && !loading" class="xl-col-6 col-12 tablediv">
-    <table >
-      <thead>
+    <table id="datataulu" [ngStyle]="{'left': tablepospx}">
+      <thead id="tablehead">
         <tr>
           <th id="headers" class="sija">Sija</th>
           <th *ngFor="let otsikko of otsikot, index as i," 
@@ -14,7 +15,7 @@
           >{{otsikko}}</th>
         </tr>
       </thead>
-      <tbody >
+      <tbody  id="body">
           <tr
           *ngFor="let rivi of tableData; index as i;" 
           [ngClass]="{ 
@@ -37,17 +38,37 @@
           {{rivi[otsikko]}}</td>
         </tr>
     </tbody>
+    <thead *ngIf="showSticky" class="stickyfix" id="tablehead">
+      <tr>
+        <th id="headers" class="sija">Sija</th>
+        <th *ngFor="let otsikko of otsikot, index as i," 
+        (click)="sortTulokset(otsikko)"
+        [ngClass]="{  'sticky': i==0,
+        'desc-sort': otsikko==jarjestetty&&(!reversed),
+        'asc-sort': otsikko==jarjestetty&&reversed,
+        'sortattava' : true
+      }"
+      id="headers"
+      >{{otsikko}}</th>
+    </tr>
+  </thead>
     </table>
 </div>
+</div>
 
-<div class="paginator">
+<div *ngIf="data && !loading" class="paginator komp">
   <app-paginator></app-paginator>
 </div>
 
-<div *ngIf="loading">
+<div *ngIf="loading" class="komp">
   <app-spinner></app-spinner>
 </div>
+<div style="position: fixed; bottom: 0; right: 0;">
+  <button class="btn btn-primary">{{distancex}}</button>
+</div>
 
-<div *ngIf="!loading && errorMessage" class="alert alert-danger">
+<div *ngIf="!loading && errorMessage" class="alert alert-danger komp">
     {{errorMessage}} {{loading}}
 </div>
+
+

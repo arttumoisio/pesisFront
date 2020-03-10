@@ -15,17 +15,14 @@ th {
 .tablediv {
   padding-left: 0;
   padding-right: 0;
-  overflow: scroll;
-  height: 86vh;
-  width: 100vw;
+  overflow: hidden;
+  /* overflow-y: hidden; */
+  /* overflow-x: hidden; */
+  /* width: 100vw; */
 }
-table {
-  position: inherit;
-}
-.fixheader, thead{
-  /* top: 0px !important;
-  position: fixed !important; */
 
+table {
+  position: relative;
 }
 
 .paginator {
@@ -41,6 +38,13 @@ th.sija, th.sticky {
   position: sticky;
   z-index: 1000;
 }
+
+.stickyfix {
+  /* overflow-y: scroll; */
+  position: fixed;
+  top: 0;
+  z-index: 1101;
+}
 .sija {
   position: sticky;
   left: 0;
@@ -55,15 +59,22 @@ th.sija, th.sticky {
 }
 td {
   z-index: 800;
+  text-align: center;
+}
+td.sticky {
+  text-align: left;
+  box-shadow: 1px 0px 2px -1px rgba(0, 0, 0, 0.4);
 }
 
-
-/* table {
-  width: 100%;
-  border-collapse: collapse;
+.sija{
+  min-width: 40px;
+  max-width: 40px;
 }
-
-td.sticky.otsikollinen {
-  box-shadow: 1px 0px 0px 0px rgba(0, 0, 0, 0.4);
+.sticky{
+  min-width: 100px;
+  max-width: 100px;
 }
-*/
+td, th{
+  min-width: 55px;
+  max-width: 55px;
+}
