@@ -1,4 +1,18 @@
-<div class="viewportdiv">
+<thead *ngIf="showSticky" class="stickyfix" id="tablehead2">
+  <tr>
+    <th id="headers" class="sija">Sija</th>
+    <th *ngFor="let otsikko of otsikot, index as i," 
+    (click)="sortTulokset(otsikko)"
+    [ngClass]="{  'sticky': i==0,
+    'desc-sort': otsikko==jarjestetty&&(!reversed),
+    'asc-sort': otsikko==jarjestetty&&reversed,
+    'sortattava' : true
+  }"
+  id="headers"
+  >{{otsikko}}</th>
+</tr>
+</thead>
+<div class="viewportdiv" id="viewportdiv" (scroll)="onTableScroll($event)">
   <div class="komp viewportdiv2">
     <div *ngIf="data && !loading" class="xl-col-6 col-12 tablediv">
       <table id="datataulu">

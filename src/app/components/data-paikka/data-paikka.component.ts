@@ -92,12 +92,19 @@ export class DataPaikkaComponent implements OnInit {
   onResize(event) {
     this.offsetTop = undefined;
   }
+
+  theadoffset: number = 0;
+  @HostListener('scroll', ['$event'])
+  onTableScroll(event: Event) {
+    const target = event.target as HTMLElement;
+    console.log(target.scrollLeft);
+    this.theadoffset = -target.scrollLeft;
+  }
   
   // tablepos: number = 0;
   // tablepospx: string = "px"
   // @HostListener('window:wheel', ['$event'])
   // onWheel(event: WheelEvent) {
-  //   const tableElem: HTMLElement = document.getElementById("datataulu");
   //   const x = event.deltaX;
   //   this.tablepos -= x;
   //   if (this.tablepos > 0){
