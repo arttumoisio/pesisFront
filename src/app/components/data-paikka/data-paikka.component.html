@@ -1,72 +1,57 @@
-<div class="komp">
-<div *ngIf="data && !loading" class="xl-col-6 col-12 tablediv">
-    <table id="datataulu" [ngStyle]="{'left': tablepospx}">
-      <thead id="tablehead">
-        <tr>
-          <th id="headers" class="sija">Sija</th>
-          <th *ngFor="let otsikko of otsikot, index as i," 
-          (click)="sortTulokset(otsikko)"
-          [ngClass]="{  'sticky': i==0,
-                        'desc-sort': otsikko==jarjestetty&&(!reversed),
-                        'asc-sort': otsikko==jarjestetty&&reversed,
-                        'sortattava' : true
-                  }"
+<div class="viewportdiv">
+  <div class="komp viewportdiv2">
+    <div *ngIf="data && !loading" class="xl-col-6 col-12 tablediv">
+      <table id="datataulu">
+        <thead id="tablehead">
+          <tr>
+            <th id="headers" class="sija">Sija</th>
+            <th *ngFor="let otsikko of otsikot, index as i," 
+            (click)="sortTulokset(otsikko)"
+            [ngClass]="{  'sticky': i==0,
+            'desc-sort': otsikko==jarjestetty&&(!reversed),
+            'asc-sort': otsikko==jarjestetty&&reversed,
+            'sortattava' : true
+          }"
           id="headers"
           >{{otsikko}}</th>
         </tr>
       </thead>
       <tbody  id="body">
-          <tr
-          *ngFor="let rivi of tableData; index as i;" 
-          [ngClass]="{ 
-
-          }">
-          <td 
-          [ngClass]="{ 
-            'pariton': i%2==1,
-            'parillinen' : i%2==0,
-            'sija' : true
-          }">{{i+1+firstItem}}</td>
-          <td *ngFor="let otsikko of otsikot; index as io," 
-          [ngClass]="{ 
-            'sticky': io==0,
-            'pariton': i%2==1,
-            'parillinen' : i%2==0,
-            'sorted' : otsikko===jarjestetty,
-            'otsikollinen' : true
+        <tr
+        *ngFor="let rivi of tableData; index as i;" 
+        [ngClass]="{ 
+          
         }">
-          {{rivi[otsikko]}}</td>
-        </tr>
+        <td 
+        [ngClass]="{ 
+          'pariton': i%2==1,
+          'parillinen' : i%2==0,
+          'sija' : true
+        }">{{i+1+firstItem}}</td>
+        <td *ngFor="let otsikko of otsikot; index as io," 
+        [ngClass]="{ 
+          'sticky': io==0,
+          'pariton': i%2==1,
+          'parillinen' : i%2==0,
+          'sorted' : otsikko===jarjestetty,
+          'otsikollinen' : true
+        }">
+        {{rivi[otsikko]}}</td>
+      </tr>
     </tbody>
-    <thead *ngIf="showSticky" class="stickyfix" id="tablehead">
-      <tr>
-        <th id="headers" class="sija">Sija</th>
-        <th *ngFor="let otsikko of otsikot, index as i," 
-        (click)="sortTulokset(otsikko)"
-        [ngClass]="{  'sticky': i==0,
-        'desc-sort': otsikko==jarjestetty&&(!reversed),
-        'asc-sort': otsikko==jarjestetty&&reversed,
-        'sortattava' : true
-      }"
-      id="headers"
-      >{{otsikko}}</th>
-    </tr>
-  </thead>
-    </table>
-</div>
-</div>
+  </table>
+    </div>
 
-<div *ngIf="data && !loading" class="paginator komp">
-  <app-paginator></app-paginator>
+  </div>
+
+    <div *ngIf="data && !loading" class="paginator komp">
+      <app-paginator></app-paginator>
+    </div>
 </div>
 
 <div *ngIf="loading" class="komp">
   <app-spinner></app-spinner>
 </div>
-<div style="position: fixed; bottom: 0; right: 0;">
-  <button class="btn btn-primary">{{distancex}}</button>
-</div>
-
 <div *ngIf="!loading && errorMessage" class="alert alert-danger komp">
     {{errorMessage}} {{loading}}
 </div>

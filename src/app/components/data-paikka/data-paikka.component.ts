@@ -67,65 +67,65 @@ export class DataPaikkaComponent implements OnInit {
     this.dataService.sortData(sarake);
   }
 
-  offsetTop: number = undefined;
-  setOffSetTopOnce(ost: number){
-    if (this.offsetTop === undefined){
-      this.offsetTop = ost + window.scrollY;
-    }
-    return this.offsetTop;
-  }
-  showSticky = false;
-  @HostListener('window:scroll', ['$event'])
-  onScroll(event: Event) {
-    const theadElem: HTMLElement = document.getElementById("tablehead");
-    const {y} = theadElem.getBoundingClientRect();
-    const w = window.scrollY
-    this.setOffSetTopOnce(y);
-    if (w >= this.offsetTop) {
-      this.showSticky = true;
-    } else {
-      this.showSticky = false;
-    }
-  }
+  // offsetTop: number = undefined;
+  // setOffSetTopOnce(ost: number){
+  //   if (this.offsetTop === undefined){
+  //     this.offsetTop = ost + window.scrollY;
+  //   }
+  //   return this.offsetTop;
+  // }
+  // showSticky = false;
+  // @HostListener('window:scroll', ['$event'])
+  // onScroll(event: Event) {
+  //   const theadElem: HTMLElement = document.getElementById("tablehead");
+  //   const {y} = theadElem.getBoundingClientRect();
+  //   const w = window.scrollY
+  //   this.setOffSetTopOnce(y);
+  //   if (w >= this.offsetTop) {
+  //     this.showSticky = true;
+  //   } else {
+  //     this.showSticky = false;
+  //   }
+  // }
   
-  @HostListener('window:resize', ['$event'])
-  onResize(event) {
-    this.offsetTop = undefined;
-  }
+  // @HostListener('window:resize', ['$event'])
+  // onResize(event) {
+  //   this.offsetTop = undefined;
+  // }
   
-  tablepos: number = 0;
-  tablepospx: string = "px"
-  @HostListener('window:wheel', ['$event'])
-  onWheel(event: WheelEvent) {
-    const tableElem: HTMLElement = document.getElementById("datataulu");
-    const x = event.deltaX;
-    this.tablepos -= x;
-    if (this.tablepos > 0){
-      this.tablepos = 0;
-    } else if (this.tablepos < document.body.scrollWidth-tableElem.scrollWidth) {
-      this.tablepos = document.body.scrollWidth-tableElem.scrollWidth;
-    }this.tablepospx = this.tablepos + 'px';
-  }
-  touchStart: number;
-  distancex: number = 0;
-  previousx: number;
-  @HostListener('window:touchstart', ['$event'])
-  onTouchStart(event: TouchEvent) {
-    this.touchStart = event.targetTouches.item(0).screenX;
-    this.previousx = 0;
-  }
-  @HostListener('window:touchmove', ['$event'])
-  onTouchMove(event: TouchEvent) {
-    const x = event.touches.item(0).screenX - this.touchStart;
-    const absMove = this.previousx - x;
-    const tableElem: HTMLElement = document.getElementById("datataulu");
-    this.tablepos -= absMove;
-    if (this.tablepos > 0){
-      this.tablepos = 0;
-    } else if (this.tablepos < document.body.scrollWidth-tableElem.scrollWidth) {
-      this.tablepos = document.body.scrollWidth-tableElem.scrollWidth;
-    }
-    this.tablepospx = this.tablepos + 'px';
-    this.previousx = x;
-  }
+  // tablepos: number = 0;
+  // tablepospx: string = "px"
+  // @HostListener('window:wheel', ['$event'])
+  // onWheel(event: WheelEvent) {
+  //   const tableElem: HTMLElement = document.getElementById("datataulu");
+  //   const x = event.deltaX;
+  //   this.tablepos -= x;
+  //   if (this.tablepos > 0){
+  //     this.tablepos = 0;
+  //   } else if (this.tablepos < document.body.scrollWidth-tableElem.scrollWidth) {
+  //     this.tablepos = document.body.scrollWidth-tableElem.scrollWidth;
+  //   }this.tablepospx = this.tablepos + 'px';
+  // }
+  // touchStart: number;
+  // distancex: number = 0;
+  // previousx: number;
+  // @HostListener('window:touchstart', ['$event'])
+  // onTouchStart(event: TouchEvent) {
+  //   this.touchStart = event.targetTouches.item(0).screenX;
+  //   this.previousx = 0;
+  // }
+  // @HostListener('window:touchmove', ['$event'])
+  // onTouchMove(event: TouchEvent) {
+  //   const x = event.touches.item(0).screenX - this.touchStart;
+  //   const absMove = this.previousx - x;
+  //   const tableElem: HTMLElement = document.getElementById("datataulu");
+  //   this.tablepos -= absMove;
+  //   if (this.tablepos > 0){
+  //     this.tablepos = 0;
+  //   } else if (this.tablepos < document.body.scrollWidth-tableElem.scrollWidth) {
+  //     this.tablepos = document.body.scrollWidth-tableElem.scrollWidth;
+  //   }
+  //   this.tablepospx = this.tablepos + 'px';
+  //   this.previousx = x;
+  // }
 }

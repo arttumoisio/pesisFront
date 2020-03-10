@@ -10,9 +10,9 @@ import { DataService } from 'src/app/services/dataservice.service';
 export class PaginatorComponent implements OnInit {
   records: number;
   paginationStart: number = 1;
-  show: number = 100;
+  show: number = 25;
   pages: number;
-  showArray: number[] = [5, 10, 20, 25, 50, 100]
+  showArray: number[] = [5, 10, 20, 25, 50, 100, 500]
   
 
   constructor(private dataService: DataService) {
@@ -29,6 +29,7 @@ export class PaginatorComponent implements OnInit {
   updateAll(){
     this.records = this.dataService.getLength();
     this.pages = Math.ceil(this.records / this.show);
+    if (this.paginationStart*this.show > this.records) {this.paginationStart = this.pages;}
     this.dataService.setPagination(this.paginationStart,this.pages,this.show);
 
   }

@@ -1,0 +1,12 @@
+.leftbuttons{
+    flex-wrap: wrap-reverse;
+}
+.rightbuttons{
+    flex-wrap: wrap;
+}
+.buttons {
+    display: flex;
+}
+button {
+    min-width: 50px;
+}
