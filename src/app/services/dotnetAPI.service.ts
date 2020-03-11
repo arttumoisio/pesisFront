@@ -27,13 +27,8 @@ export class DotnetRESTservice {
         const param: string = elem;
         const value: string = formData[elem].toString();
         params = params.append(param, value);
-        // console.log(param);
-        // console.log(value);
       }
     }
-    // console.log(params);
-    // console.log(params.keys());
-    // console.log(params.toString());
     return this.http.get(this.pelaajatUrl, {params});
   }
 

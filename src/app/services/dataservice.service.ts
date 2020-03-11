@@ -75,7 +75,6 @@ export class DataService {
       const worker = new Worker('../workers/sort.worker', { type: 'module' });
       worker.onmessage = ({ data }) => {
         this.setData(data);
-        console.log(`sorted ${reverse} ${sarake}`);
       };
       worker.postMessage({
           data:this.data, 

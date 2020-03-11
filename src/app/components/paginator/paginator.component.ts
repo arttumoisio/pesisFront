@@ -67,9 +67,6 @@ export class PaginatorComponent implements OnInit {
       this.paginationStart = newPage;
     }
     this.updateAll();
-    console.log(this.paginationStart)
-    console.log(this.pages)
-    console.log(this.show)
     
   }
 

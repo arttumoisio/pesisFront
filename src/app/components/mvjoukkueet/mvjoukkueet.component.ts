@@ -51,7 +51,6 @@ export class MVJoukkueetComponent implements OnInit, AfterViewInit {
   }
 
   onSubmit() {
-    //console.log(this.reactiveKyselyForm.value);
     this.dataService.startLoading();
     this.submitted = true;
     this.dotnetApi.onHaeJoukkueet(this.reactiveKyselyForm.value)
@@ -68,6 +67,5 @@ export class MVJoukkueetComponent implements OnInit, AfterViewInit {
 
   onNaytaData() {
     this.naytaData = !this.naytaData;
-    console.log(this.naytaData);
   }
 }

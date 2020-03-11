@@ -135,7 +135,6 @@ export class KyselyApuService {
             joukkueet.push(data[elem][key]);
           }
         }
-        console.log(joukkueet);
         this.kyselyData.joukkueet = joukkueet;
     });
   }
