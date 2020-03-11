@@ -106,11 +106,3 @@ th:last-child{
 td:last-child {
   text-align: left;
 }
-/* .stickyfix .sija{
-  left: 0px; 
-  position: relative;
-}
-.stickyfix .sticky{
-  left: 40px;
-  position: relative;
-} */

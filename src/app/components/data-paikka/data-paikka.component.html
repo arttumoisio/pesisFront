@@ -1,15 +1,23 @@
 
 <div class="container-fluid mb-2 komp">
+    <form>
   <div class="row">
+    <div class="col-2" style="display: none;">
+      <button class="btn btn-primary" (click)="onSuodata()">
+        Suodata
+      </button>
+    </div>
   <div class="col-8">
     <label for="searchString">Suodata</label>
     <input
     type="text"
     class="form-control"
     name="searchString"
+    id="searchString"
     placeholder="Type to search..."
-    [(ngModel)]="searchString"
+    [(ngModel)]="searchKeyUp"
     />
+    
 
   </div>
   <div class="col-4">
@@ -19,7 +27,7 @@
     type="text"
     class="custom-select"
     placeholder="Valitse sarake"
-    [(ngModel)]="searchColumn"
+    [(ngModel)]="searchColumn2"
     >
       <option
       value=''>
@@ -33,6 +41,7 @@
     </select>
   </div>
 </div>
+</form>
 </div>
 
 
@@ -56,7 +65,7 @@
   <div class="komp viewportdiv2">
     <div *ngIf="data && !loading" class="xl-col-6 col-12 tablediv">
       <table id="datataulu">
-        <thead id="tablehead"  [ngClass]="{  'stickyfix': showSticky}">
+        <thead id="tablehead"  [ngClass]="{'stickyfix': showSticky}">
           <tr>
             <th id="headers" class="sija">Sija</th>
             <th *ngFor="let otsikko of otsikot, index as i," 

@@ -17,8 +17,10 @@ export class DataPaikkaComponent implements OnInit {
   firstItem: number;
   show: number;
 
+  searchKeyUp: string = '';
   searchString: string = '';
   searchColumn: string = '';
+  searchColumn2: string = '';
   
   reversed: boolean;
   jarjestetty: string;
@@ -70,6 +72,11 @@ export class DataPaikkaComponent implements OnInit {
   sortTulokset(sarake: string) {
     
     this.dataService.sortData(sarake);
+  }
+  
+  onSuodata () {
+    this.searchString = this.searchKeyUp;
+    this.searchColumn = this.searchColumn2;
   }
 
   offsetTop: number = undefined;
