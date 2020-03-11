@@ -32,6 +32,7 @@ export class MVPelaajatComponent implements OnInit {
       kaudetLoppu:  new FormControl(2020, [Validators.min(2003), Validators.max(2020)]),
       vuosittain:   new FormControl(true),
     });
+    this.onSubmit();
   }
 
   onLisaaSuodattimia() {
