@@ -19,19 +19,26 @@ export class PaginatorComponent implements OnInit {
     this.updateAll()
     dataService.dataChangedEmitter.subscribe(()=>{
       this.updateAll();
-      
+    });
+    dataService.filterEmitter.subscribe(()=>{
+      this.update()
     });
    }
 
   ngOnInit(): void {
   }
 
+  update(){
+    const pagination = this.dataService.getPagination();
+    this.paginationStart = pagination.start;
+    this.pages = pagination.pages;
+    this.show = pagination.show;
+    this.records = pagination.records;
+  }
+
   updateAll(){
     this.records = this.dataService.getLength();
-    this.pages = Math.ceil(this.records / this.show);
-    if (this.paginationStart*this.show > this.records) {this.paginationStart = this.pages;}
-    this.dataService.setPagination(this.paginationStart,this.pages,this.show);
-
+    this.dataService.setPagination(this.paginationStart,this.records,this.show);
   }
 
   onNextPage(){

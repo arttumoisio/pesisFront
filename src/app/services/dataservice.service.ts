@@ -12,12 +12,14 @@ export class DataService {
   private pagination = {
     start:1,
     pages:1,
-    show:10
+    show:10,
+    records:1
   };
 
   dataChangedEmitter = new EventEmitter();
   dataLoadingEmitter = new EventEmitter<boolean>();
   paginatorEmitter = new EventEmitter();
+  filterEmitter = new EventEmitter();
 
   constructor() { }
 
@@ -53,10 +55,12 @@ export class DataService {
   getPagination(){
     return this.pagination;
   }
-  setPagination(start:number, pages:number, show:number){
+  setPagination(start: number = 1, records: number = this.length, show: number = this.pagination.show){
     this.pagination.start = start;
     this.pagination.show = show;
-    this.pagination.pages = pages;
+    this.pagination.pages = Math.ceil(records / show);
+    this.pagination.records = records;
+    if (this.pagination.start*this.pagination.show > records) {this.pagination.start = this.pagination.pages;}
     this.paginatorEmitter.emit();
   }
 

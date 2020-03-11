@@ -1,10 +1,13 @@
 import { Pipe, PipeTransform, Injectable } from '@angular/core';
+import { DataService } from '../services/dataservice.service';
 
 @Pipe({
   name: 'filter'
 })
 @Injectable()
 export class FilterPipe implements PipeTransform {
+
+  constructor(private dataservice: DataService){}
 
   rowThatIncludes(rivi: object,value: string):boolean{
     for (const otsikko in rivi) {
@@ -18,6 +21,10 @@ export class FilterPipe implements PipeTransform {
     return false;
   } 
 
+  columnThatIncludes(element: any,value: string):boolean{
+    return String(element).toLowerCase().includes(value.toLowerCase());
+  } 
+
   transform(items: object[], value: string, field: string = "" ): object[] {
     if (!items) {
       return [];
@@ -27,13 +34,16 @@ export class FilterPipe implements PipeTransform {
     }
 
     if(field) {
-      return items.filter(singleItem => 
-        String(singleItem[field]).toLowerCase().includes(value.toLowerCase())
+      items = items.filter(singleItem => 
+        this.columnThatIncludes(singleItem[field],value)
       );
     } else {
-      return items.filter(singleItem => 
+      items = items.filter(singleItem => 
         this.rowThatIncludes(singleItem,value.toLowerCase())
       );
     }
+    this.dataservice.setPagination(1,items.length);
+    this.dataservice.filterEmitter.emit();
+    return items;
   }
 }

@@ -7,6 +7,7 @@ import { MVJoukkueetComponent } from './components/mvjoukkueet/mvjoukkueet.compo
 
 
 const routes: Routes = [
+  { path: '',   redirectTo: '/mvjoukkueet', pathMatch: 'full' },
   {path: 'pelaajat', component: PelaajatComponent},
   {path: 'joukkueet', component: JoukkueetComponent},
   {path: 'mvpelaajat', component: MVPelaajatComponent},
