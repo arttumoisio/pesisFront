@@ -1,3 +1,42 @@
+
+<div class="container-fluid mb-2 komp">
+  <div class="row">
+  <div class="col-8">
+    <label for="searchString">Suodata</label>
+    <input
+    type="text"
+    class="form-control"
+    name="searchString"
+    placeholder="Type to search..."
+    [(ngModel)]="searchString"
+    />
+
+  </div>
+  <div class="col-4">
+    <label for="searchColumn">Sarake</label>
+    <select 
+    name="searchColumn" 
+    type="text"
+    class="custom-select"
+    placeholder="Valitse sarake"
+    [(ngModel)]="searchColumn"
+    >
+      <option
+      value=''>
+      Kaikki
+      </option>
+      <option 
+      *ngFor="let otsikko of otsikot" 
+      [value]="otsikko">
+      {{ otsikko }}
+      </option>
+    </select>
+  </div>
+</div>
+</div>
+
+
+
 <thead *ngIf="showSticky" class="stickyfix" id="tablehead2"
 [ngStyle]="{'left': theadoffset}">
   <tr>
@@ -33,7 +72,7 @@
       </thead>
       <tbody  id="body">
         <tr
-        *ngFor="let rivi of tableData; index as i;" 
+        *ngFor="let rivi of data | filter:searchString:searchColumn |slice:firstItem:firstItem+show ; index as i;"
         [ngClass]="{ 
           
         }">

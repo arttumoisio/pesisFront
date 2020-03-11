@@ -11,10 +11,14 @@ export class DataPaikkaComponent implements OnInit {
   constructor(private dataService: DataService) { }
   
   data: object[];
-  tableData: object[];
+  //tableData: object[];
   otsikot: string[] = [];
   loading = true;
   firstItem: number;
+  show: number;
+
+  searchString: string = '';
+  searchColumn: string = '';
   
   reversed: boolean;
   jarjestetty: string;
@@ -47,8 +51,9 @@ export class DataPaikkaComponent implements OnInit {
     const start = Number(pagination.start);
     const show = Number(pagination.show);
     const firstItem = (start-1)*show;
+    this.show = show;
     this.firstItem = firstItem;
-    this.tableData = this.data.slice(firstItem,firstItem+show);
+    //this.tableData = this.data.slice(firstItem,firstItem+show);
   }
   
   selvitaOtsikot() {

@@ -13,6 +13,8 @@ import { MVPelaajatComponent } from './components/mvpelaajat/mvpelaajat.componen
 import { MVJoukkueetComponent } from './components/mvjoukkueet/mvjoukkueet.component';
 import { SpinnerComponent } from './components/small/spinner/spinner.component';
 import { PaginatorComponent } from './components/paginator/paginator.component';
+import { FilterPipe } from './pipes/filter.pipe';
+import { FilterNoColumnPipe } from './pipes/filter-no-column.pipe';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,9 @@ import { PaginatorComponent } from './components/paginator/paginator.component';
     MVPelaajatComponent,
     MVJoukkueetComponent,
     SpinnerComponent,
-    PaginatorComponent
+    PaginatorComponent,
+    FilterPipe,
+    FilterNoColumnPipe
   ],
   imports: [
     BrowserModule,
