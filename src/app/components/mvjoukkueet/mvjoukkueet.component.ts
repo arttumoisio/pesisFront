@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { KyselyApu } from '../../models/kyselyApu.model';
 import { KyselyApuService } from '../../services/kysely-apu.service';
 import { DataService } from '../../services/dataservice.service';
@@ -28,10 +28,18 @@ export class MVJoukkueetComponent implements OnInit, AfterViewInit {
               private dataService: DataService) { }
 
   ngOnInit() {
+    const minKausi = this.kyselyService.kyselyData.kaudet[0];
+    const maxKausi = this.kyselyService.kyselyData.kaudet[this.kyselyService.kyselyData.kaudet.length - 1];
     this.apu = this.kyselyService.kyselyData;
     this.reactiveKyselyForm = new FormGroup({
-      kaudetAlku: new FormControl(2010),
-      kaudetLoppu: new FormControl(2020),
+      kaudetAlku:   new FormControl(
+        minKausi, 
+        [Validators.min(minKausi), Validators.max(maxKausi)]
+      ),
+      kaudetLoppu:  new FormControl(
+        maxKausi, 
+        [Validators.min(minKausi), Validators.max(maxKausi)]
+      ),
       vuosittain: new FormControl(true),
       joukkue: new FormControl('Mikä tahansa')
     });

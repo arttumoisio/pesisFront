@@ -26,10 +26,18 @@ export class MVPelaajatComponent implements OnInit {
     ) {}
 
   ngOnInit() {
+    const minKausi = this.kyselyService.kyselyData.kaudet[0];
+    const maxKausi = this.kyselyService.kyselyData.kaudet[this.kyselyService.kyselyData.kaudet.length - 1];
     this.apu = this.kyselyService.kyselyData;
     this.reactiveKyselyForm = new FormGroup({
-      kaudetAlku:   new FormControl(2010, [Validators.min(2003), Validators.max(2020)]),
-      kaudetLoppu:  new FormControl(2020, [Validators.min(2003), Validators.max(2020)]),
+      kaudetAlku:   new FormControl(
+        minKausi, 
+        [Validators.min(minKausi), Validators.max(maxKausi)]
+      ),
+      kaudetLoppu:  new FormControl(
+        maxKausi, 
+        [Validators.min(minKausi), Validators.max(maxKausi)]
+      ),
       vuosittain:   new FormControl(true),
     });
     this.onSubmit();

@@ -39,17 +39,17 @@ export class KyselyApuService {
   ],
 
   kaudet: [
-    2020,
-    2019,
-    2018,
-    2017,
-    2016,
-    2015,
-    2014,
-    2013,
-    2012,
-    2011,
     2010,
+    2011,
+    2012,
+    2013,
+    2014,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
   ],
 
   peliTyypit: [
@@ -128,14 +128,22 @@ export class KyselyApuService {
 
   constructor(private dotnetApi: DotnetRESTservice) {
     const joukkueet: string[] = ['Mikä tahansa'];
-    const key = 'joukkue';
     dotnetApi.haeJoukkueetApu().subscribe(data => {
         for (const elem in data) {
           if (elem) {
-            joukkueet.push(data[elem][key]);
+            joukkueet.push(data[elem]['joukkue']);
           }
         }
         this.kyselyData.joukkueet = joukkueet;
+    });
+    const kaudet: number[] = [];
+    dotnetApi.haeVuodetApu().subscribe(data => {
+      for (const elem in data) {
+        if (elem) {
+          kaudet.push(Number(data[elem]['kausi']));
+        }
+      }
+      this.kyselyData.kaudet = kaudet;
     });
   }
 }
