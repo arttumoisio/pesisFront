@@ -95,9 +95,16 @@ td.sticky {
   min-width: 100px;
   max-width: 100px;
 }
-td, th{
+th{
   min-width: 75px;
   max-width: 75px;
+}
+th:last-child{
+  min-width: 100px;
+  width: 100%;
+}
+td:last-child {
+  text-align: left;
 }
 /* .stickyfix .sija{
   left: 0px; 

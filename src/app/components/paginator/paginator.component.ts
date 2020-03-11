@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { PaginatorService } from 'src/app/services/paginator.service';
 import { DataService } from 'src/app/services/dataservice.service';
 
 @Component({
@@ -11,7 +10,7 @@ export class PaginatorComponent implements OnInit {
   records: number;
   paginationStart: number = 1;
   show: number = 40;
-  pages: number;
+  pages: number = 1;
   showArray: number[] = [5, 10, 20, 25, 40, 50, 100, 500]
   
 
@@ -22,10 +21,12 @@ export class PaginatorComponent implements OnInit {
     });
     dataService.filterEmitter.subscribe(()=>{
       this.update()
+
     });
    }
 
   ngOnInit(): void {
+
   }
 
   update(){
@@ -38,6 +39,7 @@ export class PaginatorComponent implements OnInit {
 
   updateAll(){
     this.records = this.dataService.getLength();
+    this.pages = Math.ceil(this.records / this.show);
     this.dataService.setPagination(this.paginationStart,this.records,this.show);
   }
 

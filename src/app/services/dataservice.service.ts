@@ -9,7 +9,7 @@ export class DataService {
   reversed = false;
   jarjestetty = '';
 
-  private pagination = {
+  private pagination: {start:number; pages:number; show:number; records:number;} = {
     start:1,
     pages:1,
     show:10,
@@ -45,8 +45,9 @@ export class DataService {
       if(sort !== 'sort') {
         this.reversed = false;
         this.jarjestetty = "";
+      } else {
+        this.paginatorEmitter.emit();
       }
-
     }
     this.dataLoadingEmitter.emit(false);
     this.dataChangedEmitter.emit();
@@ -56,12 +57,15 @@ export class DataService {
     return this.pagination;
   }
   setPagination(start: number = 1, records: number = this.length, show: number = this.pagination.show){
-    this.pagination.start = start;
-    this.pagination.show = show;
+    this.pagination.start = Number(start);
+    this.pagination.show = Number(show);
     this.pagination.pages = Math.ceil(records / show);
-    this.pagination.records = records;
-    if (this.pagination.start*this.pagination.show > records) {this.pagination.start = this.pagination.pages;}
+    this.pagination.records = Number(records);
+    if (this.pagination.start*this.pagination.show > records) {
+      this.pagination.start = this.pagination.pages;
+    }
     this.paginatorEmitter.emit();
+    this.filterEmitter.emit();
   }
 
   
