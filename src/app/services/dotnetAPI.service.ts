@@ -55,4 +55,8 @@ export class DotnetRESTservice {
 
     return this.http.get(getUrl);
   }
+  haeVuodetApu() {
+    const getUrl = this.serverUrl + '/apu/vuodet';
+    return this.http.get(getUrl);
+  }
 }
