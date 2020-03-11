@@ -36,10 +36,15 @@ export class DataService {
     this.dataLoadingEmitter.emit(true);
   }
 
-  setData(data: object[] = undefined): void {
+  setData(data: object[] = undefined, sort: string = ''): void {
     if(data){
       this.data = data;
       this.length = data.length;
+      if(sort !== 'sort') {
+        this.reversed = false;
+        this.jarjestetty = "";
+      }
+
     }
     this.dataLoadingEmitter.emit(false);
     this.dataChangedEmitter.emit();
@@ -74,7 +79,7 @@ export class DataService {
       // Create a new
       const worker = new Worker('../workers/sort.worker', { type: 'module' });
       worker.onmessage = ({ data }) => {
-        this.setData(data);
+        this.setData(data, 'sort');
       };
       worker.postMessage({
           data:this.data, 
@@ -85,7 +90,12 @@ export class DataService {
       // Web Workers are not supported in this environment.
       // You should add a fallback so that your program still executes correctly.
       console.log("Worker not supported");
-      this.sortDataSync();
+      if (this.reversed){
+        this.data.reverse();
+        this.setData(this.data, 'sort')
+      } else {
+        this.sortDataSync();
+      }
     }
   }
 
@@ -99,6 +109,6 @@ export class DataService {
       }
       return 0;
     });
-    this.setData();
+    this.setData(this.data, "sort");
   }
 }
