@@ -97,8 +97,8 @@ export class DataPaikkaComponent implements OnInit {
   @HostListener('scroll', ['$event'])
   onTableScroll(event: Event) {
     const target = event.target as HTMLElement;
-    console.log(target.scrollLeft);
     this.theadoffset = -target.scrollLeft;
+    console.log(this.theadoffset);
   }
   
   // tablepos: number = 0;

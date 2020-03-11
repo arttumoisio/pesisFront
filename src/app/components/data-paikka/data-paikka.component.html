@@ -1,4 +1,5 @@
-<thead *ngIf="showSticky" class="stickyfix" id="tablehead2">
+<thead *ngIf="showSticky" class="stickyfix" id="tablehead2"
+[ngStyle]="{'left': theadoffset}">
   <tr>
     <th id="headers" class="sija">Sija</th>
     <th *ngFor="let otsikko of otsikot, index as i," 
