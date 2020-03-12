@@ -39,7 +39,7 @@ export class DataPaikkaComponent implements OnInit {
   }
   
   updateData(){
-    this.filters = this.fs.getFilters();
+    this.filters = this.fs.getFiltersObj();
     this.data = this.dataService.getData();
     this.jarjestetty = this.dataService.jarjestetty;
     this.reversed = this.dataService.reversed;

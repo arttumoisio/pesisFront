@@ -29,12 +29,10 @@ export class FilterFormComponent implements OnInit {
 
     this.filterForm = this.formBuilder.group({
       strings: this.formBuilder.array([
-        this.formBuilder.control('')
       ]),
       operators: this.formBuilder.array([
       ]),
       columns: this.formBuilder.array([
-        this.formBuilder.control('')
       ])
 
     });
