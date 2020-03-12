@@ -6,6 +6,8 @@ import { Injectable, EventEmitter } from '@angular/core';
 export class DataService {
   private data: object[];
   private length: number;
+  private otsikot: string[];
+  private errorMessage: string;
   reversed = false;
   jarjestetty = '';
 
@@ -20,6 +22,7 @@ export class DataService {
   dataLoadingEmitter = new EventEmitter<boolean>();
   paginatorEmitter = new EventEmitter();
   filterEmitter = new EventEmitter();
+  errorEmitter = new EventEmitter<string>();
 
   constructor() { }
 
@@ -29,6 +32,22 @@ export class DataService {
 
   getLength(): number {
     return this.length;
+  }
+
+  setOtsikot():void {
+    if (this.data === undefined || this.data.length === 0 ) {
+      this.otsikot = [];
+      this.errorMessage = 'Haku ei tuottanut yhtään tulosta.';
+      this.errorEmitter.emit(this.errorMessage);
+      
+    } else {
+      this.otsikot = Object.keys(this.data[0]);
+      this.errorMessage = '';
+    }
+  }
+
+  getOtsikot(): string[] {
+    return this.otsikot;
   }
 
   startLoading() {
@@ -49,6 +68,7 @@ export class DataService {
         this.paginatorEmitter.emit();
       }
     }
+    this.setOtsikot();
     this.dataLoadingEmitter.emit(false);
     this.dataChangedEmitter.emit();
   }

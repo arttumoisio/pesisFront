@@ -14,7 +14,12 @@ import { MVJoukkueetComponent } from './components/mvjoukkueet/mvjoukkueet.compo
 import { SpinnerComponent } from './components/small/spinner/spinner.component';
 import { PaginatorComponent } from './components/paginator/paginator.component';
 import { FilterPipe } from './pipes/filter.pipe';
-import { FilterNoColumnPipe } from './pipes/filter-no-column.pipe';
+import { FilterNoParamsPipe } from './pipes/filter-no-params.pipe';
+import { DummyarrayPipe } from './pipes/dummyarray.pipe';
+import { FilterFormComponent } from './components/filter-form/filter-form.component';
+import { PelaajaFormComponent } from './components/pelaaja-form/pelaaja-form.component';
+import { JoukkueFormComponent } from './components/joukkue-form/joukkue-form.component';
+import { VisualisointiComponent } from './components/visualisointi/visualisointi.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +33,12 @@ import { FilterNoColumnPipe } from './pipes/filter-no-column.pipe';
     SpinnerComponent,
     PaginatorComponent,
     FilterPipe,
-    FilterNoColumnPipe
+    FilterNoParamsPipe,
+    DummyarrayPipe,
+    FilterFormComponent,
+    PelaajaFormComponent,
+    JoukkueFormComponent,
+    VisualisointiComponent
   ],
   imports: [
     BrowserModule,

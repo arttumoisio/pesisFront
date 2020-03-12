@@ -1,5 +1,6 @@
-import { Component, OnInit, HostListener, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, HostListener, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { DataService } from 'src/app/services/dataservice.service';
+import { FilterService } from 'src/app/services/filter.service';
 
 @Component({
   selector: 'app-data-paikka',
@@ -8,23 +9,23 @@ import { DataService } from 'src/app/services/dataservice.service';
 })
 export class DataPaikkaComponent implements OnInit {
 
-  constructor(private dataService: DataService) { }
+  constructor(
+    private dataService: DataService,
+    private fs: FilterService,
+    private ref: ChangeDetectorRef
+    ) { }
   
   data: object[];
-  //tableData: object[];
   otsikot: string[] = [];
-  loading = true;
   firstItem: number;
   show: number;
+  filters: object;
 
-  searchKeyUp: string = '';
   searchString: string = '';
   searchColumn: string = '';
-  searchColumn2: string = '';
   
   reversed: boolean;
   jarjestetty: string;
-  errorMessage = '';
   
   ngOnInit() {
     this.updateData();
@@ -32,41 +33,31 @@ export class DataPaikkaComponent implements OnInit {
     this.dataService.dataChangedEmitter.subscribe(() => {
       this.updateData();
     });
-    this.dataService.dataLoadingEmitter.subscribe((loading: boolean) => {
-      this.loading = loading;
-    });
     this.dataService.paginatorEmitter.subscribe(()=>{
       this.sliceData();
     });
   }
   
   updateData(){
+    this.filters = this.fs.getFilters();
     this.data = this.dataService.getData();
     this.jarjestetty = this.dataService.jarjestetty;
     this.reversed = this.dataService.reversed;
-    this.selvitaOtsikot();
+    this.otsikot = this.dataService.getOtsikot();
     this.sliceData();
+    this.ref.markForCheck();
   }
   
   sliceData(){
     const pagination = this.dataService.getPagination();
     const start = Number(pagination.start);
     const show = Number(pagination.show);
-    const firstItem = (start-1)*show;
+    this.firstItem = (start-1)*show;
     this.show = show;
-    this.firstItem = firstItem;
     //this.tableData = this.data.slice(firstItem,firstItem+show);
   }
   
-  selvitaOtsikot() {
-    if (this.data === undefined || this.data.length === 0 ) {
-      this.otsikot = [];
-      this.errorMessage = 'Haku ei tuottanut yhtään tulosta.';
-    } else {
-      this.otsikot = Object.keys(this.data[0]);
-      this.errorMessage = '';
-    }
-  }
+
   
   
   sortTulokset(sarake: string) {
@@ -74,10 +65,7 @@ export class DataPaikkaComponent implements OnInit {
     this.dataService.sortData(sarake);
   }
   
-  onSuodata () {
-    this.searchString = this.searchKeyUp;
-    this.searchColumn = this.searchColumn2;
-  }
+
 
   offsetTop: number = undefined;
   setOffSetTopOnce(ost: number){

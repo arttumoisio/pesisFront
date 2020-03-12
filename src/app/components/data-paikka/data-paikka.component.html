@@ -1,51 +1,3 @@
-
-<div class="container-fluid mb-2 komp">
-    <form>
-  <div class="row">
-    <div class="col-2" style="display: none;">
-      <button class="btn btn-primary" (click)="onSuodata()">
-        Suodata
-      </button>
-    </div>
-  <div class="col-8">
-    <label for="searchString">Suodata</label>
-    <input
-    type="text"
-    class="form-control"
-    name="searchString"
-    id="searchString"
-    placeholder="Type to search..."
-    [(ngModel)]="searchKeyUp"
-    />
-    
-
-  </div>
-  <div class="col-4">
-    <label for="searchColumn">Sarake</label>
-    <select 
-    name="searchColumn" 
-    type="text"
-    class="custom-select"
-    placeholder="Valitse sarake"
-    [(ngModel)]="searchColumn2"
-    >
-      <option
-      value=''>
-      Kaikki
-      </option>
-      <option 
-      *ngFor="let otsikko of otsikot" 
-      [value]="otsikko">
-      {{ otsikko }}
-      </option>
-    </select>
-  </div>
-</div>
-</form>
-</div>
-
-
-
 <thead *ngIf="showSticky" class="stickyfix" id="tablehead2"
 [ngStyle]="{'left': theadoffset}">
   <tr>
@@ -63,7 +15,7 @@
 </thead>
 <div class="viewportdiv" id="viewportdiv" (scroll)="onTableScroll($event)">
   <div class="komp viewportdiv2">
-    <div *ngIf="data && !loading" class="xl-col-6 col-12 tablediv">
+    <div class="xl-col-6 col-12 tablediv">
       <table id="datataulu">
         <thead id="tablehead"  [ngClass]="{'stickyfix': showSticky}">
           <tr>
@@ -81,7 +33,7 @@
       </thead>
       <tbody  id="body">
         <tr
-        *ngFor="let rivi of data | filter:searchString:searchColumn |slice:firstItem:firstItem+show ; index as i;"
+        *ngFor="let rivi of data | filterNoParams:filters |slice:firstItem:firstItem+show ; index as i;"
         [ngClass]="{ 
           
         }">
@@ -107,16 +59,9 @@
 
   </div>
 
-    <div *ngIf="data && !loading" class="paginator komp">
+    <div class="paginator komp">
       <app-paginator></app-paginator>
     </div>
-</div>
-
-<div *ngIf="loading" class="komp">
-  <app-spinner></app-spinner>
-</div>
-<div *ngIf="!loading && errorMessage" class="alert alert-danger komp">
-    {{errorMessage}} {{loading}}
 </div>
 
 

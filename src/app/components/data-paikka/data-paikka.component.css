@@ -43,23 +43,17 @@ th {
   overflow-x: scroll;
   overflow-y: hidden;
 }
-table {
-  /* position: relative; */
-}
 
 .paginator {
   max-height: 12vh;
   position: sticky;
   left: 0;
-  /* right: 0; */
 }
 
 th {
   position: sticky;
   top: 0px;
   z-index: 999;
-  /* min-height: 180px; */
-  /* max-height: 180px; */
 }
 th.sija, th.sticky {
   position: sticky;
@@ -100,7 +94,7 @@ th{
   max-width: 75px;
 }
 th:last-child{
-  min-width: 100px;
+  min-width: 75px;
   width: 100%;
 }
 td:last-child {

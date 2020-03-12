@@ -1,0 +1,84 @@
+<div class="container-fluid mb-2 komp">
+  <form [formGroup]="filterForm">
+  <div class="row">
+
+  <div class="col-6">
+    <div formArrayName="strings">
+      <div *ngFor="let string of strings.controls; let i = index">
+        <input
+        [type]="i === 0 ? 'text' : 'number' "
+        class="form-control"
+        name="searchString"
+        id="searchString"
+        [placeholder]="i==0 ? 'Suodata...' : ''"
+        [formControlName]="i"
+        />
+      </div>
+    </div>
+
+  </div>
+  <div class="d-flex col-2 flex-column-reverse">
+    <div formArrayName="operators">
+      <div *ngFor="let string of operators.controls; let i = index">
+        <select 
+        name="operator" 
+        style="width: 100%;"
+        type="text"
+        class="custom-select"
+        [formControlName]="i"
+        >
+        <option 
+        style="width: 100%;"
+        *ngFor="let operator of operaattorit" 
+        [value]="operator">
+        {{ operator }}
+        </option>
+        </select>
+      </div>
+    </div>
+
+  </div>
+  <div class="col-4">
+    <div formArrayName="columns">
+
+      <div *ngFor="let column of columns.controls; let i = index">
+          <select 
+          name="searchColumn" 
+          type="text"
+          class="custom-select"
+          placeholder="Valitse sarake"
+          [formControlName]="i"
+          >
+          <option *ngIf="i===0"
+          value=''>
+          Kaikki
+          </option>
+          <option 
+          *ngFor="let otsikko of otsikot" 
+          [value]="otsikko">
+          {{ otsikko }}
+          </option>
+          </select>
+      </div>
+    </div>
+  </div>
+  </div>
+  <div class="row">
+    <div class="col-4">
+        <button class="btn btn-primary" (click)="onSuodata()">
+          Suodata
+        </button>
+    </div>
+    <div class="col-4" >
+      <button class="btn btn-primary" type="button" (click)="onLisaaSuodatin()" style="width: 100%;">
+        Lisää suodatin
+      </button>
+    </div>
+    <div class="col-4" >
+      <button class="btn btn-danger" type="button" (click)="onPoistaSuodatin()" style="width: 100%;" [disabled]="!voiPoistaa">
+        Poista suodatin
+      </button>
+    </div>
+  </div>
+  </form>
+</div>

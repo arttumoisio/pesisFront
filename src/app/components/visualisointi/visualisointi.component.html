@@ -1,0 +1,11 @@
+<app-filter-form *ngIf="!loading"></app-filter-form>
+
+<app-data-paikka *ngIf="!loading"></app-data-paikka>
+
+<div *ngIf="loading" class="komp">
+  <app-spinner></app-spinner>
+</div>
+
+<div *ngIf="!loading && errorMessage" class="alert alert-danger komp">
+    {{errorMessage}} {{loading}}
+</div>

@@ -1,0 +1,79 @@
+<div class="container-fluid komp">
+<form 
+[formGroup]="reactiveKyselyForm"
+(ngSubmit)="onSubmit()"
+class="form">
+  <div class="mt-2 row form-group">
+    <div class="my-2 col-xl-2 col-lg-2 col-md-6 col-6">
+      <label for="kaudetAlku">Kaudet</label>
+      <label for="kaudetLoppu" class="float-right">-</label>
+      <select 
+      class="custom-select"
+      type="text" 
+      id="kaudetAlku" 
+      formControlName="kaudetAlku"
+      name="kaudetAlku">
+        <option 
+        *ngFor="let kausi of apu['kaudet'];"
+        [value]="kausi">
+        {{kausi}}
+        </option>
+      </select>
+      
+    </div>
+    <div class="my-2 col-xl-2 col-lg-2 col-md-6 col-6">
+      
+
+      <div class="custom-control custom-switch float-right mb-2">
+        <input formControlName="vuosittain" type="checkbox" class="custom-control-input" id="vuosittain" name="vuosittain">
+        <label class="custom-control-label" for="vuosittain">Vuosittain</label>
+      </div>
+
+      <select
+      class="custom-select"
+      type="text" 
+      formControlName="kaudetLoppu"
+      id="kaudetLoppu" 
+      name="kaudetLoppu">
+        <option 
+        *ngFor="let kausi of apu['kaudet'];"
+        [value]="kausi">
+        {{kausi}}
+      </option>
+      </select>
+    </div>
+    <div class="my-2 col-xl-4 col-lg-4 col-12">
+      <label for="joukkue">Joukkue</label>
+      <select
+      formControlName="joukkue"
+      class="custom-select"
+      type="text" 
+      id="joukkue" 
+      name="joukkue">
+      <option 
+      *ngFor="let joukkue of apu['joukkueet']" 
+      [value]="joukkue">
+      {{ joukkue }}
+      </option>
+      </select>
+    </div>
+  </div>
+
+
+  <div class="mt-4 row form-group">
+    <div class="my-2 col-xl-2 col-lg-2 col-md-6 col-6">
+      <button 
+      class="btn btn-block btn-outline-primary"
+      type="submit">Hae</button>
+    </div>
+    <div class="my-2 col-xl-2 col-lg-2 col-md-6 col-6">
+      <button 
+      type="button"
+      class="btn btn-block btn-outline-info"
+      (click)="onLisaaSuodattimia()">{{suodinTeksti}} filttereitä</button>
+    </div>
+    
+  </div>
+</form>
+</div>
+
