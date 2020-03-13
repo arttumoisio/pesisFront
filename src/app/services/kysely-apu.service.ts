@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { KyselyApu } from '../models/kyselyApu.model';
-import { FirebaseServiceService } from './firebase-service.service';
+import { DotnetRESTservice } from './dotnetAPI.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +9,6 @@ export class KyselyApuService {
 
   kyselyData: KyselyApu = {
     ulkopeliPaikat: [
-      'Mikä tahansa',
       '1V',
       '2V',
       '3V',
@@ -39,21 +38,20 @@ export class KyselyApuService {
   ],
 
   kaudet: [
-    2020,
-    2019,
-    2018,
-    2017,
-    2016,
-    2015,
-    2014,
-    2013,
-    2012,
-    2011,
     2010,
+    2011,
+    2012,
+    2013,
+    2014,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
   ],
 
   peliTyypit: [
-    'Mikä tahansa',
     'HalliSM',
     'Runkosarja',
     'Pudotuspelit',
@@ -61,7 +59,6 @@ export class KyselyApuService {
   ],
 
   joukkueet: [
-    'Mikä tahansa',
     'Sotkamon Jymy',
     'Manse PP',
     'Seinäjoen Mailajussit',
@@ -79,64 +76,46 @@ export class KyselyApuService {
   ],
 
   handness: [
-    'Mikä tahansa',
     'Vasen',
     'Oikea',
   ],
 
   paikka: [
-    'Koti/Vieras',
     'Koti',
     'Vieras',
+    'Eritelty',
   ],
 
   tulos: [
-    'Voitto/Tappio',
+    'Voitto',
+    'Tappio',
     '3p Voitto',
     '2p Voitto',
     '1p Tappio',
     '0p Tappio',
-  ],
-
-  vastustaja: [
-    'Vastustaja',
-    'Sotkamon Jymy',
-    'Manse PP',
-    'Seinäjoen Mailajussit',
-    'Hyvinkään Tahko',
-    'Kankaanpään Maila',
-    'Kouvolan Pallonlyöjät',
-    'Vimpelin Veto',
-    'Kempeleen Kiri',
-    'Pattijoen Urheilijat',
-    'Siilinjärven Pesis',
-    'Joensuun Maila',
-    'Kiteen Pallo',
-    'Koskenkorvan Urheilijat',
-    'Imatran Pallo-Veikot',
-  ],
-
-  filtteri: [
-    'Valitse Filtteri',
-    'Pelatut ottelut',
-    'Lyödyt juoksut',
-    'Tuodut juoksut',
-    'Kärkilyönnit',
+    'Eritelty',
   ]
 
   };
 
-  constructor(private firebase: FirebaseServiceService) {
-    const joukkueet: string[] = ['Mikä tahansa'];
-    const key = 'joukkue';
-    firebase.haeJoukkueetApu().subscribe(data => {
+  constructor(private dotnetApi: DotnetRESTservice) {
+    const joukkueet: string[] = [];
+    dotnetApi.haeJoukkueetApu().subscribe(data => {
         for (const elem in data) {
           if (elem) {
-            joukkueet.push(data[elem][key]);
+            joukkueet.push(data[elem]['joukkue']);
           }
         }
-        console.log(joukkueet);
         this.kyselyData.joukkueet = joukkueet;
+    });
+    const kaudet: number[] = [];
+    dotnetApi.haeVuodetApu().subscribe(data => {
+      for (const elem in data) {
+        if (elem) {
+          kaudet.push(Number(data[elem]['kausi']));
+        }
+      }
+      this.kyselyData.kaudet = kaudet;
     });
   }
 }

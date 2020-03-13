@@ -1,0 +1,11 @@
+div[class*="col"] {
+    padding-right: 0;
+    padding-left: 0;
+  }
+
+#filters div {
+  text-align: center;
+}
+div#filters{
+  background: rgb(238, 238, 238);
+}

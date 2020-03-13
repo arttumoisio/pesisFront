@@ -1,0 +1,55 @@
+<div class="my-2 col-xl-2 col-lg-6 col-md-6 col-6" [formGroup]="parentForm">
+    <label for="paikka">Ottelu/Vastustaja</label>
+    <select 
+    formControlName="paikka"
+    class="custom-select"
+    type="text" 
+    id="paikka" 
+    name="paikka">
+      <option 
+      value="">
+      Koti/Vieras
+      </option>
+      <option 
+      *ngFor="let paikka of apu['paikka']" 
+      [value]="paikka">
+      {{ paikka }}
+      </option>
+    </select>
+    <select 
+    formControlName="tulos"
+    class="custom-select"
+    type="text" 
+    id="tulos" 
+    name="tulos">
+      <option 
+      value="">
+      Voitto/Tappio
+      </option>
+      <option 
+      *ngFor="let lopputulos of apu['tulos']" 
+      [value]="lopputulos">
+      {{ lopputulos }}
+      </option>
+    </select>
+    <select 
+    formControlName="vastustaja"
+    class="custom-select"
+    type="text" 
+    id="vastustaja" 
+    name="vastustaja">
+      <option 
+      value="">
+      Vastustaja
+      </option>
+      <option 
+      *ngFor="let vastustaja of apu.joukkueet" 
+      [value]="vastustaja">
+      {{ vastustaja }}
+      </option>
+      <option
+      value="Eritelty">
+      Eritelty
+      </option>
+    </select>
+  </div>

@@ -1,5 +1,6 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
+
 # compiled output
 /dist
 /tmp
@@ -30,6 +31,8 @@ speed-measure-plugin*.json
 !.vscode/launch.json
 !.vscode/extensions.json
 .history/*
+.editorconfig
+tslint.json
 
 # misc
 /.sass-cache

@@ -1,0 +1,43 @@
+<nav class="nav nav-tabs my-2 bg-light rounded">
+  <div class="d-flex justify-content-between" style="width: 100%;">
+  <div class="navbar" id="navbarSupportedContent">
+    <ul class="nav mr-auto">
+      <!-- <li class="nav-item">
+        <a class="nav-link" 
+        routerLinkActive="active" 
+        routerLink="/"
+        [routerLinkActiveOptions]="{exact:true}">PesisStats</a>
+      </li>
+      
+      <li class="nav-item">
+        <a class="nav-link" 
+        routerLinkActive="active" 
+        routerLink="/pelaajat">Pe</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" 
+        routerLinkActive="active" 
+        routerLink="/joukkueet">Jo</a>
+      </li> -->
+      <li class="nav-item">
+        <a class="nav-link" 
+        routerLinkActive="active" 
+        routerLink="/mvpelaajat">Pelaajat</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" 
+        routerLinkActive="active" 
+        routerLink="/mvjoukkueet">Joukkueet</a>
+      </li>
+      
+      
+      
+    </ul>
+  </div>
+
+  <button 
+  type="button"
+  class="btn nav-item"
+  (click)="onPiilotaValikko()">{{piilotusTeksti}}</button>
+</div>
+</nav>

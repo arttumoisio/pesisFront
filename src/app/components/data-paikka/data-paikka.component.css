@@ -1,0 +1,102 @@
+th {
+  background: #007bff;
+  color: white;
+  text-align: center;
+  box-shadow: 1px 2px 2px -1px rgba(0, 0, 0, 0.4);}
+  .parillinen{background: white;}
+  .pariton{background: lightgray;}
+  .parillinen.sorted{background: lightgrey;}
+  .pariton.sorted{background: darkgray;} 
+  .desc-sort::after {content: '\2193';}
+  .asc-sort::after {content: '\2191';}
+  .desc-sort {background: #0056b3;;}
+.asc-sort {background: #0056b3;}
+
+.tablediv {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+#tablehead2.stickyfix {
+  position: fixed;
+  top: 0px;
+  left: -100px;
+  z-index: 1101;
+}
+#tablehead2.stickyfix .sticky {
+  position: sticky;
+  left: 40px;
+  z-index: 1104;
+}
+#tablehead2.stickyfix .sija {
+  position: sticky;
+  left: 0px;
+  z-index: 1103;
+}
+.stickyfix th {
+  position: initial;
+}
+
+.viewportdiv {
+  display: block flex;
+  flex-direction: column;
+  max-width: 100vw;
+  overflow-x: scroll;
+  overflow-y: hidden;
+}
+
+.paginator {
+  max-height: 12vh;
+  position: sticky;
+  left: 0;
+}
+
+th {
+  position: sticky;
+  top: 0px;
+  z-index: 999;
+}
+th.sija, th.sticky {
+  position: sticky;
+  z-index: 1000;
+}
+
+.sija {
+  position: sticky;
+  left: 0px;
+  max-width: 40px;
+  min-width: 40px;
+  z-index: 900;
+}
+.sticky {
+  position: sticky;
+  left: 40px;
+  z-index: 899;
+}
+td {
+  z-index: 800;
+  text-align: center;
+}
+td.sticky {
+  text-align: left;
+  box-shadow: 1px 0px 2px -1px rgba(0, 0, 0, 0.4);
+}
+
+.sija{
+  min-width: 40px;
+  max-width: 40px;
+}
+.sticky{
+  min-width: 100px;
+  max-width: 100px;
+}
+th{
+  min-width: 75px;
+  max-width: 75px;
+}
+th:last-child{
+  min-width: 75px;
+  width: 100%;
+}
+td:last-child {
+  text-align: left;
+}
