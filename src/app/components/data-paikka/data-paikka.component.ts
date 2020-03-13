@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, HostListener, OnDestroy, AfterViewInit} from '@angular/core';
 import { DataService } from 'src/app/services/dataservice.service';
 import { FilterService } from 'src/app/services/filter.service';
 
@@ -7,19 +7,22 @@ import { FilterService } from 'src/app/services/filter.service';
   templateUrl: './data-paikka.component.html',
   styleUrls: ['./data-paikka.component.css']
 })
-export class DataPaikkaComponent implements OnInit {
+export class DataPaikkaComponent implements OnInit, OnDestroy, AfterViewInit {
 
   constructor(
     private dataService: DataService,
-    private fs: FilterService,
-    private ref: ChangeDetectorRef
+    private fs: FilterService
     ) { }
+
+  ngOnDestroy () {
+    
+  }
   
   data: object[];
   otsikot: string[] = [];
   firstItem: number;
   show: number;
-  filters: object;
+  filters: {strings:string[];operators:string[];columns:string[];};
 
   searchString: string = '';
   searchColumn: string = '';
@@ -33,9 +36,29 @@ export class DataPaikkaComponent implements OnInit {
     this.dataService.dataChangedEmitter.subscribe(() => {
       this.updateData();
     });
+    this.dataService.dataSortedEmitter.subscribe(() => {
+      this.updateData();
+    });
     this.dataService.paginatorEmitter.subscribe(()=>{
       this.sliceData();
     });
+    this.dataService.filterEmitter.subscribe(()=>{
+      this.updateFilters();
+    });
+    // this.updateSort(); // vois tehdä pipen ja päivitellä sorttia tässä
+  }
+
+  ngAfterViewInit(){
+    document.getElementById("viewportdiv").scrollLeft = this.dataService.tableScroll;
+  }
+
+  updateSort(){
+    this.reversed = this.dataService.reversed;
+    this.jarjestetty = this.dataService.jarjestetty;
+  }
+
+  updateFilters(){
+    this.filters = this.fs.getFiltersObj();
   }
   
   updateData(){
@@ -45,7 +68,6 @@ export class DataPaikkaComponent implements OnInit {
     this.reversed = this.dataService.reversed;
     this.otsikot = this.dataService.getOtsikot();
     this.sliceData();
-    this.ref.markForCheck();
   }
   
   sliceData(){
@@ -54,14 +76,13 @@ export class DataPaikkaComponent implements OnInit {
     const show = Number(pagination.show);
     this.firstItem = (start-1)*show;
     this.show = show;
-    //this.tableData = this.data.slice(firstItem,firstItem+show);
+    
   }
   
 
   
   
   sortTulokset(sarake: string) {
-    
     this.dataService.sortData(sarake);
   }
   
@@ -98,6 +119,7 @@ export class DataPaikkaComponent implements OnInit {
   onTableScroll(event: Event) {
     const target = event.target as HTMLElement;
     this.theadoffset = -target.scrollLeft + 'px';
+    this.dataService.tableScroll = target.scrollLeft;
   }
   
   // tablepos: number = 0;

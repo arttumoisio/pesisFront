@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { ReactiveFormsModule, FormsModule} from '@angular/forms';
+import { ReactiveFormsModule} from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -20,6 +20,9 @@ import { FilterFormComponent } from './components/filter-form/filter-form.compon
 import { PelaajaFormComponent } from './components/pelaaja-form/pelaaja-form.component';
 import { JoukkueFormComponent } from './components/joukkue-form/joukkue-form.component';
 import { VisualisointiComponent } from './components/visualisointi/visualisointi.component';
+import { SuodinFormComponent } from './components/suodin-form/suodin-form.component';
+import { DataService } from './services/dataservice.service';
+import { ExtraFieldsComponent } from './components/forms/extra-fields/extra-fields.component';
 
 @NgModule({
   declarations: [
@@ -38,16 +41,19 @@ import { VisualisointiComponent } from './components/visualisointi/visualisointi
     FilterFormComponent,
     PelaajaFormComponent,
     JoukkueFormComponent,
-    VisualisointiComponent
+    VisualisointiComponent,
+    SuodinFormComponent,
+    ExtraFieldsComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    FormsModule,
     HttpClientModule,
   ],
-  providers: [],
+  providers: [
+    DataService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
