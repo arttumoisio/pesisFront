@@ -1,5 +1,6 @@
 <nav class="nav nav-tabs my-2 bg-light rounded">
-  <div class="navbar-collapse" id="navbarSupportedContent">
+  <div class="d-flex justify-content-between" style="width: 100%;">
+  <div class="navbar" id="navbarSupportedContent">
     <ul class="nav mr-auto">
       <!-- <li class="nav-item">
         <a class="nav-link" 
@@ -28,7 +29,15 @@
         routerLinkActive="active" 
         routerLink="/mvjoukkueet">Joukkueet</a>
       </li>
-
+      
+      
+      
     </ul>
   </div>
+
+  <button 
+  type="button"
+  class="btn nav-item"
+  (click)="onPiilotaValikko()">{{piilotusTeksti}}</button>
+</div>
 </nav>
