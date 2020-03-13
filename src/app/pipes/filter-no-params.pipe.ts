@@ -18,12 +18,24 @@ export class FilterNoParamsPipe implements PipeTransform {
     for (const otsikko in rivi) {
       if (rivi.hasOwnProperty(otsikko)) {
         const element = String(rivi[otsikko]).toLowerCase();
-        if (element.includes(value)) {
+        if (element.includes(value.toLowerCase())) {
           return true;
         }
       }
     }
     return false;
+  } 
+  rowThatIncludesAll(rivi: object,array: string[]):boolean{
+    // console.log(rivi);
+    // console.log(this.rowThatIncludes(rivi, array[0]), array)
+    // return f;
+    for (let i = 0; i < array.length; i++) {
+      if (!this.rowThatIncludes(rivi, array[i])){
+        return false;
+      }
+    }
+
+    return true;
   } 
 
   columnThatIncludes(element: any,value: string):boolean{
@@ -31,10 +43,6 @@ export class FilterNoParamsPipe implements PipeTransform {
   } 
 
   filterEquals(items: object[], str:string, col:string){
-    console.log(items);
-    console.log(str);
-    console.log(col);
-    
     return items.filter(item => String(item[col]).toLowerCase() === str.toLowerCase());
   }
 
@@ -55,7 +63,6 @@ export class FilterNoParamsPipe implements PipeTransform {
     let operators: string[] = [];
     let columns: string[] = [];
     if (!filters) {
-      console.log("here");
       strings = this.fs.getFiltersObj().strings;
       operators = this.fs.getFiltersObj().operators;
       columns= this.fs.getFiltersObj().columns;
@@ -64,8 +71,6 @@ export class FilterNoParamsPipe implements PipeTransform {
       operators = filters.operators;
       columns= filters.columns;
     }
-
-    console.log({strings, operators, columns});
 
     if (!items) {
       return [];
@@ -98,9 +103,11 @@ export class FilterNoParamsPipe implements PipeTransform {
               this.columnThatIncludes(singleItem[columns[i]],strings[i])
             );
           } else {
-            items = items.filter(singleItem => 
-              this.rowThatIncludes(singleItem,strings[i].toLowerCase())
-            );
+            items = items.filter((singleItem) => {
+              let bool = this.rowThatIncludesAll(singleItem,strings[i].split(' '));
+              // console.log(bool);
+              return bool;
+            });
           }
           break;
       }

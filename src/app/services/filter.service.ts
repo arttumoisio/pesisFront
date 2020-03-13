@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { DataService } from './dataservice.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,13 @@ export class FilterService {
     column:'',
   }]
 
-  constructor() { }
+  constructor(private ds: DataService) {
+    
+  }
+
+  emit(){
+    this.ds.filterEmitter.emit();
+  }
 
   setFilters(filtersObj:{strings:string[];operators:string[];columns:string[];} ):void {
     this.filters = [];
@@ -21,30 +28,47 @@ export class FilterService {
         column:filtersObj.columns[i],
       });
     });
+    this.emit();
   }
 
-  setIntFilters(filters:{string:string;operator:string;column:string;}[]):void{
+  setIntFiltersObj(intFiltersObj:{strings:string[];operators:string[];columns:string[];} ):void {
+    this.filters.splice(1);
+    
+    intFiltersObj.strings.forEach((val,i)=>{
+      this.filters.push({
+        string:val,
+        operator:intFiltersObj.operators[i],
+        column:intFiltersObj.columns[i],
+      });
+    });
+    this.emit();
+  }
 
-    this.filters = this.filters.splice(0,1).concat(filters);
-    console.log('Filter should be', this.filters.slice(0,1));
-    console.log('These should be', filters);
-    console.log('Set',this.filters); 
+  
+  setIntFilters(filters:{string:string;operator:string;column:string;}[]):void{
+    this.filters.splice(1);
+    this.filters.concat(filters);
+    this.emit();
   }
   addIntFilter(filter:{string:string;operator:string;column:string;}):void{
     this.filters.push(filter);
+    this.emit();
   }
   removeIntFilter(filter:{string:string;operator:string;column:string;}):void{
     let index: number = this.filters.findIndex((value)=>{
-      value == filter;
+      return value == filter;
     });
-    if (index == 0 || index == -1) {return;}
+    if (index == 0 || index == -1) {
+      return;
+    }
     this.filters.splice(index,1);
+    this.emit();
+    
   }
   
   setStrFilter(filter:{string:string;operator:string;column:string;}):void{
     this.filters[0] = filter;
-    console.log('Set this',filter); 
-    console.log('Set',this.filters); 
+    this.emit();
   }
 
   getFiltersObj() : {strings:string[];operators:string[];columns:string[];} {//{string:string;operator:string;column:string;}[] {
@@ -58,21 +82,17 @@ export class FilterService {
       filtersObj.operators.push(filter.operator);
       filtersObj.columns.push(filter.column);
     });
-    console.log(filtersObj);
     
     return filtersObj;
   }
 
   getFilters() :  {string:string;operator:string;column:string;}[] {
-    console.log("get", this.filters);
     return this.filters;
   }
   getStrFilters() :  {string:string;operator:string;column:string;}[] {
-    console.log("getStr", this.filters.slice(0,1));
     return this.filters.slice(0,1);
   }
   getIntFilters() :  {string:string;operator:string;column:string;}[] {
-    console.log("getInt", this.filters.slice(1));
     return this.filters.slice(1);
   }
 }
