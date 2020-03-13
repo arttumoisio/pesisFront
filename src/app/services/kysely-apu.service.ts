@@ -9,7 +9,6 @@ export class KyselyApuService {
 
   kyselyData: KyselyApu = {
     ulkopeliPaikat: [
-      'Mikä tahansa',
       '1V',
       '2V',
       '3V',
@@ -53,7 +52,6 @@ export class KyselyApuService {
   ],
 
   peliTyypit: [
-    'Mikä tahansa',
     'HalliSM',
     'Runkosarja',
     'Pudotuspelit',
@@ -61,7 +59,6 @@ export class KyselyApuService {
   ],
 
   joukkueet: [
-    'Mikä tahansa',
     'Sotkamon Jymy',
     'Manse PP',
     'Seinäjoen Mailajussit',
@@ -79,55 +76,30 @@ export class KyselyApuService {
   ],
 
   handness: [
-    'Mikä tahansa',
     'Vasen',
     'Oikea',
   ],
 
   paikka: [
-    'Koti/Vieras',
     'Koti',
     'Vieras',
+    'Eritelty',
   ],
 
   tulos: [
-    'Voitto/Tappio',
+    'Voitto',
+    'Tappio',
     '3p Voitto',
     '2p Voitto',
     '1p Tappio',
     '0p Tappio',
-  ],
-
-  vastustaja: [
-    'Vastustaja',
-    'Sotkamon Jymy',
-    'Manse PP',
-    'Seinäjoen Mailajussit',
-    'Hyvinkään Tahko',
-    'Kankaanpään Maila',
-    'Kouvolan Pallonlyöjät',
-    'Vimpelin Veto',
-    'Kempeleen Kiri',
-    'Pattijoen Urheilijat',
-    'Siilinjärven Pesis',
-    'Joensuun Maila',
-    'Kiteen Pallo',
-    'Koskenkorvan Urheilijat',
-    'Imatran Pallo-Veikot',
-  ],
-
-  filtteri: [
-    'Valitse Filtteri',
-    'Pelatut ottelut',
-    'Lyödyt juoksut',
-    'Tuodut juoksut',
-    'Kärkilyönnit',
+    'Eritelty',
   ]
 
   };
 
   constructor(private dotnetApi: DotnetRESTservice) {
-    const joukkueet: string[] = ['Mikä tahansa'];
+    const joukkueet: string[] = [];
     dotnetApi.haeJoukkueetApu().subscribe(data => {
         for (const elem in data) {
           if (elem) {
