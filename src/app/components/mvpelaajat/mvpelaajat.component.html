@@ -1,13 +1,3 @@
 <app-pelaaja-form [ngClass]="{'piilota': piilotaValikko}"></app-pelaaja-form>
 
-<div class="container-fluid komp">
-  <button 
-  type="button"
-  class="btn btn-block btn-outline-info piilotus"
-  [ngClass]="{'btn-outline-primary': !piilotaValikko,
-              'btn-primary': piilotaValikko
-  }"
-  (click)="onPiilotaValikko()">{{piilotusTeksti}}</button>
-</div>
-
 <app-visualisointi></app-visualisointi>

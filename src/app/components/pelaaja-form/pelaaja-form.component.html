@@ -42,12 +42,16 @@
           </option>
           </select>
         </div>
-    
       </div>
+      <div  *ngIf="lisaaSuodattimia" class="mt-2 row form-group">
+        <app-extra-fields [parentForm]="reactiveKyselyForm"></app-extra-fields>
+      </div>
+      
+      <app-filter-form *ngIf="lisaaSuodattimia"></app-filter-form>
     
     
       <div class="mt-4 row form-group">
-        <div class="my-2 col-xl-2 col-lg-2 col-md-6 col-6">
+        <div class="my-2 col-xl-2 col-lg- col-md-6 col-6">
           <button 
           class="btn btn-block btn-outline-primary"
           type="button"

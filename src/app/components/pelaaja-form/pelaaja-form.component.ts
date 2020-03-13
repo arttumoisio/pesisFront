@@ -14,8 +14,8 @@ export class PelaajaFormComponent implements OnInit {
 
   reactiveKyselyForm: FormGroup;
 
-  lisaaSuodattimia = true;
-  suodinTeksti = 'Vähemmän';
+  lisaaSuodattimia = false;
+  suodinTeksti = 'Enemmän';
   apu: KyselyApu;
   submitted = false;
 
@@ -39,6 +39,9 @@ export class PelaajaFormComponent implements OnInit {
         [Validators.min(minKausi), Validators.max(maxKausi)]
       ),
       vuosittain:   new FormControl(true),
+      paikka:   new FormControl(''),
+      vastustaja:   new FormControl(''),
+      tulos:   new FormControl(''),
     });
     this.onSubmit();
   }
@@ -56,6 +59,7 @@ export class PelaajaFormComponent implements OnInit {
   onSubmit() {
     this.dataService.startLoading();
     this.submitted = true;
+    console.log(this.reactiveKyselyForm.value);
     this.dotnetApi.onHaePelaajat(this.reactiveKyselyForm.value)
     .subscribe( (responseData => {
         const data = [];
@@ -64,7 +68,7 @@ export class PelaajaFormComponent implements OnInit {
             data.push(responseData[elem]);
           }
         }
-        this.dataService.setData(data);
+        this.dataService.setRawData(data);
     }));
 
   }

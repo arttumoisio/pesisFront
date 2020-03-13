@@ -60,7 +60,7 @@ export class JoukkueFormComponent implements OnInit {
             data.push(responseData[elem]);
           }
         }
-        this.dataService.setData(data);
+        this.dataService.setRawData(data);
     }));
   }
 

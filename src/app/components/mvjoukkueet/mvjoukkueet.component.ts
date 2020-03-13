@@ -7,14 +7,14 @@ import { DataService } from 'src/app/services/dataservice.service';
 })
 export class MVJoukkueetComponent implements OnInit {
   
-  piilotaValikko = false; // in production this is: false;
-  piilotusTeksti = 'Piilota Valikko'; // in production this is: 'Enemmän'
+  piilotaValikko = false;
 
-  ngOnInit(){}
-
-  onPiilotaValikko() {
-    this.piilotaValikko = !this.piilotaValikko;
-    this.piilotusTeksti = this.piilotaValikko ? 'Näytä Valikko' : 'Piilota Valikko';
+  constructor (private ds: DataService) {
   }
-
+  
+  ngOnInit(){
+    this.ds.piilotusEmitter.subscribe(()=>{
+      this.piilotaValikko = !this.piilotaValikko
+    });
+  }
 }
