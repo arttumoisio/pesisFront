@@ -1,0 +1,38 @@
+<div class="container-fluid">
+<div class="container-fluid my-2 komp">
+    <form [formGroup]="filterForm"(ngSubmit)="onSuodata()">
+    <div class="row">
+      <div class="col-6">
+        <input
+        type="text"
+        class="form-control"
+        name="string"
+        placeholder="Suodata..."
+        formControlName="string"
+        />
+      </div>
+      <div class="col-6">
+              <select 
+              name="column" 
+              type="text"
+              class="custom-select"
+              placeholder="Valitse sarake"
+              formControlName="column"
+              >
+              <option
+              value=''>
+              Kaikki
+              </option>
+              <option 
+              *ngFor="let otsikko of otsikot" 
+              [value]="otsikko">
+              {{ otsikko }}
+              </option>
+              </select>
+      </div>
+
+    </div>
+    </form>
+  </div>
+</div>
+  
