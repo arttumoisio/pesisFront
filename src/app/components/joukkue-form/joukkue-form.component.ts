@@ -39,7 +39,10 @@ export class JoukkueFormComponent implements OnInit {
         [Validators.min(minKausi), Validators.max(maxKausi)]
       ),
       vuosittain: new FormControl(true),
-      joukkue: new FormControl('Mikä tahansa')
+      joukkue: new FormControl(''),
+      paikka:   new FormControl(''),
+      vastustaja:   new FormControl(''),
+      tulos:   new FormControl(''),
     });
     this.onSubmit();
   }
@@ -52,6 +55,7 @@ export class JoukkueFormComponent implements OnInit {
   onSubmit() {
     this.dataService.startLoading();
     this.submitted = true;
+    console.log(this.reactiveKyselyForm.value);
     this.dotnetApi.onHaeJoukkueet(this.reactiveKyselyForm.value)
     .subscribe( (responseData => {
         const data = [];
