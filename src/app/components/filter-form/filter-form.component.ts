@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { DataService } from 'src/app/services/dataservice.service';
-import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
+import { FormGroup, FormBuilder, FormArray, FormControl, Validators } from '@angular/forms';
 import { FilterService } from 'src/app/services/filter.service';
 
 @Component({
@@ -8,7 +8,7 @@ import { FilterService } from 'src/app/services/filter.service';
   templateUrl: './filter-form.component.html',
   styleUrls: ['./filter-form.component.css']
 })
-export class FilterFormComponent implements OnInit {
+export class FilterFormComponent implements OnInit, OnDestroy {
   otsikot: string[];
   voiPoistaa: boolean = false;
   operaattorit: string[] = [
@@ -19,6 +19,11 @@ export class FilterFormComponent implements OnInit {
   ];
 
   filterForm: FormGroup;
+  intFilters: {
+    string: string;
+    operator: string;
+    column: string;
+  }[];
 
   constructor(private dataService: DataService,
               private formBuilder: FormBuilder,
@@ -28,43 +33,47 @@ export class FilterFormComponent implements OnInit {
     this.otsikot = this.dataService.getOtsikot();
 
     this.filterForm = this.formBuilder.group({
-      strings: this.formBuilder.array([
-      ]),
-      operators: this.formBuilder.array([
-      ]),
-      columns: this.formBuilder.array([
-      ])
+      column: this.formBuilder.control('Ottelut',[Validators.required]),
+      operator: this.formBuilder.control('>=',[Validators.required]),
+      string: this.formBuilder.control('',[Validators.required,Validators.minLength(1)],),
 
     });
+    this.dataService.dataChangedEmitter.subscribe(()=>{
+      this.otsikot = this.dataService.getOtsikot();
+      this.intFilters = this.fs.getIntFilters();
+    });
+  }
+  ngOnDestroy(){
+    this.fs.setIntFilters([]);
+    this.dataService.dataChangedEmitter.emit();
   }
 
   onSuodata () {
     console.log('Sent', this.filterForm.value);
-    this.fs.setFilters(this.filterForm.value);
+    this.fs.addIntFilter(this.filterForm.value);
     this.dataService.dataChangedEmitter.emit();
   }
 
-  get strings() {
-    return this.filterForm.get('strings') as FormArray;
-  }
-  get columns() {
-    return this.filterForm.get('columns') as FormArray;
-  }
-  get operators() {
-    return this.filterForm.get('operators') as FormArray;
-  }
-
   onLisaaSuodatin() {
-    this.strings.push(this.formBuilder.control(''));
-    this.operators.push(this.formBuilder.control(''));
-    this.columns.push(this.formBuilder.control('>='));
     this.voiPoistaa = true;
+    this.onSuodata();
   }
-  onPoistaSuodatin() {
-    this.strings.removeAt(this.strings.length-1);
-    this.operators.removeAt(this.operators.length-1);
-    this.columns.removeAt(this.columns.length-1);
-    this.voiPoistaa = this.strings.length <= 1 ? false : true;
+  
+  removeFilter(filter: {string:string;operator:string;column:string;}){
+    console.log('remove filter');
+    
+    this.fs.removeIntFilter(filter);
+    this.dataService.dataChangedEmitter.emit();
   }
 
+  get column() {
+    return this.filterForm.get('column') as FormControl;
+  }
+  get operator() {
+    return this.filterForm.get('operator') as FormControl;
+  }
+  get string() {
+    return this.filterForm.get('string') as FormControl;
+  }
+  
 }

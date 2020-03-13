@@ -1,84 +1,90 @@
-<div class="container-fluid mb-2 komp">
-  <form [formGroup]="filterForm">
-  <div class="row">
-
-  <div class="col-6">
-    <div formArrayName="strings">
-      <div *ngFor="let string of strings.controls; let i = index">
-        <input
-        [type]="i === 0 ? 'text' : 'number' "
-        class="form-control"
-        name="searchString"
-        id="searchString"
-        [placeholder]="i==0 ? 'Suodata...' : ''"
-        [formControlName]="i"
-        />
-      </div>
+<div class="container-fluid mb-5 komp" style="margin-left: 0; margin-right: 0; padding-left: auto; padding-right: auto;">
+  <form class="form" [formGroup]="filterForm" (ngSubmit)="onLisaaSuodatin()" >
+  <div class="row d-flex" >
+    <div class="flex-grow-1" style="max-height: calc(1.5em + .75rem + 2px); overflow-y: visible;">
+            <select 
+            name="searchColumn" 
+            type="text"
+            class="custom-select"
+            placeholder="Valitse sarake"
+            formControlName="column"
+            required
+            >
+            <option 
+            *ngFor="let otsikko of otsikot" 
+            [value]="otsikko">
+            {{ otsikko }}
+            </option>
+            </select>
+            <div *ngIf="column.invalid && (column.dirty || column.touched)"
+            class="alert alert-danger">
+  
+            <div *ngIf="column.errors.required">
+              Value is required.
+            </div>
+            </div>
     </div>
-
-  </div>
-  <div class="d-flex col-2 flex-column-reverse">
-    <div formArrayName="operators">
-      <div *ngFor="let string of operators.controls; let i = index">
-        <select 
-        name="operator" 
-        style="width: 100%;"
-        type="text"
-        class="custom-select"
-        [formControlName]="i"
-        >
-        <option 
-        style="width: 100%;"
-        *ngFor="let operator of operaattorit" 
-        [value]="operator">
-        {{ operator }}
-        </option>
-        </select>
-      </div>
-    </div>
-
-  </div>
-  <div class="col-4">
-    <div formArrayName="columns">
-
-      <div *ngFor="let column of columns.controls; let i = index">
+    <div class="" style="width: 65px; max-height: calc(1.5em + .75rem + 2px); overflow-y: visible;">
           <select 
-          name="searchColumn" 
+          name="operator" 
+          style="width: 100%;"
           type="text"
           class="custom-select"
-          placeholder="Valitse sarake"
-          [formControlName]="i"
+          formControlName="operator"
+          required
           >
-          <option *ngIf="i===0"
-          value=''>
-          Kaikki
-          </option>
           <option 
-          *ngFor="let otsikko of otsikot" 
-          [value]="otsikko">
-          {{ otsikko }}
+          style="width: 100%;"
+          *ngFor="let operatori of operaattorit"
+          [value]="operatori">
+          {{ operatori }}
           </option>
           </select>
-      </div>
+          <div *ngIf="operator.invalid && (operator.dirty || operator.touched)"
+          class="alert alert-danger">
+          <div *ngIf="operator.errors.required">
+            Value is required.
+          </div>
+          </div>
     </div>
-  </div>
-  </div>
-  <div class="row">
-    <div class="col-4">
-        <button class="btn btn-primary" (click)="onSuodata()">
-          Suodata
-        </button>
+    <div class="flex-grow-2" style="max-height: calc(1.5em + .75rem + 2px); overflow-y: visible; overflow-x: default;">
+          <input
+          class="form-control"
+          name="string"
+          id="string"
+          formControlName="string"
+          required
+          />
+          <div *ngIf="string.invalid && (string.dirty || string.touched)"
+          class="alert alert-danger">
+
+          <div *ngIf="string.errors.required">
+            Value is required.
+          </div>
+          <div *ngIf="string.errors.minlength">
+            Value must be at least 1 characters long.
+          </div>
+          </div>
     </div>
-    <div class="col-4" >
-      <button class="btn btn-primary" type="button" (click)="onLisaaSuodatin()" style="width: 100%;">
-        Lisää suodatin
+    <div class="" 
+    style="min-width: 38px; min-height: 38px;"
+    >
+      <button 
+      class="btn btn-primary" 
+      type="submit" 
+      style="width: 100%; height: 100%;"
+      [disabled]="filterForm.invalid"
+      >
+        +
       </button>
     </div>
-    <div class="col-4" >
-      <button class="btn btn-danger" type="button" (click)="onPoistaSuodatin()" style="width: 100%;" [disabled]="!voiPoistaa">
-        Poista suodatin
-      </button>
-    </div>
   </div>
+
   </form>
+  <div id="filters" class="row rounded my-1" *ngFor="let filter of intFilters;" style="min-height: 38px;">
+    <div class="p-2 flex-grow-1" style="text-align: end;">{{filter.column}}</div>
+    <div class="p-2" style="width: 65px;">{{filter.operator}}</div>
+    <div class="p-2 col-4"  style="text-align: start;">{{filter.string}}</div>
+    <button  style= "height: 100%; width: 38px;" class="btn btn-danger" type="button" (click)="removeFilter(filter)" ><span>&times;</span></button>
+  </div>
 </div>
