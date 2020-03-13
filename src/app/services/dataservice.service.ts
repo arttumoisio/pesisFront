@@ -1,15 +1,16 @@
 import { Injectable, EventEmitter } from '@angular/core';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class DataService {
   private data: object[];
   private length: number;
   private otsikot: string[];
   private errorMessage: string;
+
   reversed = false;
   jarjestetty = '';
+
+  tableScroll: number = 0;
 
   private pagination: {start:number; pages:number; show:number; records:number;} = {
     start:1,
@@ -22,6 +23,8 @@ export class DataService {
   dataLoadingEmitter = new EventEmitter<boolean>();
   paginatorEmitter = new EventEmitter();
   filterEmitter = new EventEmitter();
+  piilotusEmitter = new EventEmitter();
+  dataSortedEmitter = new EventEmitter();
   errorEmitter = new EventEmitter<string>();
 
   constructor() { }
@@ -39,10 +42,10 @@ export class DataService {
       this.otsikot = [];
       this.errorMessage = 'Haku ei tuottanut yhtään tulosta.';
       this.errorEmitter.emit(this.errorMessage);
-      
     } else {
       this.otsikot = Object.keys(this.data[0]);
       this.errorMessage = '';
+      this.errorEmitter.emit('');
     }
   }
 
@@ -57,7 +60,21 @@ export class DataService {
     this.dataLoadingEmitter.emit(true);
   }
 
-  setData(data: object[] = undefined, sort: string = ''): void {
+  setRawData(data: object[] = undefined) : void {
+    if(data){
+      this.data = data;
+      this.length = data.length;
+    }
+    this.setOtsikot();
+    if(this.jarjestetty){
+      this.workerSort(this.jarjestetty,this.reversed)
+    } else {
+      this.dataLoadingEmitter.emit(false);
+      this.dataChangedEmitter.emit();
+    }
+  }
+
+  setSortedData(data: object[] = undefined, sort:string = ""): void {
     if(data){
       this.data = data;
       this.length = data.length;
@@ -70,7 +87,11 @@ export class DataService {
     }
     this.setOtsikot();
     this.dataLoadingEmitter.emit(false);
-    this.dataChangedEmitter.emit();
+    if (sort === '') {
+      this.dataChangedEmitter.emit();
+    } else {
+      this.dataSortedEmitter.emit();
+    }
   }
 
   getPagination(){
@@ -90,7 +111,7 @@ export class DataService {
 
   
   sortData(sarake: string) {
-    //this.dataLoadingEmitter.emit(true);
+
     if (this.jarjestetty === sarake) {
       this.reversed = !this.reversed;
       this.workerSort(sarake, true);
@@ -100,6 +121,14 @@ export class DataService {
       this.workerSort(sarake);
     }
   }
+  sortRawData(){
+    if (this.reversed){
+      this.workerSort(this.jarjestetty);
+      this.workerSort(this.jarjestetty, true);
+    } else {
+      this.workerSort(this.jarjestetty);
+    }
+  }
 
   workerSort(sarake: string, reverse: boolean = false) {
     if (typeof Worker !== 'undefined') 
@@ -107,7 +136,7 @@ export class DataService {
       // Create a new
       const worker = new Worker('../workers/sort.worker', { type: 'module' });
       worker.onmessage = ({ data }) => {
-        this.setData(data, 'sort');
+        this.setSortedData(data, 'sort');
       };
       worker.postMessage({
           data:this.data, 
@@ -120,7 +149,7 @@ export class DataService {
       console.log("Worker not supported");
       if (this.reversed){
         this.data.reverse();
-        this.setData(this.data, 'sort')
+        this.setSortedData(this.data, 'sort')
       } else {
         this.sortDataSync();
       }
@@ -137,6 +166,6 @@ export class DataService {
       }
       return 0;
     });
-    this.setData(this.data, "sort");
+    this.setSortedData(this.data, "sort");
   }
 }
