@@ -40,13 +40,8 @@ export class DotnetRESTservice {
         const param: string = elem;
         const value: string = formData[elem].toString();
         params = params.append(param, value);
-        // console.log(param);
-        // console.log(value);
       }
     }
-    // console.log(params);
-    // console.log(params.keys());
-    // console.log(params.toString());
     return this.http.get(this.joukkueetUrl, {params});
   }
 
@@ -57,6 +52,10 @@ export class DotnetRESTservice {
   }
   haeVuodetApu() {
     const getUrl = this.serverUrl + '/apu/vuodet';
+    return this.http.get(getUrl);
+  }
+  haeSarjaVaiheApu() {
+    const getUrl = this.serverUrl + '/apu/sarjavaihe';
     return this.http.get(getUrl);
   }
 }

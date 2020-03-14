@@ -14,7 +14,6 @@ import { MVJoukkueetComponent } from './components/mvjoukkueet/mvjoukkueet.compo
 import { SpinnerComponent } from './components/small/spinner/spinner.component';
 import { PaginatorComponent } from './components/paginator/paginator.component';
 import { FilterPipe } from './pipes/filter.pipe';
-import { FilterNoParamsPipe } from './pipes/filter-no-params.pipe';
 import { DummyarrayPipe } from './pipes/dummyarray.pipe';
 import { FilterFormComponent } from './components/filter-form/filter-form.component';
 import { PelaajaFormComponent } from './components/pelaaja-form/pelaaja-form.component';
@@ -23,6 +22,13 @@ import { VisualisointiComponent } from './components/visualisointi/visualisointi
 import { SuodinFormComponent } from './components/suodin-form/suodin-form.component';
 import { DataService } from './services/dataservice.service';
 import { ExtraFieldsComponent } from './components/forms/extra-fields/extra-fields.component';
+import { SortPipe } from './pipes/sort.pipe';
+import { SortService } from './services/sort.service';
+import { FilterService } from './services/filter.service';
+import { PaginatorService } from './services/paginator.service';
+import { DotnetRESTservice } from './services/dotnetAPI.service';
+import { KyselyApuService } from './services/kysely-apu.service';
+import { PaginatorPipe } from './pipes/paginator.pipe';
 
 @NgModule({
   declarations: [
@@ -36,14 +42,15 @@ import { ExtraFieldsComponent } from './components/forms/extra-fields/extra-fiel
     SpinnerComponent,
     PaginatorComponent,
     FilterPipe,
-    FilterNoParamsPipe,
     DummyarrayPipe,
     FilterFormComponent,
     PelaajaFormComponent,
     JoukkueFormComponent,
     VisualisointiComponent,
     SuodinFormComponent,
-    ExtraFieldsComponent
+    ExtraFieldsComponent,
+    SortPipe,
+    PaginatorPipe,
   ],
   imports: [
     BrowserModule,
@@ -52,7 +59,6 @@ import { ExtraFieldsComponent } from './components/forms/extra-fields/extra-fiel
     HttpClientModule,
   ],
   providers: [
-    DataService
   ],
   bootstrap: [AppComponent]
 })

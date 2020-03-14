@@ -1,16 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { KyselyApu } from '../../models/kyselyApu.model';
 import { KyselyApuService } from '../../services/kysely-apu.service';
 import { DataService } from '../../services/dataservice.service';
 import { DotnetRESTservice } from 'src/app/services/dotnetAPI.service';
+import { SortService } from 'src/app/services/sort.service';
 
 @Component({
   selector: 'app-joukkue-form',
   templateUrl: './joukkue-form.component.html',
   styleUrls: ['./joukkue-form.component.css']
 })
-export class JoukkueFormComponent implements OnInit {
+export class JoukkueFormComponent implements OnInit, OnDestroy {
 
   reactiveKyselyForm: FormGroup;
 
@@ -22,6 +23,7 @@ export class JoukkueFormComponent implements OnInit {
   naytaData: boolean;
 
   constructor(private kyselyService: KyselyApuService,
+              private ss: SortService,
               private dotnetApi: DotnetRESTservice,
               private dataService: DataService) { }
 
@@ -39,9 +41,16 @@ export class JoukkueFormComponent implements OnInit {
         [Validators.min(minKausi), Validators.max(maxKausi)]
       ),
       vuosittain: new FormControl(true),
-      joukkue: new FormControl('Mikä tahansa')
+      joukkue: new FormControl(''),
+      paikka:   new FormControl(''),
+      vastustaja:   new FormControl(''),
+      tulos:   new FormControl(''),
     });
     this.onSubmit();
+  }
+
+  ngOnDestroy(){
+    this.ss.resetSortParams();
   }
 
   onLisaaSuodattimia() {
@@ -52,6 +61,7 @@ export class JoukkueFormComponent implements OnInit {
   onSubmit() {
     this.dataService.startLoading();
     this.submitted = true;
+    console.log(this.reactiveKyselyForm.value);
     this.dotnetApi.onHaeJoukkueet(this.reactiveKyselyForm.value)
     .subscribe( (responseData => {
         const data = [];

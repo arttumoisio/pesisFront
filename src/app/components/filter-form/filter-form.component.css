@@ -1,7 +1,7 @@
-div[class*="col"] {
+/* div[class*="col"] {
     padding-right: 0;
     padding-left: 0;
-  }
+  } */
 
 #filters div {
   text-align: center;

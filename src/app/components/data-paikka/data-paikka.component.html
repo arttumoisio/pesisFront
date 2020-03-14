@@ -3,7 +3,7 @@
   <tr>
     <th id="headers" class="sija">Sija</th>
     <th *ngFor="let otsikko of otsikot, index as i," 
-    (click)="sortTulokset(otsikko)"
+    (click)="sortData(otsikko)"
     [ngClass]="{  'sticky': i==0,
     'desc-sort': otsikko==jarjestetty&&(!reversed),
     'asc-sort': otsikko==jarjestetty&&reversed,
@@ -21,7 +21,7 @@
           <tr>
             <th id="headers" class="sija">Sija</th>
             <th *ngFor="let otsikko of otsikot, index as i," 
-            (click)="sortTulokset(otsikko)"
+            (click)="sortData(otsikko)"
             [ngClass]="{  'sticky': i==0,
             'desc-sort': otsikko==jarjestetty&&(!reversed),
             'asc-sort': otsikko==jarjestetty&&reversed,
@@ -33,7 +33,7 @@
       </thead>
       <tbody  id="body">
         <tr
-        *ngFor="let rivi of data | filterNoParams:filters |slice:firstItem:firstItem+show ; index as i;"
+        *ngFor="let rivi of data | filter:filters | paginator:pagination; index as i;"
         [ngClass]="{ 
           
         }">
@@ -42,7 +42,7 @@
           'pariton': i%2==1,
           'parillinen' : i%2==0,
           'sija' : true
-        }">{{i+1+firstItem}}</td>
+        }">{{i+1+firstRow}}</td>
         <td *ngFor="let otsikko of otsikot; index as io," 
         [ngClass]="{ 
           'sticky': io==0,

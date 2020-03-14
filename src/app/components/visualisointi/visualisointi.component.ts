@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from 'src/app/services/dataservice.service';
+import { PiilotusService } from 'src/app/services/piilotus.service';
 
 @Component({
   selector: 'app-visualisointi',
@@ -11,17 +12,18 @@ export class VisualisointiComponent implements OnInit {
   loading = true;
   piilotaValikko = false;
 
-  constructor (private dataService: DataService) {
+  constructor (private ds: DataService,
+    private pis: PiilotusService) {
   }
 
   ngOnInit () {
-    this.dataService.dataLoadingEmitter.subscribe((loading: boolean) => {
+    this.ds.dataLoadingEmitter.subscribe((loading: boolean) => {
       this.loading = loading;
     });
-    this.dataService.errorEmitter.subscribe((errMsg: string) => {
+    this.ds.errorEmitter.subscribe((errMsg: string) => {
       this.errorMessage = errMsg;
     });
-    this.dataService.piilotusEmitter.subscribe(()=>{
+    this.pis.piilotusEmitter.subscribe(()=>{
       this.piilotaValikko = !this.piilotaValikko;
     });
   }

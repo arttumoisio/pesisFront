@@ -48,7 +48,6 @@ export class KyselyApuService {
     2017,
     2018,
     2019,
-    2020,
   ],
 
   peliTyypit: [
@@ -99,23 +98,32 @@ export class KyselyApuService {
   };
 
   constructor(private dotnetApi: DotnetRESTservice) {
-    const joukkueet: string[] = [];
     dotnetApi.haeJoukkueetApu().subscribe(data => {
-        for (const elem in data) {
-          if (elem) {
-            joukkueet.push(data[elem]['joukkue']);
-          }
+      const joukkueet: string[] = [];
+      for (const elem in data) {
+        if (elem) {
+          joukkueet.push(data[elem]['joukkue']);
         }
-        this.kyselyData.joukkueet = joukkueet;
+      }
+      this.kyselyData.joukkueet = joukkueet;
     });
-    const kaudet: number[] = [];
     dotnetApi.haeVuodetApu().subscribe(data => {
+      const kaudet: number[] = [];
       for (const elem in data) {
         if (elem) {
           kaudet.push(Number(data[elem]['kausi']));
         }
       }
       this.kyselyData.kaudet = kaudet;
+    });
+    dotnetApi.haeSarjaVaiheApu().subscribe(data => {
+      const vaiheet: string[] = [];
+      for (const elem in data) {
+        if (elem) {
+          vaiheet.push(String(data[elem]['sarjavaihe']));
+        }
+      }
+      this.kyselyData.peliTyypit = vaiheet;
     });
   }
 }

@@ -1,22 +1,21 @@
 /// <reference lib="webworker" />
 
-function sortArrayOfObjects(col: string, data: object[]) {
+function sortArrayOfObjects(data: object[], col: string, reversed:boolean ) {
   data.sort((a, b) => {
     if ( a[col] < b[col]) {
-      return 1;
+      return reversed ? -1 : 1;
     }
     if ( a[col] > b[col]) {
-      return -1;
+      return  reversed ? 1 : -1;
     }
     return 0;
   });
 }
 
 addEventListener('message', ({ data }) => {
-  if (data.reverse){
-    data.data.reverse();
-  } else {
-    sortArrayOfObjects(data.sarake,data.data);
-  }
+  console.log(data.data.length)
+  sortArrayOfObjects(data.data,data.sarake,data.reverse);
+  console.log(data.data.length)
+  
   postMessage(data.data);
 });
