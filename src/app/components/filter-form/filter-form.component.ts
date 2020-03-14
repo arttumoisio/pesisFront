@@ -38,7 +38,7 @@ export class FilterFormComponent implements OnInit, OnDestroy {
       string: this.formBuilder.control('',[Validators.required,Validators.minLength(1)],),
 
     });
-    this.dataService.dataChangedEmitter.subscribe(()=>{
+    this.fs.filterEmitter.subscribe(()=>{
       console.log('filterform sai');
       this.otsikot = this.dataService.getOtsikot();
       this.intFilters = this.fs.getIntFilters();
@@ -46,13 +46,12 @@ export class FilterFormComponent implements OnInit, OnDestroy {
   }
   ngOnDestroy(){
     this.fs.setIntFilters([]);
-    this.dataService.dataChangedEmitter.emit();
+    this.fs.filterEmitter.unsubscribe();
   }
 
   onSuodata () {
     console.log('Sent', this.filterForm.value);
     this.fs.addIntFilter(this.filterForm.value);
-    this.dataService.dataChangedEmitter.emit();
   }
 
   onLisaaSuodatin() {
@@ -64,7 +63,6 @@ export class FilterFormComponent implements OnInit, OnDestroy {
     console.log('remove filter');
     
     this.fs.removeIntFilter(filter);
-    this.dataService.dataChangedEmitter.emit();
   }
 
   get column() {

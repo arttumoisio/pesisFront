@@ -33,6 +33,8 @@ export class PaginatorComponent implements OnInit, OnDestroy {
   }
 
   update(){
+    console.log("updated pagination");
+    
     const pagination = this.ps.getPagination();
     this.currentPage = pagination.currentPage;
     this.pages = pagination.pages;

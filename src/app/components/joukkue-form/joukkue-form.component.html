@@ -42,7 +42,8 @@
         </option>
         </select>
       </div>
-      <div class="my-2 col-xl-2 col-lg-4 col-md-4 col-6">
+     
+      <div *ngIf="lisaaSuodattimia" class="my-2 col-xl-2 col-lg-4 col-md-4 col-6">
         <label for="joukkue">Joukkue</label>
         <select
         formControlName="joukkue"

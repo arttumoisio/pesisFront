@@ -4,7 +4,7 @@ import { DataService } from './dataservice.service';
 @Injectable({
   providedIn: 'root'
 })
-export class PaginatorService implements OnInit {
+export class PaginatorService {
   private pagination: {currentPage:number; pages:number; show:number; records:number; firstRow:number;} = {
     currentPage:1,
     pages:2,
@@ -15,10 +15,9 @@ export class PaginatorService implements OnInit {
 
   paginatorEmitter = new EventEmitter();
   
-  constructor(private ds: DataService) {}
-  ngOnInit(){
+  constructor(private ds: DataService) {
     this.updatePagination();
-    this.ds.dataChangedEmitter.subscribe(()=>{
+    ds.dataChangedEmitter.subscribe(()=>{
       console.log('paginator sai');
       this.updatePagination();
     });

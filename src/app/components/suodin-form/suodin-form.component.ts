@@ -40,7 +40,6 @@ export class SuodinFormComponent implements OnInit {
         operator:'',
         column:column}
     );
-    this.fs.filterEmitter.emit();
   }
 
   get strings() {

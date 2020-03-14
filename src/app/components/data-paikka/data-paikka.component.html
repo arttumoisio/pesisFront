@@ -33,7 +33,7 @@
       </thead>
       <tbody  id="body">
         <tr
-        *ngFor="let rivi of data | filter | paginator; index as i;"
+        *ngFor="let rivi of data | filter:filters | paginator:pagination; index as i;"
         [ngClass]="{ 
           
         }">

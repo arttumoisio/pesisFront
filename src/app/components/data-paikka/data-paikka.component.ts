@@ -12,7 +12,8 @@ import { TableStateService } from 'src/app/services/table-state.service';
 })
 export class DataPaikkaComponent implements OnInit, AfterViewInit, OnDestroy {
   
-  firstRow: number = 1;
+  pagination;
+  filters;
   jarjestetty: string;
   reversed: boolean;
 
@@ -35,7 +36,10 @@ export class DataPaikkaComponent implements OnInit, AfterViewInit, OnDestroy {
       this.updateSort();
     });
     this.ps.paginatorEmitter.subscribe(()=>{
-      this.updateFirstRow();
+      this.pagination = {...this.ps.getPagination()}
+    });
+    this.fs.filterEmitter.subscribe(()=>{
+      this.filters = this.fs.getFiltersObj();
     });
   }
 
@@ -47,18 +51,14 @@ export class DataPaikkaComponent implements OnInit, AfterViewInit, OnDestroy {
   
   updateAll(){
     this.updateData();
-    this.updateFirstRow();
+    this.pagination = this.ps.getPagination();
+    this.filters = this.fs.getFiltersObj();
     this.updateSort();
   }
 
   updateData(){
-    // this.data = this.ds.getData();
-    // this.otsikot = this.ds.getOtsikot();
   }
 
-  updateFirstRow(){
-    this.firstRow = this.ps.getPagination().firstRow;
-  }
   updateSort(){
     this.jarjestetty = this.ss.getSortParams().sarake;
     this.reversed = this.ss.getSortParams().reversed;
@@ -72,6 +72,12 @@ export class DataPaikkaComponent implements OnInit, AfterViewInit, OnDestroy {
   get otsikot() : string[] {
     return this.ds.getOtsikot();
   }
+  get firstRow() {
+    return this.ps.getPagination().firstRow;
+  }
+  // get filters() {
+  //   return this.ps.getPagination();
+  // }
   
   
 

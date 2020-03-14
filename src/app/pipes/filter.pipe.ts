@@ -59,6 +59,8 @@ export class FilterPipe implements PipeTransform {
   }
 
   transform(data: object[], filters:  {strings:string[];operators:string[];columns:string[];}  = undefined): object[] {
+    console.log("filterpipe");
+    
     let strings: string[] = [];
     let operators: string[] = [];
     let columns: string[] = [];
