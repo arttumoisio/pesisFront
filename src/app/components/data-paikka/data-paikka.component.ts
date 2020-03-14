@@ -1,89 +1,85 @@
 import { Component, OnInit, HostListener, OnDestroy, AfterViewInit} from '@angular/core';
 import { DataService } from 'src/app/services/dataservice.service';
 import { FilterService } from 'src/app/services/filter.service';
+import { SortService } from 'src/app/services/sort.service';
+import { PaginatorService } from 'src/app/services/paginator.service';
+import { TableStateService } from 'src/app/services/table-state.service';
 
 @Component({
   selector: 'app-data-paikka',
   templateUrl: './data-paikka.component.html',
   styleUrls: ['./data-paikka.component.css']
 })
-export class DataPaikkaComponent implements OnInit, OnDestroy, AfterViewInit {
+export class DataPaikkaComponent implements OnInit, AfterViewInit, OnDestroy {
+  
+  firstRow: number = 1;
+  jarjestetty: string;
+  reversed: boolean;
 
   constructor(
-    private dataService: DataService,
-    private fs: FilterService
-    ) { }
-
-  ngOnDestroy () {
-    
-  }
+    private ds: DataService,
+    private fs: FilterService,
+    private ss: SortService,
+    private ps: PaginatorService,
+    private tss: TableStateService
+    ) {}
   
-  data: object[];
-  otsikot: string[] = [];
-  firstItem: number;
-  show: number;
-  filters: {strings:string[];operators:string[];columns:string[];};
-
-  searchString: string = '';
-  searchColumn: string = '';
-  
-  reversed: boolean;
-  jarjestetty: string;
   
   ngOnInit() {
-    this.updateData();
-    this.sliceData();
-    this.dataService.dataChangedEmitter.subscribe(() => {
+    this.updateAll();
+    this.ds.dataChangedEmitter.subscribe(() => {
+      console.log('datapaikka sai');
       this.updateData();
     });
-    this.dataService.dataSortedEmitter.subscribe(() => {
-      this.updateData();
+    this.ss.sortEmitter.subscribe(() => {
+      this.updateSort();
     });
-    this.dataService.paginatorEmitter.subscribe(()=>{
-      this.sliceData();
+    this.ps.paginatorEmitter.subscribe(()=>{
+      this.updateFirstRow();
     });
-    this.dataService.filterEmitter.subscribe(()=>{
-      this.updateFilters();
-    });
-    // this.updateSort(); // vois tehdä pipen ja päivitellä sorttia tässä
   }
 
   ngAfterViewInit(){
-    document.getElementById("viewportdiv").scrollLeft = this.dataService.tableScroll;
+    document.getElementById("viewportdiv").scrollLeft = this.tss.tableScroll;
   }
 
-  updateSort(){
-    this.reversed = this.dataService.reversed;
-    this.jarjestetty = this.dataService.jarjestetty;
-  }
-
-  updateFilters(){
-    this.filters = this.fs.getFiltersObj();
-  }
+  ngOnDestroy(){this.ps.resetPagination();}
   
+  updateAll(){
+    this.updateData();
+    this.updateFirstRow();
+    this.updateSort();
+  }
+
   updateData(){
-    this.filters = this.fs.getFiltersObj();
-    this.data = this.dataService.getData();
-    this.jarjestetty = this.dataService.jarjestetty;
-    this.reversed = this.dataService.reversed;
-    this.otsikot = this.dataService.getOtsikot();
-    this.sliceData();
+    // this.data = this.ds.getData();
+    // this.otsikot = this.ds.getOtsikot();
+  }
+
+  updateFirstRow(){
+    this.firstRow = this.ps.getPagination().firstRow;
+  }
+  updateSort(){
+    this.jarjestetty = this.ss.getSortParams().sarake;
+    this.reversed = this.ss.getSortParams().reversed;
+  }
+
+  
+  get data() : object[] {
+    return this.ds.getData();
+  }
+
+  get otsikot() : string[] {
+    return this.ds.getOtsikot();
   }
   
-  sliceData(){
-    const pagination = this.dataService.getPagination();
-    const start = Number(pagination.start);
-    const show = Number(pagination.show);
-    this.firstItem = (start-1)*show;
-    this.show = show;
-    
-  }
   
 
   
   
-  sortTulokset(sarake: string) {
-    this.dataService.sortData(sarake);
+  sortData(sarake: string) {
+    console.log("Sortattava sarake:",sarake,"Reversed:", this.ss.getSortParams().reversed);
+    this.ss.setSortParams(sarake);
   }
   
 
@@ -119,7 +115,7 @@ export class DataPaikkaComponent implements OnInit, OnDestroy, AfterViewInit {
   onTableScroll(event: Event) {
     const target = event.target as HTMLElement;
     this.theadoffset = -target.scrollLeft + 'px';
-    this.dataService.tableScroll = target.scrollLeft;
+    this.tss.tableScroll = target.scrollLeft;
   }
   
   // tablepos: number = 0;
