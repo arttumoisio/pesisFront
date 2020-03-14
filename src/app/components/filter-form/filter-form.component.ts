@@ -39,6 +39,7 @@ export class FilterFormComponent implements OnInit, OnDestroy {
 
     });
     this.dataService.dataChangedEmitter.subscribe(()=>{
+      console.log('filterform sai');
       this.otsikot = this.dataService.getOtsikot();
       this.intFilters = this.fs.getIntFilters();
     });
