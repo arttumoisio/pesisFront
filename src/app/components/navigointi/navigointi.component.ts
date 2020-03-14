@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from 'src/app/services/dataservice.service';
+import { PiilotusService } from 'src/app/services/piilotus.service';
 
 @Component({
   selector: 'app-navigointi',
@@ -8,7 +9,7 @@ import { DataService } from 'src/app/services/dataservice.service';
 })
 export class NavigointiComponent implements OnInit {
 
-  constructor(private ds: DataService) { }
+  constructor(private pis: PiilotusService) { }
 
   ngOnInit() {
   }
@@ -19,7 +20,7 @@ export class NavigointiComponent implements OnInit {
     this.piilotaValikko = !this.piilotaValikko;
     this.piilotusTeksti = this.piilotaValikko ? 'Näytä Valikko' : 'Piilota Valikko';
     
-    this.ds.piilotusEmitter.emit();
+    this.pis.piilotusEmitter.emit();
   }
 
 
