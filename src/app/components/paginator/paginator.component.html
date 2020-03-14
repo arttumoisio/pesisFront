@@ -3,19 +3,19 @@
 
     <button 
     class="btn btn-primary" 
-    [disabled]="paginationStart===1"
+    [disabled]="currentPage===1"
     (click)="onFirstPage()"
     >&lt;&lt;</button>
     <button 
     class="btn btn-primary" 
-    [disabled]="paginationStart===1"
+    [disabled]="currentPage===1"
     (click)="onPreviousPage()"
     >&lt;</button>
 </div>
     <div class="col-8">
 
         {{records}} riviä. Sivu 
-        <input type="number" [min]="1" [max]="pages" [(value)]="paginationStart" (change)="changePage($event.target.value)">
+        <input type="number" [min]="1" [max]="pages" [(value)]="currentPage" (change)="changePage($event.target.value)">
         /{{pages}}
         <select 
         name="show" 
@@ -33,12 +33,12 @@
 
         <button 
         class="btn btn-primary" 
-        [disabled]="paginationStart===pages"
+        [disabled]="currentPage===pages"
         (click)="onNextPage()"
         >&gt;</button>
         <button 
         class="btn btn-primary" 
-        [disabled]="paginationStart===pages"
+        [disabled]="currentPage===pages"
         (click)="onLastPage()"
         >&gt;&gt;</button>
     </div>

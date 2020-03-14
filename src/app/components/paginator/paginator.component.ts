@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { PaginatorService } from 'src/app/services/paginator.service';
 import { DataService } from 'src/app/services/dataservice.service';
 
 @Component({
@@ -6,82 +7,59 @@ import { DataService } from 'src/app/services/dataservice.service';
   templateUrl: './paginator.component.html',
   styleUrls: ['./paginator.component.css']
 })
-export class PaginatorComponent implements OnInit {
-  records: number;
-  paginationStart: number = 1;
-  show: number = 40;
+export class PaginatorComponent implements OnInit, OnDestroy {
+  currentPage: number = 1;
   pages: number = 1;
-  showArray: number[] = [5, 10, 20, 25, 40, 50, 100, 500]
+  show: number = 40;
+  records: number;
+  showArray: number[] = [5, 10, 20, 25, 40, 50, 100]
   
 
-  constructor(private dataService: DataService) {
-    this.updateAll()
-    dataService.dataChangedEmitter.subscribe(()=>{
-      this.updateAll();
-    });
-    dataService.filterEmitter.subscribe(()=>{
-      this.update()
-
-    });
-   }
+  constructor(
+    private ps:PaginatorService,
+    private ds:DataService) {
+      this.update();
+    }
 
   ngOnInit(): void {
+    this.update();
+    this.ps.paginatorEmitter.subscribe(()=>{
+      this.update();
+    });
+  }
 
+  ngOnDestroy():void{
+    this.ps.changePage(1);
   }
 
   update(){
-    const pagination = this.dataService.getPagination();
-    this.paginationStart = pagination.start;
+    const pagination = this.ps.getPagination();
+    this.currentPage = pagination.currentPage;
     this.pages = pagination.pages;
     this.show = pagination.show;
     this.records = pagination.records;
   }
 
-  updateAll(){
-    this.records = this.dataService.getLength();
-    this.pages = Math.ceil(this.records / this.show);
-    this.dataService.setPagination(this.paginationStart,this.records,this.show);
-  }
-
   onNextPage(){
-    this.paginationStart++;
-    if (this.paginationStart>this.pages){
-      this.paginationStart = this.pages;
-    }
-    this.updateAll();
+    this.ps.toNextPage();
   }
   
   onPreviousPage(){
-    this.paginationStart--;
-    if (this.paginationStart<1){
-      this.paginationStart = 1;
-    }
-    this.updateAll();
+    this.ps.toPreviousPage();
   }
   onFirstPage(){
-    this.paginationStart = 1;
-    this.updateAll();
+    this.ps.toFirstPage();
   }
   onLastPage(){
-    this.paginationStart = this.pages;
-    this.updateAll();
+    this.ps.toLastPage();
   }
 
   changePage(newPage){
-    if (newPage < 1){
-      this.paginationStart = 1;
-    } else if (newPage > this.pages) {
-      this.paginationStart = this.pages;
-    } else {
-      this.paginationStart = newPage;
-    }
-    this.updateAll();
-    
+    this.ps.changePage(newPage);
   }
 
   changeShowCount(newShowCount){
-    this.show = newShowCount;
-    this.updateAll();
+    this.ps.changeShowCount(newShowCount);
   }
 
 }
