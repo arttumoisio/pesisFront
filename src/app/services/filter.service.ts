@@ -1,22 +1,24 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import { DataService } from './dataservice.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FilterService {
+
   private filters: {string:string;operator:string;column:string;}[] = [{
     string:'',
     operator:'',
     column:'',
-  }]
+  }];
+  filterEmitter = new EventEmitter();
 
   constructor(private ds: DataService) {
     
   }
 
   emit(){
-    this.ds.filterEmitter.emit();
+    this.filterEmitter.emit();
   }
 
   setFilters(filtersObj:{strings:string[];operators:string[];columns:string[];} ):void {
