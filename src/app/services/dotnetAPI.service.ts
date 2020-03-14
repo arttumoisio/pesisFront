@@ -54,4 +54,8 @@ export class DotnetRESTservice {
     const getUrl = this.serverUrl + '/apu/vuodet';
     return this.http.get(getUrl);
   }
+  haeSarjaVaiheApu() {
+    const getUrl = this.serverUrl + '/apu/sarjavaihe';
+    return this.http.get(getUrl);
+  }
 }
