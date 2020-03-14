@@ -1,4 +1,5 @@
-<div class="d-flex justify-content-end">
+<div class=" justify-content-end" [ngClass]="{'piilota': 0>=records,
+                                              'd-flex': records>0}">
 <div class="col-2 leftbuttons buttons">
 
     <button 
@@ -15,7 +16,7 @@
     <div class="col-8">
 
         {{records}} riviä. Sivu 
-        <input type="number" [min]="1" [max]="pages" [(value)]="currentPage" (change)="changePage($event.target.value)">
+        <input type="number" [min]="1" [max]="pages" [value]="currentPage" (change)="changePage($event.target.value)">
         /{{pages}}
         <select 
         name="show" 

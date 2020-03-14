@@ -36,10 +36,11 @@ export class DataPaikkaComponent implements OnInit, AfterViewInit, OnDestroy {
       this.updateSort();
     });
     this.ps.paginatorEmitter.subscribe(()=>{
-      this.pagination = {...this.ps.getPagination()}
+      this.updatePagination();
     });
     this.fs.filterEmitter.subscribe(()=>{
-      this.filters = this.fs.getFiltersObj();
+      this.updateFilters();
+      this.updatePagination();
     });
   }
 
@@ -56,8 +57,9 @@ export class DataPaikkaComponent implements OnInit, AfterViewInit, OnDestroy {
     this.updateSort();
   }
 
-  updateData(){
-  }
+  updateData(){}
+  updateFilters(){this.filters = this.fs.getFiltersObj();}
+  updatePagination(){this.pagination = {...this.ps.getPagination()};}
 
   updateSort(){
     this.jarjestetty = this.ss.getSortParams().sarake;

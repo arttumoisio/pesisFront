@@ -13,7 +13,8 @@ export class FilterService {
   }];
   filterEmitter = new EventEmitter();
 
-  constructor(private ds: DataService) {
+  constructor(private ds: DataService
+    ) {
     
   }
 

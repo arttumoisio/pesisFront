@@ -1,7 +1,7 @@
 
 import { Pipe, PipeTransform, Injectable } from '@angular/core';
 import { FilterService } from '../services/filter.service';
-import { DataService } from '../services/dataservice.service';
+import { PaginatorService } from '../services/paginator.service';
 
 @Pipe({
   name: 'filter'
@@ -9,7 +9,7 @@ import { DataService } from '../services/dataservice.service';
 export class FilterPipe implements PipeTransform {
 
   constructor(private fs: FilterService,
-              private dataservice: DataService
+              private ps: PaginatorService
               ){
                 
               }
@@ -116,7 +116,7 @@ export class FilterPipe implements PipeTransform {
       
     }
     console.log(data.length);
-    
+    this.ps.setRecords(data.length);
     return data;
   }
 }

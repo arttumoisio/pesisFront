@@ -8,38 +8,48 @@ import { DataService } from 'src/app/services/dataservice.service';
   styleUrls: ['./paginator.component.css']
 })
 export class PaginatorComponent implements OnInit, OnDestroy {
-  currentPage: number = 1;
-  pages: number = 1;
-  show: number = 40;
-  records: number;
+  
   showArray: number[] = [5, 10, 20, 25, 40, 50, 100]
   
-
+  
   constructor(
     private ps:PaginatorService,
     private ds:DataService) {
       this.update();
     }
-
-  ngOnInit(): void {
-    this.update();
-    this.ps.paginatorEmitter.subscribe(()=>{
+    
+    ngOnInit(): void {
       this.update();
-    });
-  }
+      this.ps.paginatorEmitter.subscribe(()=>{
+        this.update();
+      });
+    }
+    get currentPage(): number {
+      return this.ps.getPagination().currentPage;
+    }
+    get pages(): number {
+      return this.ps.getPagination().pages;
+    }
+    get show(): number {
+      return this.ps.getPagination().show;
+    }
+    get records(): number {
+      return this.ps.getPagination().records;
+    }
 
-  ngOnDestroy():void{
-    this.ps.changePage(1);
+    
+    ngOnDestroy():void{
+      this.ps.changePage(1);
   }
 
   update(){
     console.log("updated pagination");
     
-    const pagination = this.ps.getPagination();
-    this.currentPage = pagination.currentPage;
-    this.pages = pagination.pages;
-    this.show = pagination.show;
-    this.records = pagination.records;
+    // const pagination = this.ps.getPagination();
+    // this.currentPage = pagination.currentPage;
+    // this.pages = pagination.pages;
+    // this.show = pagination.show;
+    // this.records = pagination.records;
   }
 
   onNextPage(){
