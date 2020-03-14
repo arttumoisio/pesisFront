@@ -1,16 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { KyselyApu } from 'src/app/models/kyselyApu.model';
 import { KyselyApuService } from 'src/app/services/kysely-apu.service';
 import { DotnetRESTservice } from 'src/app/services/dotnetAPI.service';
 import { DataService } from 'src/app/services/dataservice.service';
+import { SortService } from 'src/app/services/sort.service';
 
 @Component({
   selector: 'app-pelaaja-form',
   templateUrl: './pelaaja-form.component.html',
   styleUrls: ['./pelaaja-form.component.css']
 })
-export class PelaajaFormComponent implements OnInit {
+export class PelaajaFormComponent implements OnInit, OnDestroy {
 
   reactiveKyselyForm: FormGroup;
 
@@ -21,6 +22,7 @@ export class PelaajaFormComponent implements OnInit {
 
   constructor(
     private kyselyService: KyselyApuService,
+    private ss: SortService,
     private dotnetApi: DotnetRESTservice,
     private dataService: DataService
     ) {}
@@ -46,6 +48,10 @@ export class PelaajaFormComponent implements OnInit {
     this.onSubmit();
   }
 
+  ngOnDestroy(){
+    this.ss.resetSortParams();
+  }
+
 
   onLisaaSuodattimia() {
     if (this.lisaaSuodattimia) {
@@ -57,9 +63,9 @@ export class PelaajaFormComponent implements OnInit {
 
 
   onSubmit() {
-    this.dataService.startLoading();
     this.submitted = true;
     console.log(this.reactiveKyselyForm.value);
+    this.dataService.startLoading();
     this.dotnetApi.onHaePelaajat(this.reactiveKyselyForm.value)
     .subscribe( (responseData => {
         const data = [];

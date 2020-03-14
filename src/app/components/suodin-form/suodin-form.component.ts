@@ -26,6 +26,7 @@ export class SuodinFormComponent implements OnInit {
       column: this.formBuilder.control('')
     });
     this.dataService.dataChangedEmitter.subscribe(()=>{
+      console.log('suodin-form sai');
       this.otsikot = this.dataService.getOtsikot();
     });
   }
@@ -39,7 +40,7 @@ export class SuodinFormComponent implements OnInit {
         operator:'',
         column:column}
     );
-    this.dataService.dataChangedEmitter.emit();
+    this.fs.filterEmitter.emit();
   }
 
   get strings() {
