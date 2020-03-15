@@ -18,8 +18,17 @@ export class FilterFormComponent implements OnInit, OnDestroy {
   ];
 
   filterForm: FormGroup;
-  get intFilters() {return this.fs.getIntFilters();}
-  get otsikot(): string[] {return this.dataService.getOtsikot();}
+  get intFilters() : {string:string; operator:string; column:string;}[] {
+    return this.fs.getIntFilters();
+  }
+  get otsikot(): string[] {
+    const otsikot: string[] = this.dataService.getOtsikot().slice();
+    this.intFilters.map((used)=>{
+      const i = otsikot.findIndex(otsikko=>otsikko===used.column);
+      if (i != -1 ) otsikot.splice(i,1);
+    });
+    return otsikot;
+  }
 
   constructor(private dataService: DataService,
               private formBuilder: FormBuilder,
@@ -38,15 +47,33 @@ export class FilterFormComponent implements OnInit, OnDestroy {
   }
 
   onLisaaSuodatin() {
-    if (String(this.filterForm.value.string) == "") {
+    if (String(this.filterForm.value.column) == "" ||
+        String(this.filterForm.value.operator) == "" ||
+        String(this.filterForm.value.string) == "" 
+    ) {
+      console.log("Form invalid!");
       return;
     }
     this.fs.addIntFilter(this.filterForm.value);
+    this.setSarake();
   }
   
+  setSarake(){
+
+    if ( this.filterForm) {
+      this.filterForm.reset();
+      this.filterForm.setValue({
+        column:this.otsikot[0],
+        operator:">=",
+        string:""
+      });
+    };
+  }
+
   removeFilter(filter: {string:string;operator:string;column:string;}){
     // console.log('remove filter');
     this.fs.removeIntFilter(filter);
+    this.setSarake();
   }
 
   get column() {
