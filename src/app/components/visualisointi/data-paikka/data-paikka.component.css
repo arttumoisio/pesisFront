@@ -90,8 +90,8 @@ td.sticky {
   max-width: 100px;
 }
 th{
-  min-width: 75px;
-  max-width: 75px;
+  min-width: 85px;
+  max-width: 85px;
 }
 th:last-child{
   min-width: 75px;

@@ -43,9 +43,9 @@ export class SortPipe implements PipeTransform {
 
   transform(data: object[], col='', rev='' ): object[] {
     if(!data){return [];}
-    console.log(data.length)
     this.workerSort(data);
-    console.log(this.returnData.length);
+    // console.log(data.length)
+    // console.log(this.returnData.length);
     return this.returnData;
   }
 }

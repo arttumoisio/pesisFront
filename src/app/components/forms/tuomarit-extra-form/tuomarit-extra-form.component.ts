@@ -15,8 +15,6 @@ export class TuomaritExtraFormComponent implements OnInit {
   get apu(): KyselyApu { return this.kas.kyselyData;}
 
   constructor(private kas: KyselyApuService) {
-    console.log(kas.kyselyData.lukkarit);
-    
    }
 
   ngOnInit(): void {

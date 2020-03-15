@@ -38,7 +38,7 @@ export class FilterFormComponent implements OnInit, OnDestroy {
   }
 
   onSuodata () {
-    console.log('Sent', this.filterForm.value);
+    // console.log('Sent', this.filterForm.value);
     this.fs.addIntFilter(this.filterForm.value);
   }
 
@@ -47,8 +47,7 @@ export class FilterFormComponent implements OnInit, OnDestroy {
   }
   
   removeFilter(filter: {string:string;operator:string;column:string;}){
-    console.log('remove filter');
-    
+    // console.log('remove filter');
     this.fs.removeIntFilter(filter);
   }
 

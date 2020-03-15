@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { PelaajatComponent } from './components/pelaajat/pelaajat.component';
-import { JoukkueetComponent } from './components/joukkueet/joukkueet.component';
-import { MVPelaajatComponent } from './components/mvpelaajat/mvpelaajat.component';
-import { MVJoukkueetComponent } from './components/mvjoukkueet/mvjoukkueet.component';
-import { TuomaritComponent } from './components/tuomarit/tuomarit.component';
+import { PelaajatComponent } from './components/vanhat/pelaajat/pelaajat.component';
+import { JoukkueetComponent } from './components/vanhat/joukkueet/joukkueet.component';
+import { MVPelaajatComponent } from './components/views/mvpelaajat/mvpelaajat.component';
+import { MVJoukkueetComponent } from './components/views/mvjoukkueet/mvjoukkueet.component';
+import { TuomaritComponent } from './components/views/tuomarit/tuomarit.component';
 
 
 const routes: Routes = [

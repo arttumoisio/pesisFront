@@ -34,6 +34,7 @@ export class FilterService {
         column:filtersObj.columns[i],
       });
     });
+    this.filters = this.filters.slice();
     
   }
 
@@ -47,18 +48,19 @@ export class FilterService {
         column:intFiltersObj.columns[i],
       });
     });
-    
+    this.filters = this.filters.slice();
   }
 
   
   setIntFilters(filters:{string:string;operator:string;column:string;}[]):void{
     this.filters.splice(1);
     this.filters.concat(filters);
+    this.filters = this.filters.slice();
     
   }
   addIntFilter(filter:{string:string;operator:string;column:string;}):void{
     this.filters.push(filter);
-    
+    this.filters = this.filters.slice();
   }
   removeIntFilter(filter:{string:string;operator:string;column:string;}):void{
     let index: number = this.filters.findIndex((value)=>{
@@ -68,12 +70,12 @@ export class FilterService {
       return;
     }
     this.filters.splice(index,1);
-    
-    
+    this.filters = this.filters.slice();
   }
   
   setStrFilter(filter:{string:string;operator:string;column:string;}):void{
     this.filters[0] = filter;
+    this.filters = this.filters.slice();
     
   }
 

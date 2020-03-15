@@ -1,18 +1,19 @@
-import { Component, OnInit } from '@angular/core';
-import { KyselyApuService } from 'src/app/services/kysely-apu.service';
-import { SortService } from 'src/app/services/sort.service';
-import { DotnetRESTservice } from 'src/app/services/dotnetAPI.service';
-import { DataService } from 'src/app/services/dataservice.service';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { KyselyApu } from 'src/app/models/kyselyApu.model';
+import { KyselyApuService } from 'src/app/services/kysely-apu.service';
+import { DataService } from 'src/app/services/dataservice.service';
+import { DotnetRESTservice } from 'src/app/services/dotnetAPI.service';
+import { SortService } from 'src/app/services/sort.service';
 import { FilterService } from 'src/app/services/filter.service';
 
 @Component({
-  selector: 'app-tuomari-form',
-  templateUrl: './tuomari-form.component.html',
-  styleUrls: ['./tuomari-form.component.css']
+  selector: 'app-joukkue-form',
+  templateUrl: './joukkue-form.component.html',
+  styleUrls: ['./joukkue-form.component.css']
 })
-export class TuomariFormComponent implements OnInit {
+export class JoukkueFormComponent implements OnInit, OnDestroy {
+
   reactiveKyselyForm: FormGroup;
 
   lisaaSuodattimia = false; // in production this is: false;
@@ -39,9 +40,10 @@ export class TuomariFormComponent implements OnInit {
         [Validators.min(minKausi), Validators.max(maxKausi)]
       ),
       vuosittain: new FormControl(true),
-      kotijoukkue: new FormControl(''),
-      vierasjoukkue: new FormControl(''),
-      lukkari: new FormControl(''),
+      joukkue: new FormControl(''),
+      paikka:   new FormControl(''),
+      vastustaja:   new FormControl(''),
+      tulos:   new FormControl(''),
     });
     this.onSubmit();
   }
@@ -59,8 +61,8 @@ export class TuomariFormComponent implements OnInit {
 
   onSubmit() {
     this.ds.startLoading();
-    console.log(this.reactiveKyselyForm.value);
-    this.dotnetApi.onHaeTuomarit(this.reactiveKyselyForm.value)
+    // console.log(this.reactiveKyselyForm.value);
+    this.dotnetApi.onHaeJoukkueet(this.reactiveKyselyForm.value)
     .subscribe((responseData: object[]) => {
         const data = [];
         responseData.map((elem)=>{data.push(elem)});

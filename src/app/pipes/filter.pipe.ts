@@ -13,7 +13,6 @@ export class FilterPipe implements PipeTransform {
               private ps: PaginatorService,
               private ds: DataService
               ){
-                
               }
 
   rowThatIncludes(rivi: object,value: string):boolean{
@@ -60,25 +59,13 @@ export class FilterPipe implements PipeTransform {
     return data.filter(item => String(item[col]).toLowerCase() !== str.toLowerCase());
   }
 
-  transform(data: object[], filters:  {strings:string[];operators:string[];columns:string[];}  = undefined): object[] {
-    console.log("filterpipe");
+  transform(data: object[], filters:  any  = undefined): object[] {
     
-    let strings: string[] = [];
-    let operators: string[] = [];
-    let columns: string[] = [];
-    if (!filters) {
-      strings = this.fs.getFiltersObj().strings;
-      operators = this.fs.getFiltersObj().operators;
-      columns= this.fs.getFiltersObj().columns;
-    } else {
-      strings = filters.strings;
-      operators = filters.operators;
-      columns= filters.columns;
-    }
+    let strings: string[]   = this.fs.getFiltersObj().strings;
+    let operators: string[] = this.fs.getFiltersObj().operators;
+    let columns: string[]   = this.fs.getFiltersObj().columns;
 
-    if (!data) {
-      return [];
-    }
+    if (!data) {return [];}
     if (strings.length === 0 || columns.length === 0) {
       return data;
     }
@@ -117,7 +104,7 @@ export class FilterPipe implements PipeTransform {
       }
       
     }
-    console.log(data.length);
+    console.log("Filterpipe:",data.length);
     this.ps.setRecords(data.length);
     // if(data.length<=0){this.ds.setErrorMsg("Suodatit kaikki tulokset pois.");}
     return data;

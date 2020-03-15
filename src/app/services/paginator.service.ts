@@ -1,4 +1,4 @@
-import { Injectable, EventEmitter, OnDestroy, OnInit } from '@angular/core';
+import { Injectable} from '@angular/core';
 import { DataService } from './dataservice.service';
 
 @Injectable({
@@ -12,26 +12,26 @@ export class PaginatorService {
     records:0,
     firstRow:0
   };
-
-  paginatorEmitter = new EventEmitter();
   
   constructor(private ds: DataService) {
     this.setRecords(this.ds.getLength());
   }
 
   updatePagination(){
-    console.log("update pagination");
-    
     this.setRecords(this.ds.getLength());
-
   }
 
   resetPagination():void{
     this.pagination = {currentPage:1,pages:1,show:40,records:1,firstRow:0};
+    this.update();
   }
 
   getPagination():{currentPage:number; pages:number; show:number; records:number; firstRow:number;}{
     return this.pagination;
+  }
+
+  private update(){
+    this.pagination = {...this.pagination}
   }
 
   setPagination(start: number = 1, records: number, show: number):void{
@@ -42,6 +42,7 @@ export class PaginatorService {
     if (this.pagination.currentPage*this.pagination.show > Number(records)) {
       this.pagination.currentPage = this.pagination.pages;
     }
+    this.update()
   }
 
   setRecords(records:number): void{
@@ -53,7 +54,7 @@ export class PaginatorService {
 
   private setFirstRow(){
     this.pagination.firstRow = (this.pagination.currentPage-1)*this.pagination.show;
-    console.log("first row set to: ",this.pagination.firstRow)
+    this.update();
   }
 
   changeShowCount(show:number):void{

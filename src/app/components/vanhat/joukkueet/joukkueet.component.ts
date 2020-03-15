@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { KyselyApu } from '../../models/kyselyApu.model';
+import { KyselyApu } from 'src/app/models/kyselyApu.model';
 import { KyselyApuService } from 'src/app/services/kysely-apu.service';
 import { DotnetRESTservice } from 'src/app/services/dotnetAPI.service';
 
@@ -45,11 +45,11 @@ export class JoukkueetComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.reactiveKyselyForm.value);
+    // console.log(this.reactiveKyselyForm.value);
   }
 
   onNaytaData() {
     this.naytaData = !this.naytaData;
-    console.log(this.naytaData);
+    // console.log(this.naytaData);
   }
 }

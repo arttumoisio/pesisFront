@@ -48,7 +48,7 @@ export class DotnetRESTservice {
   }
 
   onHaeTuomarit(formData: object) {
-    console.log("tuomariform before fetch", formData);
+    // console.log("tuomariform before fetch", formData);
     let params = new HttpParams();
     for (const elem in formData) {
       if (elem) {
@@ -73,7 +73,7 @@ export class DotnetRESTservice {
     params.append("kaudetAlku",String(vuosiAlkaen));
     params.append("kaudetLoppu",String(vuosiLoppuen));
     const getUrl = this.serverUrl + '/apu/lukkarit';
-    console.log("kohta lukkareiteteasd");
+    // console.log("kohta lukkareiteteasd");
     
     return this.http.get(getUrl);
   }

@@ -67,7 +67,7 @@ export class PelaajaFormComponent implements OnInit, OnDestroy {
 
 
   onSubmit() {
-    console.log(this.reactiveKyselyForm.value);
+    // console.log(this.reactiveKyselyForm.value);
     this.ds.startLoading();
     this.dotnetApi.onHaePelaajat(this.reactiveKyselyForm.value)
     .subscribe( (responseData => {

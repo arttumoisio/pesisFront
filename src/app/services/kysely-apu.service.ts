@@ -115,7 +115,7 @@ export class KyselyApuService {
       data.map((elem)=>{this.kyselyData.joukkueet.push(String(elem['joukkue']));});
     });
     dotnetApi.haeLukkaritApu().subscribe((data: object[])=>{
-      console.log("lukkarit tuli", data);
+      // console.log("lukkarit tuli", data);
       
       this.kyselyData.lukkarit = [];
       data.map((elem)=>{this.kyselyData.lukkarit.push(String(elem['lukkari']));});

@@ -13,9 +13,6 @@ function sortArrayOfObjects(data: object[], col: string, reversed:boolean ) {
 }
 
 addEventListener('message', ({ data }) => {
-  console.log(data.data.length)
   sortArrayOfObjects(data.data,data.sarake,data.reverse);
-  console.log(data.data.length)
-  
   postMessage(data.data);
 });

@@ -79,7 +79,7 @@ export class DataService {
       this.loading = false;
     } else {
       console.log(data);
-      console.log(Object.keys(data[0]).length);
+      // console.log(Object.keys(data[0]).length);
       this.data = data;
       this.length = data.length;
     }
