@@ -28,7 +28,7 @@ export class DotnetRESTservice {
       if (elem) {
         const param: string = elem;
         const value: string = formData[elem].toString();
-        params = params.append(param, value);
+        params = params = params.append(param, value);
       }
     }
     return this.http.get(this.pelaajatUrl, {params});
@@ -41,7 +41,7 @@ export class DotnetRESTservice {
       if (elem) {
         const param: string = elem;
         const value: string = formData[elem].toString();
-        params = params.append(param, value);
+        params = params = params.append(param, value);
       }
     }
     return this.http.get(this.joukkueetUrl, {params});
@@ -54,35 +54,46 @@ export class DotnetRESTservice {
       if (elem) {
         const param: string = elem;
         const value: string = formData[elem].toString();
-        params = params.append(param, value);
+        // console.log("tuomarit param,value", param, value);
+        params = params = params.append(param, value);
       }
     }
+    // console.log("TUomariparams: ", params);
+    
     return this.http.get(this.tuomaritUrl, {params});
   }
+  
+  haeJoukkueetApu(vuosiAlkaen:string = "2000", vuosiLoppuen:string = "2019") {
+    // console.log("jouk", vuosiAlkaen, vuosiLoppuen);
 
-  haeJoukkueetApu(vuosiAlkaen = 2000, vuosiLoppuen = 2019) {
-    const params = new HttpParams();
-    params.append("kaudetAlku",String(vuosiAlkaen));
-    params.append("kaudetLoppu",String(vuosiLoppuen));
+    
+    let params = new HttpParams();
+    params = params.append("kaudetAlku",vuosiAlkaen.toString());
+    params = params.append("kaudetLoppu",vuosiLoppuen.toString());
     const getUrl = this.serverUrl + '/apu/joukkueet';
-
-    return this.http.get(getUrl);
+    
+    // console.log("joukkueet params:", params);
+    return this.http.get(getUrl, {params});
   }
-  haeLukkaritApu(vuosiAlkaen = 2000, vuosiLoppuen = 2019) {
-    const params = new HttpParams();
-    params.append("kaudetAlku",String(vuosiAlkaen));
-    params.append("kaudetLoppu",String(vuosiLoppuen));
+  haeLukkaritApu(vuosiAlkaen:string = "2000", vuosiLoppuen:string = "2019") {
+    // console.log("lukk", vuosiAlkaen, vuosiLoppuen);
+    let params = new HttpParams();
+    params = params.append("kaudetAlku",vuosiAlkaen.toString());
+    params = params.append("kaudetLoppu",vuosiLoppuen.toString());
     const getUrl = this.serverUrl + '/apu/lukkarit';
     // console.log("kohta lukkareiteteasd");
-    
-    return this.http.get(getUrl);
+    // console.log("lukkari params:", params);
+    return this.http.get(getUrl, {params});
   }
   haeVuodetApu() {
     const getUrl = this.serverUrl + '/apu/vuodet';
     return this.http.get(getUrl);
   }
-  haeSarjaVaiheApu(vuosiAlkaen = 2000, vuosiLoppuen = 2019) {
+  haeSarjaVaiheApu(vuosiAlkaen:string = "2000", vuosiLoppuen:string = "2019") {
+    let params = new HttpParams();
+    params = params.append("kaudetAlku",vuosiAlkaen.toString());
+    params = params.append("kaudetLoppu",vuosiLoppuen.toString());
     const getUrl = this.serverUrl + '/apu/sarjavaihe';
-    return this.http.get(getUrl);
+    return this.http.get(getUrl, {params});
   }
 }

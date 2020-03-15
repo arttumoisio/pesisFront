@@ -78,7 +78,7 @@ export class DataService {
       this.dataChangedEmitter.emit();
       this.loading = false;
     } else {
-      console.log(data);
+      // console.log(data);
       // console.log(Object.keys(data[0]).length);
       this.data = data;
       this.length = data.length;

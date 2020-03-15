@@ -67,5 +67,16 @@ export class TuomariFormComponent implements OnInit {
         responseData.map((elem)=>{data.push(elem)});
         this.ds.setRawData(data);
     });
+    const alku: string = this.reactiveKyselyForm.value.kaudetAlku;
+    const loppu: string = this.reactiveKyselyForm.value.kaudetLoppu;
+    
+    this.kyselyService.haeLukkarit(
+      alku,
+      loppu
+      );
+    this.kyselyService.haeJoukkueet(
+      alku,
+      loppu
+      );
   }
 }

@@ -110,26 +110,31 @@ export class KyselyApuService {
 
   haeVuodet(){
     this.dotnetApi.haeVuodetApu().subscribe((data: object[]) => {
+      // console.log("vuodet tuli", data);
       this.kyselyData.kaudet = [];
       data.map((elem)=>{this.kyselyData.kaudet.push(Number(elem['kausi']));});
     });
   }
-  haeSarjavaiheet(alku:number = 1998, loppu:number = 2090){
+  haeSarjavaiheet(alku:any = "1998", loppu:any = "2090"){
     this.dotnetApi.haeSarjaVaiheApu(alku,loppu).subscribe((data: object[]) => {
+      // console.log("sarjavaiheet tuli", data);
       this.kyselyData.peliTyypit = [];
       data.map((elem)=>{this.kyselyData.peliTyypit.push(String(elem['sarjavaihe']));});
     });
   }
-  haeJoukkueet(alku:number = 1998, loppu:number = 2090){
+  haeJoukkueet(alku:any = "1998", loppu:any = "2090"){
+    // console.log("haetaan joukkueet",this.kyselyData.joukkueet.length, alku,loppu);
     this.dotnetApi.haeJoukkueetApu(alku,loppu).subscribe((data: object[]) => {
+      // console.log("joukkueet tuli", data);
       this.kyselyData.joukkueet = [];
       data.map((elem)=>{this.kyselyData.joukkueet.push(String(elem['joukkue']));});
     });
   }
-  haeLukkarit(alku:number = 1998, loppu:number = 2090){
+  haeLukkarit(alku:any = "1998", loppu:any = "2090"){
+    // console.log("haetaan lukkarit",this.kyselyData.lukkarit.length, alku,loppu);
+    
     this.dotnetApi.haeLukkaritApu(alku,loppu).subscribe((data: object[])=>{
       // console.log("lukkarit tuli", data);
-      
       this.kyselyData.lukkarit = [];
       data.map((elem)=>{this.kyselyData.lukkarit.push(String(elem['lukkari']));});
     });
