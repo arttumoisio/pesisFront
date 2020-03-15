@@ -1,15 +1,14 @@
-<div class=" justify-content-end" [ngClass]="{'piilota': 0>=records,
-                                              'd-flex': records>0}">
+<div class="d-flex justify-content-end">
 <div class="col-2 leftbuttons buttons">
 
     <button 
     class="btn btn-primary" 
-    [disabled]="currentPage===1"
+    [disabled]="1>=currentPage"
     (click)="onFirstPage()"
     >&lt;&lt;</button>
     <button 
     class="btn btn-primary" 
-    [disabled]="currentPage===1"
+    [disabled]="1>=currentPage"
     (click)="onPreviousPage()"
     >&lt;</button>
 </div>
