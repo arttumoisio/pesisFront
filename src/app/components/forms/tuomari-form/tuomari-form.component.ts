@@ -38,10 +38,11 @@ export class TuomariFormComponent implements OnInit {
         maxKausi, 
         [Validators.min(minKausi), Validators.max(maxKausi)]
       ),
-      vuosittain: new FormControl(true),
+      vuosittain: new FormControl(false),
       kotijoukkue: new FormControl(''),
       vierasjoukkue: new FormControl(''),
       lukkari: new FormControl(''),
+      STPT: new FormControl(''),
     });
     this.onSubmit();
   }

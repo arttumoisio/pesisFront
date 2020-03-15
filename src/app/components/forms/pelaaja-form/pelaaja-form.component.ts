@@ -41,7 +41,7 @@ export class PelaajaFormComponent implements OnInit, OnDestroy {
         maxKausi, 
         [Validators.min(minKausi), Validators.max(maxKausi)]
       ),
-      vuosittain:   new FormControl(true),
+      vuosittain:   new FormControl(false),
       paikka:   new FormControl(''),
       joukkue:   new FormControl(''),
       vastustaja:   new FormControl(''),
