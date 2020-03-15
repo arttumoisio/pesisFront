@@ -102,19 +102,32 @@ export class KyselyApuService {
   };
 
   constructor(private dotnetApi: DotnetRESTservice) {
-    dotnetApi.haeVuodetApu().subscribe((data: object[]) => {
+    this.haeVuodet();
+    this.haeJoukkueet();
+    this.haeSarjavaiheet();
+    this.haeLukkarit();
+  }
+
+  haeVuodet(){
+    this.dotnetApi.haeVuodetApu().subscribe((data: object[]) => {
       this.kyselyData.kaudet = [];
       data.map((elem)=>{this.kyselyData.kaudet.push(Number(elem['kausi']));});
     });
-    dotnetApi.haeSarjaVaiheApu().subscribe((data: object[]) => {
+  }
+  haeSarjavaiheet(alku:number = 1998, loppu:number = 2090){
+    this.dotnetApi.haeSarjaVaiheApu(alku,loppu).subscribe((data: object[]) => {
       this.kyselyData.peliTyypit = [];
       data.map((elem)=>{this.kyselyData.peliTyypit.push(String(elem['sarjavaihe']));});
     });
-    dotnetApi.haeJoukkueetApu().subscribe((data: object[]) => {
+  }
+  haeJoukkueet(alku:number = 1998, loppu:number = 2090){
+    this.dotnetApi.haeJoukkueetApu(alku,loppu).subscribe((data: object[]) => {
       this.kyselyData.joukkueet = [];
       data.map((elem)=>{this.kyselyData.joukkueet.push(String(elem['joukkue']));});
     });
-    dotnetApi.haeLukkaritApu().subscribe((data: object[])=>{
+  }
+  haeLukkarit(alku:number = 1998, loppu:number = 2090){
+    this.dotnetApi.haeLukkaritApu(alku,loppu).subscribe((data: object[])=>{
       // console.log("lukkarit tuli", data);
       
       this.kyselyData.lukkarit = [];
