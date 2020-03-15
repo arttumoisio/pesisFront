@@ -1,0 +1,72 @@
+<div [formGroup]="parentForm" class="row">
+    <div class="my-2 col-md-3 col-6">
+        <label for="kotijoukkue">Kotijoukkue</label>
+        <select
+        formControlName="kotijoukkue"
+        class="custom-select"
+        type="text" 
+        id="kotijoukkue" 
+        name="kotijoukkue">
+        <option 
+        value="">
+        Mikä tahansa
+        </option>
+        <option 
+        value="Eritelty">
+        Eritelty
+        </option>
+        <option 
+        *ngFor="let joukkue of apu['joukkueet']" 
+        [value]="joukkue">
+        {{ joukkue }}
+        </option>
+        </select>
+      </div>
+    <div class="my-2 col-md-3 col-6">
+        <label for="vierasjoukkue">Vierasjoukkue</label>
+        <select
+        formControlName="vierasjoukkue"
+        class="custom-select"
+        type="text" 
+        id="vierasjoukkue" 
+        name="vierasjoukkue">
+        <option 
+        value="">
+        Mikä tahansa
+        </option>
+        <option 
+        value="Eritelty">
+        Eritelty
+        </option>
+        <option 
+        *ngFor="let joukkue of apu['joukkueet']" 
+        [value]="joukkue">
+        {{ joukkue }}
+        </option>
+        </select>
+      </div>
+    <div class="my-2 col-md-3 col-6">
+        <label for="lukkari">Lukkari</label>
+        <select
+        formControlName="lukkari"
+        class="custom-select"
+        type="text" 
+        id="lukkari" 
+        name="lukkari">
+        <option 
+        value="">
+        Mikä tahansa
+        </option>
+        <option 
+        value="Eritelty">
+        Eritelty
+        </option>
+        <option 
+        *ngFor="let lukkari of apu['lukkarit']" 
+        [value]="lukkari">
+        {{ lukkari }}
+        </option>
+        </select>
+      </div>
+    <app-filter-form class="mt-2 mb-4 col-md-6 col-12"></app-filter-form>
+    </div>

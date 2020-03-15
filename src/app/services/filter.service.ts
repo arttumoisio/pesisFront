@@ -13,13 +13,16 @@ export class FilterService {
   }];
   filterEmitter = new EventEmitter();
 
-  constructor(private ds: DataService
-    ) {
-    
+  resetFilters():void{
+    this.filters = [{
+      string:'',
+      operator:'',
+      column:'',
+    }];
   }
 
-  emit(){
-    this.filterEmitter.emit();
+  constructor(private ds: DataService
+    ) { 
   }
 
   setFilters(filtersObj:{strings:string[];operators:string[];columns:string[];} ):void {
@@ -31,7 +34,7 @@ export class FilterService {
         column:filtersObj.columns[i],
       });
     });
-    this.emit();
+    
   }
 
   setIntFiltersObj(intFiltersObj:{strings:string[];operators:string[];columns:string[];} ):void {
@@ -44,18 +47,18 @@ export class FilterService {
         column:intFiltersObj.columns[i],
       });
     });
-    this.emit();
+    
   }
 
   
   setIntFilters(filters:{string:string;operator:string;column:string;}[]):void{
     this.filters.splice(1);
     this.filters.concat(filters);
-    this.emit();
+    
   }
   addIntFilter(filter:{string:string;operator:string;column:string;}):void{
     this.filters.push(filter);
-    this.emit();
+    
   }
   removeIntFilter(filter:{string:string;operator:string;column:string;}):void{
     let index: number = this.filters.findIndex((value)=>{
@@ -65,13 +68,13 @@ export class FilterService {
       return;
     }
     this.filters.splice(index,1);
-    this.emit();
+    
     
   }
   
   setStrFilter(filter:{string:string;operator:string;column:string;}):void{
     this.filters[0] = filter;
-    this.emit();
+    
   }
 
   getFiltersObj() : {strings:string[];operators:string[];columns:string[];} {//{string:string;operator:string;column:string;}[] {

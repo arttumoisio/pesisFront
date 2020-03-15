@@ -1,16 +1,17 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { KyselyApu } from 'src/app/models/kyselyApu.model';
 import { KyselyApuService } from 'src/app/services/kysely-apu.service';
-import { FormGroup } from '@angular/forms';
 
 @Component({
-  selector: 'app-extra-fields',
-  templateUrl: './extra-fields.component.html',
-  styleUrls: ['./extra-fields.component.css']
+  selector: 'app-basic-form',
+  templateUrl: './basic-form.component.html',
+  styleUrls: ['./basic-form.component.css']
 })
-export class ExtraFieldsComponent implements OnInit {
-
+export class BasicFormComponent implements OnInit {
+  
   @Input() parentForm: FormGroup;
+  @Input() lisaaSuodattimia: boolean;
 
   get apu(): KyselyApu { return this.kas.kyselyData;}
 
@@ -18,5 +19,4 @@ export class ExtraFieldsComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
 }

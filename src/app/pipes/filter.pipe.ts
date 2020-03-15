@@ -2,6 +2,7 @@
 import { Pipe, PipeTransform, Injectable } from '@angular/core';
 import { FilterService } from '../services/filter.service';
 import { PaginatorService } from '../services/paginator.service';
+import { DataService } from '../services/dataservice.service';
 
 @Pipe({
   name: 'filter'
@@ -9,7 +10,8 @@ import { PaginatorService } from '../services/paginator.service';
 export class FilterPipe implements PipeTransform {
 
   constructor(private fs: FilterService,
-              private ps: PaginatorService
+              private ps: PaginatorService,
+              private ds: DataService
               ){
                 
               }
@@ -117,6 +119,7 @@ export class FilterPipe implements PipeTransform {
     }
     console.log(data.length);
     this.ps.setRecords(data.length);
+    // if(data.length<=0){this.ds.setErrorMsg("Suodatit kaikki tulokset pois.");}
     return data;
   }
 }

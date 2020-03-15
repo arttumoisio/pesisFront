@@ -9,8 +9,7 @@ import { FilterService } from 'src/app/services/filter.service';
   styleUrls: ['./filter-form.component.css']
 })
 export class FilterFormComponent implements OnInit, OnDestroy {
-  otsikot: string[];
-  voiPoistaa: boolean = false;
+  
   operaattorit: string[] = [
     ">=",
     "<=",
@@ -19,34 +18,23 @@ export class FilterFormComponent implements OnInit, OnDestroy {
   ];
 
   filterForm: FormGroup;
-  intFilters: {
-    string: string;
-    operator: string;
-    column: string;
-  }[];
+  get intFilters() {return this.fs.getIntFilters();}
+  get otsikot(): string[] {return this.dataService.getOtsikot();}
 
   constructor(private dataService: DataService,
               private formBuilder: FormBuilder,
               private fs: FilterService) { }
 
   ngOnInit(): void {
-    this.otsikot = this.dataService.getOtsikot();
 
     this.filterForm = this.formBuilder.group({
       column: this.formBuilder.control('Ottelut',[Validators.required]),
       operator: this.formBuilder.control('>=',[Validators.required]),
       string: this.formBuilder.control('',[Validators.required,Validators.minLength(1)],),
-
-    });
-    this.fs.filterEmitter.subscribe(()=>{
-      console.log('filterform sai');
-      this.otsikot = this.dataService.getOtsikot();
-      this.intFilters = this.fs.getIntFilters();
     });
   }
   ngOnDestroy(){
     this.fs.setIntFilters([]);
-    this.fs.filterEmitter.unsubscribe();
   }
 
   onSuodata () {
@@ -55,7 +43,6 @@ export class FilterFormComponent implements OnInit, OnDestroy {
   }
 
   onLisaaSuodatin() {
-    this.voiPoistaa = true;
     this.onSuodata();
   }
   

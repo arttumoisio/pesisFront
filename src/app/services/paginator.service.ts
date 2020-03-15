@@ -16,11 +16,7 @@ export class PaginatorService {
   paginatorEmitter = new EventEmitter();
   
   constructor(private ds: DataService) {
-    this.updatePagination();
-    ds.dataChangedEmitter.subscribe(()=>{
-      console.log('paginator sai');
-      this.updatePagination();
-    });
+    this.setRecords(this.ds.getLength());
   }
 
   updatePagination(){
@@ -46,10 +42,10 @@ export class PaginatorService {
     if (this.pagination.currentPage*this.pagination.show > Number(records)) {
       this.pagination.currentPage = this.pagination.pages;
     }
-    this.paginatorEmitter.emit();
   }
 
-  setRecords(records:number){
+  setRecords(records:number): void{
+    if (Number(records) == this.pagination.records){return;}
     this.pagination.pages = Math.ceil(records / this.pagination.show);
     this.pagination.records = Number(records);
     this.changePage(this.pagination.currentPage);
@@ -57,7 +53,6 @@ export class PaginatorService {
 
   private setFirstRow(){
     this.pagination.firstRow = (this.pagination.currentPage-1)*this.pagination.show;
-    this.paginatorEmitter.emit();
     console.log("first row set to: ",this.pagination.firstRow)
   }
 

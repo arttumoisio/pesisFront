@@ -4,6 +4,7 @@ import { FilterService } from 'src/app/services/filter.service';
 import { SortService } from 'src/app/services/sort.service';
 import { PaginatorService } from 'src/app/services/paginator.service';
 import { TableStateService } from 'src/app/services/table-state.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-data-paikka',
@@ -12,86 +13,48 @@ import { TableStateService } from 'src/app/services/table-state.service';
 })
 export class DataPaikkaComponent implements OnInit, AfterViewInit, OnDestroy {
   
-  pagination;
-  filters;
-  jarjestetty: string;
-  reversed: boolean;
+  get pagination() {return {...this.ps.getPagination};}
+  get filters() {return this.fs.getFiltersObj();}
+  get jarjestetty(): string {return this.ss.getSortParams().sarake;}
+  get reversed(): boolean {return this.ss.getSortParams().reversed;}
+  get data() : object[] {return this.ds.getData();}
+  // data : object[];
+  get otsikot() : string[] {return this.ds.getOtsikot();}
+  get firstRow() {return this.ps.getPagination().firstRow;}
 
+  subscription: Subscription;
+  
   constructor(
     private ds: DataService,
     private fs: FilterService,
     private ss: SortService,
     private ps: PaginatorService,
     private tss: TableStateService
-    ) {}
-  
+    ) {
+      // this.data = this.ds.getData();
+      // this.subscription = this.ds.dataChangedEmitter.subscribe(()=>{
+      //   this.data = this.ds.getData();
+      // });
+  }
   
   ngOnInit() {
-    this.updateAll();
-    this.ds.dataChangedEmitter.subscribe(() => {
-      console.log('datapaikka sai');
-      this.updateData();
-    });
-    this.ss.sortEmitter.subscribe(() => {
-      this.updateSort();
-    });
-    this.ps.paginatorEmitter.subscribe(()=>{
-      this.updatePagination();
-    });
-    this.fs.filterEmitter.subscribe(()=>{
-      this.updateFilters();
-      this.updatePagination();
-    });
+    
   }
 
   ngAfterViewInit(){
     document.getElementById("viewportdiv").scrollLeft = this.tss.tableScroll;
   }
 
-  ngOnDestroy(){this.ps.resetPagination();}
-  
-  updateAll(){
-    this.updateData();
-    this.pagination = this.ps.getPagination();
-    this.filters = this.fs.getFiltersObj();
-    this.updateSort();
+  ngOnDestroy(){
+    this.ps.resetPagination();
+    // this.subscription.unsubscribe();
   }
-
-  updateData(){}
-  updateFilters(){this.filters = this.fs.getFiltersObj();}
-  updatePagination(){this.pagination = {...this.ps.getPagination()};}
-
-  updateSort(){
-    this.jarjestetty = this.ss.getSortParams().sarake;
-    this.reversed = this.ss.getSortParams().reversed;
-  }
-
-  
-  get data() : object[] {
-    return this.ds.getData();
-  }
-
-  get otsikot() : string[] {
-    return this.ds.getOtsikot();
-  }
-  get firstRow() {
-    return this.ps.getPagination().firstRow;
-  }
-  // get filters() {
-  //   return this.ps.getPagination();
-  // }
-  
-  
-
-  
   
   sortData(sarake: string) {
     console.log("Sortattava sarake:",sarake,"Reversed:", this.ss.getSortParams().reversed);
     this.ss.setSortParams(sarake);
   }
   
-
-
   offsetTop: number = undefined;
   setOffSetTopOnce(ost: number){
     if (this.offsetTop === undefined){
@@ -99,9 +62,12 @@ export class DataPaikkaComponent implements OnInit, AfterViewInit, OnDestroy {
     }
     return this.offsetTop;
   }
+
   showSticky = false;
   @HostListener('window:scroll', ['$event'])
   onScroll(event: Event) {
+    console.log("windowscroll");
+    
     const theadElem: HTMLElement = document.getElementById("tablehead");
     const {y} = theadElem.getBoundingClientRect();
     const w = window.scrollY
@@ -121,6 +87,8 @@ export class DataPaikkaComponent implements OnInit, AfterViewInit, OnDestroy {
   theadoffset: string = '0px';
   @HostListener('scroll', ['$event'])
   onTableScroll(event: Event) {
+    console.log("tablescroll");
+    
     const target = event.target as HTMLElement;
     this.theadoffset = -target.scrollLeft + 'px';
     this.tss.tableScroll = target.scrollLeft;

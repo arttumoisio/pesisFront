@@ -1,0 +1,43 @@
+<div class="row" [formGroup]="parentForm">
+
+<div class="my-2 col-6">
+    <label for="kaudetAlku">Kaudet</label>
+    <label for="kaudetLoppu" class="float-right">-</label>
+    <select formControlName="kaudetAlku"
+    class="custom-select"
+    type="text" 
+    id="kaudetAlku" 
+    name="kaudetAlku">
+      <option 
+      *ngFor="let kausi of apu['kaudet'];"
+      [value]="kausi">
+      {{kausi}}
+      </option>
+    </select>
+    
+  </div>
+  <div class="my-2 col-6">
+    
+    <div class="custom-control custom-switch float-right mb-2">
+      <input formControlName="vuosittain" 
+      type="checkbox" 
+      class="custom-control-input" 
+      id="vuosittain" 
+      name="vuosittain"
+      >
+      <label class="custom-control-label" for="vuosittain">Vuosittain</label>
+    </div>
+
+    <select formControlName="kaudetLoppu"
+    class="custom-select"
+    type="text" 
+    id="kaudetLoppu" 
+    name="kaudetLoppu">
+      <option 
+      *ngFor="let kausi of apu['kaudet'];"
+      [value]="kausi">
+      {{kausi}}
+    </option>
+    </select>
+  </div>
+</div>

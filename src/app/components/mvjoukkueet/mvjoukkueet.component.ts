@@ -8,14 +8,10 @@ import { PiilotusService } from 'src/app/services/piilotus.service';
 })
 export class MVJoukkueetComponent implements OnInit {
   
-  piilotaValikko = false;
-
   constructor (private pis: PiilotusService) {
   }
   
   ngOnInit(){
-    this.pis.piilotusEmitter.subscribe(()=>{
-      this.piilotaValikko = !this.piilotaValikko
-    });
   }
+  get piilotaValikko() : boolean {return this.pis.getPiilotus();}
 }

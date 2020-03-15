@@ -29,6 +29,11 @@ import { PaginatorService } from './services/paginator.service';
 import { DotnetRESTservice } from './services/dotnetAPI.service';
 import { KyselyApuService } from './services/kysely-apu.service';
 import { PaginatorPipe } from './pipes/paginator.pipe';
+import { TuomaritComponent } from './components/tuomarit/tuomarit.component';
+import { TuomariFormComponent } from './components/tuomari-form/tuomari-form.component';
+import { BasicFormComponent } from './components/basic-form/basic-form.component';
+import { TeamsExtraFormComponent } from './components/teams-extra-form/teams-extra-form.component';
+import { TuomaritExtraFormComponent } from './components/tuomarit-extra-form/tuomarit-extra-form.component';
 
 @NgModule({
   declarations: [
@@ -51,6 +56,11 @@ import { PaginatorPipe } from './pipes/paginator.pipe';
     ExtraFieldsComponent,
     SortPipe,
     PaginatorPipe,
+    TuomaritComponent,
+    TuomariFormComponent,
+    BasicFormComponent,
+    TeamsExtraFormComponent,
+    TuomaritExtraFormComponent,
   ],
   imports: [
     BrowserModule,

@@ -19,8 +19,7 @@ export class NavigointiComponent implements OnInit {
   onPiilotaValikko() {
     this.piilotaValikko = !this.piilotaValikko;
     this.piilotusTeksti = this.piilotaValikko ? 'Näytä Valikko' : 'Piilota Valikko';
-    
-    this.pis.piilotusEmitter.emit();
+    this.pis.togglePiilota();
   }
 
 

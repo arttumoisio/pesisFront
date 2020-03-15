@@ -4,14 +4,16 @@ import { PelaajatComponent } from './components/pelaajat/pelaajat.component';
 import { JoukkueetComponent } from './components/joukkueet/joukkueet.component';
 import { MVPelaajatComponent } from './components/mvpelaajat/mvpelaajat.component';
 import { MVJoukkueetComponent } from './components/mvjoukkueet/mvjoukkueet.component';
+import { TuomaritComponent } from './components/tuomarit/tuomarit.component';
 
 
 const routes: Routes = [
-  { path: '',   redirectTo: '/mvjoukkueet', pathMatch: 'full' },
-  {path: 'pelaajat', component: PelaajatComponent},
-  {path: 'joukkueet', component: JoukkueetComponent},
-  {path: 'mvpelaajat', component: MVPelaajatComponent},
-  {path: 'mvjoukkueet', component: MVJoukkueetComponent},
+  { path: '',   redirectTo: '/joukkueet', pathMatch: 'full' },
+  {path: 'mvpelaajat', component: PelaajatComponent},
+  {path: 'mvjoukkueet', component: JoukkueetComponent},
+  {path: 'pelaajat', component: MVPelaajatComponent},
+  {path: 'joukkueet', component: MVJoukkueetComponent},
+  {path: 'tuomarit', component: TuomaritComponent},
 
 ];
 

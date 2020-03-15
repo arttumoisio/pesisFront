@@ -1,0 +1,32 @@
+<div class="container-fluid komp">
+    <form 
+    [formGroup]="reactiveKyselyForm"
+    (ngSubmit)="onSubmit()"
+    class="form">
+      <div class="mt-2 row form-group">
+        <app-basic-form [parentForm]="reactiveKyselyForm"
+      class="my-2 col-xl-4 col-lg-4 col-md-12 col-12"></app-basic-form>
+  
+        <app-tuomarit-extra-form *ngIf="lisaaSuodattimia" [parentForm]="reactiveKyselyForm"
+        class="my-2 col-xl-8 col-lg-8 col-md-12 col-12"></app-tuomarit-extra-form>
+      </div>
+        <div class="mt-2 row form-group">
+        <div class="my-2 col-xl-2 col-lg-3 col-md-3 col-sm-6 col-6">
+          <button 
+          class="btn btn-block btn-outline-primary"
+          type="button"
+          (click)="onSubmit()">Hae</button>
+        </div>
+        <div class="my-2 col-xl-2 col-lg-3 col-md-3 col-sm-6 col-6">
+          <button 
+          type="button"
+          class="btn btn-block btn-outline-info"
+          (click)="onLisaaSuodattimia()">{{suodinTeksti}} filttereitä</button>
+        </div>
+        
+      </div>
+    
+      
+    </form>
+    </div>
+    

@@ -8,19 +8,18 @@ import { DataService } from 'src/app/services/dataservice.service';
 })
 export class SpinnerComponent implements OnInit {
 
-  loading = true;
-
   // imageUrl = 'https://karhupesis.fi/wp-content/uploads/2018/05/511_harrastuspallo-2.png';
   // imageUrl = 'https://upload.wikimedia.org/wikipedia/fi/thumb/0/07/Superpesis_vanha_logo.svg/320px-Superpesis_vanha_logo.svg.png';
   imageUrl = 'https://freesvg.org/img/Vintage-Baseball-Player-Illustration.png';
 
-  constructor(private dataService: DataService) {
-    dataService.dataLoadingEmitter.subscribe((loading) => {
-      this.loading = loading;
-    });
+  constructor(private ds: DataService) {
   }
 
   ngOnInit(): void {
+  }
+
+  get loading():boolean {
+    return this.ds.getLoading();
   }
 
 }

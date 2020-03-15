@@ -86,44 +86,39 @@ export class KyselyApuService {
   ],
 
   tulos: [
+    'Eritelty',
     'Voitto',
     'Tappio',
     '3p Voitto',
     '2p Voitto',
     '1p Tappio',
     '0p Tappio',
+  ],
+
+  lukkarit: [
     'Eritelty',
-  ]
+  ],
 
   };
 
   constructor(private dotnetApi: DotnetRESTservice) {
-    dotnetApi.haeJoukkueetApu().subscribe(data => {
-      const joukkueet: string[] = [];
-      for (const elem in data) {
-        if (elem) {
-          joukkueet.push(data[elem]['joukkue']);
-        }
-      }
-      this.kyselyData.joukkueet = joukkueet;
+    dotnetApi.haeVuodetApu().subscribe((data: object[]) => {
+      this.kyselyData.kaudet = [];
+      data.map((elem)=>{this.kyselyData.kaudet.push(Number(elem['kausi']));});
     });
-    dotnetApi.haeVuodetApu().subscribe(data => {
-      const kaudet: number[] = [];
-      for (const elem in data) {
-        if (elem) {
-          kaudet.push(Number(data[elem]['kausi']));
-        }
-      }
-      this.kyselyData.kaudet = kaudet;
+    dotnetApi.haeSarjaVaiheApu().subscribe((data: object[]) => {
+      this.kyselyData.peliTyypit = [];
+      data.map((elem)=>{this.kyselyData.peliTyypit.push(String(elem['sarjavaihe']));});
     });
-    dotnetApi.haeSarjaVaiheApu().subscribe(data => {
-      const vaiheet: string[] = [];
-      for (const elem in data) {
-        if (elem) {
-          vaiheet.push(String(data[elem]['sarjavaihe']));
-        }
-      }
-      this.kyselyData.peliTyypit = vaiheet;
+    dotnetApi.haeJoukkueetApu().subscribe((data: object[]) => {
+      this.kyselyData.joukkueet = [];
+      data.map((elem)=>{this.kyselyData.joukkueet.push(String(elem['joukkue']));});
+    });
+    dotnetApi.haeLukkaritApu().subscribe((data: object[])=>{
+      console.log("lukkarit tuli", data);
+      
+      this.kyselyData.lukkarit = [];
+      data.map((elem)=>{this.kyselyData.lukkarit.push(String(elem['lukkari']));});
     });
   }
 }

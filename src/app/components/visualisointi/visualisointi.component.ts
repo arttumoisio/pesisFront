@@ -8,23 +8,21 @@ import { PiilotusService } from 'src/app/services/piilotus.service';
   styleUrls: ['./visualisointi.component.css']
 })
 export class VisualisointiComponent implements OnInit {
-  errorMessage = '';
-  loading = true;
-  piilotaValikko = false;
 
   constructor (private ds: DataService,
     private pis: PiilotusService) {
   }
 
   ngOnInit () {
-    this.ds.dataLoadingEmitter.subscribe((loading: boolean) => {
-      this.loading = loading;
-    });
-    this.ds.errorEmitter.subscribe((errMsg: string) => {
-      this.errorMessage = errMsg;
-    });
-    this.pis.piilotusEmitter.subscribe(()=>{
-      this.piilotaValikko = !this.piilotaValikko;
-    });
+  }
+
+  get piilotaValikko() : boolean {
+    return this.pis.getPiilotus();
+  }
+  get errorMessage() : string {
+    return this.ds.getErrorMsg();
+  }
+  get loading() : boolean {
+    return this.ds.getLoading();
   }
 }

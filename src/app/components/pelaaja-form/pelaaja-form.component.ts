@@ -5,6 +5,7 @@ import { KyselyApuService } from 'src/app/services/kysely-apu.service';
 import { DotnetRESTservice } from 'src/app/services/dotnetAPI.service';
 import { DataService } from 'src/app/services/dataservice.service';
 import { SortService } from 'src/app/services/sort.service';
+import { FilterService } from 'src/app/services/filter.service';
 
 @Component({
   selector: 'app-pelaaja-form',
@@ -17,18 +18,18 @@ export class PelaajaFormComponent implements OnInit, OnDestroy {
 
   lisaaSuodattimia = false;
   suodinTeksti = 'Enemmän';
-  apu: KyselyApu;
-  submitted = false;
+
+  get apu():KyselyApu {return this.kyselyService.kyselyData;}
 
   constructor(
     private kyselyService: KyselyApuService,
     private ss: SortService,
     private dotnetApi: DotnetRESTservice,
-    private dataService: DataService
+    private ds: DataService,
+    private fs: FilterService,
     ) {}
 
   ngOnInit() {
-    this.apu = this.kyselyService.kyselyData;
     const minKausi = this.apu.kaudet[0];
     const maxKausi = this.apu.kaudet[this.apu.kaudet.length - 1];
     this.reactiveKyselyForm = new FormGroup({
@@ -42,6 +43,7 @@ export class PelaajaFormComponent implements OnInit, OnDestroy {
       ),
       vuosittain:   new FormControl(true),
       paikka:   new FormControl(''),
+      joukkue:   new FormControl(''),
       vastustaja:   new FormControl(''),
       tulos:   new FormControl(''),
     });
@@ -50,6 +52,8 @@ export class PelaajaFormComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(){
     this.ss.resetSortParams();
+    this.fs.resetFilters();
+    this.ds.resetData();
   }
 
 
@@ -63,9 +67,8 @@ export class PelaajaFormComponent implements OnInit, OnDestroy {
 
 
   onSubmit() {
-    this.submitted = true;
     console.log(this.reactiveKyselyForm.value);
-    this.dataService.startLoading();
+    this.ds.startLoading();
     this.dotnetApi.onHaePelaajat(this.reactiveKyselyForm.value)
     .subscribe( (responseData => {
         const data = [];
@@ -74,7 +77,7 @@ export class PelaajaFormComponent implements OnInit, OnDestroy {
             data.push(responseData[elem]);
           }
         }
-        this.dataService.setRawData(data);
+        this.ds.setRawData(data);
     }));
 
   }

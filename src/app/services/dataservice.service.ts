@@ -8,13 +8,12 @@ export class DataService {
   data: object[];
   private length: number;
   otsikot: string[];
-  private errorMessage: string;
+  private errorMsg: string;
+  private loading: boolean = true;
 
 
 
   dataChangedEmitter = new EventEmitter();
-  dataLoadingEmitter = new EventEmitter<boolean>();
-  errorEmitter = new EventEmitter<string>();
 
   constructor(private ss: SortService) {
     ss.sortedEmitter.subscribe((data)=>{
@@ -32,16 +31,24 @@ export class DataService {
   getLength(): number {
     return this.length;
   }
+  getLoading(): boolean {
+    return this.loading;
+  }
+
+  getErrorMsg(): string {
+    return this.errorMsg;
+  }
+  setErrorMsg(e:string): void {
+    this.errorMsg = e;
+  }
 
   setOtsikot():void {
     if (this.data === undefined || this.data.length === 0 ) {
       this.otsikot = [];
-      this.errorMessage = 'Haku ei tuottanut yhtään tulosta.';
-      this.errorEmitter.emit(this.errorMessage);
+      this.errorMsg = 'Haku ei tuottanut yhtään tulosta.';
     } else {
       this.otsikot = Object.keys(this.data[0]);
-      this.errorMessage = '';
-      this.errorEmitter.emit('');
+      this.errorMsg = '';
     }
   }
 
@@ -53,13 +60,26 @@ export class DataService {
     this.data = [];
     this.length = 0;
     this.dataChangedEmitter.emit();
-    this.dataLoadingEmitter.emit(true);
+    this.loading = true;
+  }
+
+  resetData():void{
+    this.data = [];
+    this.otsikot = [];
+    this.errorMsg = '';
+    this.length = 0;
+    this.loading = false;
   }
 
   setRawData(data: object[] = undefined) : void {
-    console.log(data);
-    console.log(Object.keys(data[0]).length);
-    if(data){
+    
+    if(!data || data === [] || data.length<=0){
+      this.data = [];
+      this.dataChangedEmitter.emit();
+      this.loading = false;
+    } else {
+      console.log(data);
+      console.log(Object.keys(data[0]).length);
       this.data = data;
       this.length = data.length;
     }
@@ -68,10 +88,10 @@ export class DataService {
       // this.ss.sortDataSync(this.data);
       this.ss.workerSort(this.data);
 
-      this.dataLoadingEmitter.emit(false)
+      this.loading = false;
     } else{
       this.dataChangedEmitter.emit();
-      this.dataLoadingEmitter.emit(false);
+      this.loading = false;
     }
     
     

@@ -5,6 +5,13 @@ import { Injectable, EventEmitter } from '@angular/core';
 })
 export class PiilotusService {
 
-  
-  piilotusEmitter = new EventEmitter();
+  private piilotaValikko: boolean = false;
+
+  getPiilotus():boolean{
+    return this.piilotaValikko;
+  }
+
+  togglePiilota(){
+    this.piilotaValikko = !this.piilotaValikko;
+  }
 }

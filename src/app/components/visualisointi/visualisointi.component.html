@@ -1,11 +1,11 @@
-<app-suodin-form [ngClass]="{'piilota': piilotaValikko}"></app-suodin-form>
+<app-suodin-form [ngClass]="{'piilota': piilotaValikko || loading}"></app-suodin-form>
 
-<app-data-paikka *ngIf="!loading"></app-data-paikka>
+<app-data-paikka *ngIf="!loading && !errorMessage"></app-data-paikka>
 
-<div *ngIf="loading" class="komp">
+<div *ngIf="loading && !errorMessage" class="komp">
   <app-spinner></app-spinner>
 </div>
 
 <div *ngIf="!loading && errorMessage" class="alert alert-danger komp">
-    {{errorMessage}} {{loading}}
+    {{errorMessage}}
 </div>

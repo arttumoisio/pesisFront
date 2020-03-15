@@ -7,4 +7,5 @@ export interface KyselyApu {
   handness: string[];
   paikka: string[];
   tulos: string[];
+  lukkarit: string[];
 }
