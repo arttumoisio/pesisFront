@@ -37,13 +37,11 @@ export class FilterFormComponent implements OnInit, OnDestroy {
     this.fs.setIntFilters([]);
   }
 
-  onSuodata () {
-    // console.log('Sent', this.filterForm.value);
-    this.fs.addIntFilter(this.filterForm.value);
-  }
-
   onLisaaSuodatin() {
-    this.onSuodata();
+    if (String(this.filterForm.value.string) == "") {
+      return;
+    }
+    this.fs.addIntFilter(this.filterForm.value);
   }
   
   removeFilter(filter: {string:string;operator:string;column:string;}){

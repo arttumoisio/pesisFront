@@ -53,6 +53,7 @@
             name="string"
             id="string"
             formControlName="string"
+            (focusout)="onLisaaSuodatin()"
             required
             />
             <div *ngIf="string.invalid && (string.dirty || string.touched)"
