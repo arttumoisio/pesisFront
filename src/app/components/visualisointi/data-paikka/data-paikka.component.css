@@ -1,22 +1,18 @@
-th {
-  background: #007bff;
-  color: white;
-  text-align: center;
-  box-shadow: 1px 2px 2px -1px rgba(0, 0, 0, 0.4);}
-  .parillinen{background: white;}
-  .pariton{background: lightgray;}
-  .parillinen.sorted{background: lightgrey;}
-  .pariton.sorted{background: darkgray;} 
-  .desc-sort::after {content: '\2193';}
-  .asc-sort::after {content: '\2191';}
-  .desc-sort {background: #0056b3;;}
+
+.parillinen{background: white;}
+.pariton{background: lightgray;}
+.parillinen.sorted{background: lightgrey;}
+.pariton.sorted{background: darkgray;} 
+.desc-sort::after {content: '\2193';}
+.asc-sort::after {content: '\2191';}
+.desc-sort {background: #0056b3;;}
 .asc-sort {background: #0056b3;}
 
 .tablediv {
   padding-left: 0px;
   padding-right: 0px;
 }
-#tablehead2.stickyfix {
+#datataulu2 {
   position: fixed;
   top: 0px;
   left: -100px;
@@ -50,21 +46,13 @@ th {
   left: 0;
 }
 
-th {
-  position: sticky;
-  top: 0px;
-  z-index: 999;
-}
 th.sija, th.sticky {
-  position: sticky;
   z-index: 1000;
 }
 
 .sija {
   position: sticky;
   left: 0px;
-  max-width: 40px;
-  min-width: 40px;
   z-index: 900;
 }
 .sticky {
@@ -81,7 +69,7 @@ td.sticky {
   box-shadow: 1px 0px 2px -1px rgba(0, 0, 0, 0.4);
 }
 
-.sija{
+ .sija{
   min-width: 40px;
   max-width: 40px;
 }
@@ -89,12 +77,21 @@ td.sticky {
   min-width: 100px;
   max-width: 100px;
 }
-th{
+th, td{
   min-width: 85px;
   max-width: 85px;
+} */
+th {
+  background: #007bff;
+  color: white;
+  text-align: center;
+  box-shadow: 1px 2px 2px -1px rgba(0, 0, 0, 0.4);
+  position: sticky;
+  top: 0px;
+  z-index: 999;
 }
 th:last-child{
-  min-width: 75px;
+  max-width: default;
   width: 100%;
 }
 td:last-child {
