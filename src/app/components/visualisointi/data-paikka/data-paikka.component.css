@@ -12,7 +12,7 @@
   padding-left: 0px;
   padding-right: 0px;
 }
-#datataulu2 {
+#tablehead2.stickyfix {
   position: fixed;
   top: 0px;
   left: -100px;
@@ -53,6 +53,8 @@ th.sija, th.sticky {
 .sija {
   position: sticky;
   left: 0px;
+  max-width: 40px;
+  min-width: 40px;
   z-index: 900;
 }
 .sticky {
@@ -69,7 +71,7 @@ td.sticky {
   box-shadow: 1px 0px 2px -1px rgba(0, 0, 0, 0.4);
 }
 
- .sija{
+.sija{
   min-width: 40px;
   max-width: 40px;
 }
@@ -80,20 +82,21 @@ td.sticky {
 th, td{
   min-width: 85px;
   max-width: 85px;
-} */
+}
 th {
   background: #007bff;
   color: white;
   text-align: center;
-  box-shadow: 1px 2px 2px -1px rgba(0, 0, 0, 0.4);
   position: sticky;
   top: 0px;
   z-index: 999;
 }
 th:last-child{
-  max-width: default;
+  min-width: 75px;
+  max-width: none;
   width: 100%;
 }
 td:last-child {
+  max-width: none;
   text-align: left;
 }
