@@ -24,7 +24,7 @@ export class DataPaikkaComponent implements OnInit, AfterViewInit, OnDestroy {
   get otsikot() : string[] {return this.ds.getOtsikot();}
   get firstRow() {return this.ps.getPagination().firstRow;}
 
-  subscriptions: Subscription[];
+  // subscriptions: Subscription[];
   
   constructor(
     private ds: DataService,
@@ -61,10 +61,10 @@ export class DataPaikkaComponent implements OnInit, AfterViewInit, OnDestroy {
   showSticky = false;
   offsetTop: number = undefined;
   setOffSetTopOnce(ost: number){
-    if (this.offsetTop === undefined){
-      this.offsetTop = ost + window.scrollY;
-    }
-    return this.offsetTop;
+    // if (this.offsetTop === undefined){
+    //   this.offsetTop = ost + window.scrollY;
+    // }
+    this.offsetTop = ost + window.scrollY;
   }
 
   @HostListener('window:scroll', ['$event'])
@@ -82,16 +82,12 @@ export class DataPaikkaComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
   
-  @HostListener('window:resize', ['$event'])
-  onResize(event) {
-    // console.log("window:resize");
-    this.offsetTop = undefined;
-  }
+  // @HostListener('window:resize', ['$event'])
+  // onResize(event) {
+  //   this.offsetTop = undefined;
+  // }
 
-  // @HostListener('scroll', ['$event'])
   onTableScroll(event: Event) {
-    // console.log("tablescroll");
-    
     const target = event.target as HTMLElement;
     this.theadoffset = -target.scrollLeft + 'px';
     this.tss.tableScroll = target.scrollLeft;

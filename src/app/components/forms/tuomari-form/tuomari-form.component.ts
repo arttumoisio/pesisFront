@@ -61,22 +61,16 @@ export class TuomariFormComponent implements OnInit {
   onSubmit() {
     // console.log(this.reactiveKyselyForm.value);
     this.ds.startLoading();
+    const alku: string = this.reactiveKyselyForm.value.kaudetAlku;
+    const loppu: string = this.reactiveKyselyForm.value.kaudetLoppu;
     this.dotnetApi.onHaeTuomarit(this.reactiveKyselyForm.value)
     .subscribe((responseData: object[]) => {
         const data = [];
         responseData.map((elem)=>{data.push(elem)});
         this.ds.setRawData(data);
+        this.kyselyService.haeLukkarit( alku, loppu );
+        this.kyselyService.haeJoukkueet( alku, loppu );
     });
-    const alku: string = this.reactiveKyselyForm.value.kaudetAlku;
-    const loppu: string = this.reactiveKyselyForm.value.kaudetLoppu;
     
-    this.kyselyService.haeLukkarit(
-      alku,
-      loppu
-      );
-    this.kyselyService.haeJoukkueet(
-      alku,
-      loppu
-      );
   }
 }
