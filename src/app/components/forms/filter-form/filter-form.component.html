@@ -24,7 +24,7 @@
               </div>
               </div>
       </div>
-      <div class="" style="width: 65px; max-height: calc(1.5em + .75rem + 2px); overflow-y: visible;">
+      <div class="" style="min-width: 65px; max-height: calc(1.5em + .75rem + 2px); overflow-y: visible;">
             <select 
             name="operator" 
             style="width: 100%;"
@@ -83,7 +83,7 @@
 
   <div id="filters" class="d-flex rounded my-2" *ngFor="let filter of intFilters;" style="min-height: 38px;">
     <div class="p-2 flex-grow-1" style="text-align: end;">{{filter.column}}</div>
-    <div class="p-2" style="width: 65px;">{{filter.operator}}</div>
+    <div class="p-2" style="min-width: 65px;">{{filter.operator}}</div>
     <div class="p-2 col-4"  style="text-align: start;">{{filter.string}}</div>
     <button  style= "height: 100%; width: 38px;" class="btn btn-danger" type="button" (click)="removeFilter(filter)" ><span>&times;</span></button>
   </div>
