@@ -63,7 +63,7 @@ export class DotnetRESTservice {
     return this.http.get(this.tuomaritUrl, {params});
   }
   
-  haeJoukkueetApu(vuosiAlkaen:string = "2000", vuosiLoppuen:string = "2019") {
+  haeJoukkueetApu(vuosiAlkaen:string = "1993", vuosiLoppuen:string = "2020") {
     // console.log("jouk", vuosiAlkaen, vuosiLoppuen);
 
     
@@ -75,7 +75,7 @@ export class DotnetRESTservice {
     // console.log("joukkueet params:", params);
     return this.http.get(getUrl, {params});
   }
-  haeLukkaritApu(vuosiAlkaen:string = "2000", vuosiLoppuen:string = "2019") {
+  haeLukkaritApu(vuosiAlkaen:string = "1993", vuosiLoppuen:string = "2020") {
     // console.log("lukk", vuosiAlkaen, vuosiLoppuen);
     let params = new HttpParams();
     params = params.append("kaudetAlku",vuosiAlkaen.toString());
@@ -89,11 +89,18 @@ export class DotnetRESTservice {
     const getUrl = this.serverUrl + '/apu/vuodet';
     return this.http.get(getUrl);
   }
-  haeSarjaVaiheApu(vuosiAlkaen:string = "2000", vuosiLoppuen:string = "2019") {
+  haeSarjaVaiheApu(vuosiAlkaen:string = "1993", vuosiLoppuen:string = "2020") {
     let params = new HttpParams();
     params = params.append("kaudetAlku",vuosiAlkaen.toString());
     params = params.append("kaudetLoppu",vuosiLoppuen.toString());
     const getUrl = this.serverUrl + '/apu/sarjavaihe';
+    return this.http.get(getUrl, {params});
+  }
+  haeSarjaApu(vuosiAlkaen:string = "1993", vuosiLoppuen:string = "2020") {
+    let params = new HttpParams();
+    params = params.append("kaudetAlku",vuosiAlkaen.toString());
+    params = params.append("kaudetLoppu",vuosiLoppuen.toString());
+    const getUrl = this.serverUrl + '/apu/sarja';
     return this.http.get(getUrl, {params});
   }
 }

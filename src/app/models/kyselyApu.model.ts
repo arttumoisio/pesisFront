@@ -3,6 +3,7 @@ export interface KyselyApu {
   lyontijarjestys: number[];
   kaudet: number[];
   peliTyypit: string[];
+  sarjat: string[];
   joukkueet: string[];
   handness: string[];
   paikka: string[];

@@ -38,15 +38,31 @@ export class KyselyApuService {
   ],
 
   kaudet: [
-    2010,
-    2011,
-    2012,
-    2013,
-    2014,
-    2015,
-    2016,
-    2017,
-    2018,
+    1994,
+    // 1995,
+    // 1996,
+    // 1997,
+    // 1998,
+    // 1999,
+    // 2000,
+    // 2001,
+    // 2002,
+    // 2003,
+    // 2004,
+    // 2005,
+    // 2006,
+    // 2007,
+    // 2008,
+    // 2009,
+    // 2010,
+    // 2011,
+    // 2012,
+    // 2013,
+    // 2014,
+    // 2015,
+    // 2016,
+    // 2017,
+    // 2018,
     2019,
   ],
 
@@ -57,20 +73,24 @@ export class KyselyApuService {
     'Itä-Länsi',
   ],
 
+  sarjat: [
+    'Miesten superpesis',
+  ],
+
   joukkueet: [
     'Sotkamon Jymy',
-    'Manse PP',
-    'Seinäjoen Mailajussit',
-    'Hyvinkään Tahko',
-    'Kankaanpään Maila',
-    'Kouvolan Pallonlyöjät',
-    'Vimpelin Veto',
-    'Kempeleen Kiri',
-    'Pattijoen Urheilijat',
-    'Siilinjärven Pesis',
-    'Joensuun Maila',
-    'Kiteen Pallo',
-    'Koskenkorvan Urheilijat',
+    // 'Manse PP',
+    // 'Seinäjoen Mailajussit',
+    // 'Hyvinkään Tahko',
+    // 'Kankaanpään Maila',
+    // 'Kouvolan Pallonlyöjät',
+    // 'Vimpelin Veto',
+    // 'Kempeleen Kiri',
+    // 'Pattijoen Urheilijat',
+    // 'Siilinjärven Pesis',
+    // 'Joensuun Maila',
+    // 'Kiteen Pallo',
+    // 'Koskenkorvan Urheilijat',
     'Imatran Pallo-Veikot',
   ],
 
@@ -105,6 +125,7 @@ export class KyselyApuService {
     this.haeVuodet();
     this.haeJoukkueet();
     this.haeSarjavaiheet();
+    this.haeSarjat();
     this.haeLukkarit();
   }
 
@@ -120,6 +141,13 @@ export class KyselyApuService {
       // console.log("sarjavaiheet tuli", data);
       this.kyselyData.peliTyypit = [];
       data.map((elem)=>{this.kyselyData.peliTyypit.push(String(elem['sarjavaihe']));});
+    });
+  }
+  haeSarjat(alku:any = "1998", loppu:any = "2090"){
+    this.dotnetApi.haeSarjaApu(alku,loppu).subscribe((data: object[]) => {
+      // console.log("sarjavaiheet tuli", data);
+      this.kyselyData.sarjat = [];
+      data.map((elem)=>{this.kyselyData.sarjat.push(String(elem['sarja']));});
     });
   }
   haeJoukkueet(alku:any = "1998", loppu:any = "2090"){

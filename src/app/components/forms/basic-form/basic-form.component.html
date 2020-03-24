@@ -1,43 +1,83 @@
-<div class="row" [formGroup]="parentForm">
+<div [formGroup]="parentForm">
+  <div class="row" >
 
-<div class="my-2 col-6">
-    <label for="kaudetAlku">Kaudet</label>
-    <label for="kaudetLoppu" class="float-right">-</label>
-    <select formControlName="kaudetAlku"
-    class="custom-select"
-    type="text" 
-    id="kaudetAlku" 
-    name="kaudetAlku">
-      <option 
-      *ngFor="let kausi of apu['kaudet'];"
-      [value]="kausi">
-      {{kausi}}
-      </option>
-    </select>
-    
-  </div>
   <div class="my-2 col-6">
-    
-    <div class="custom-control custom-switch float-right mb-2">
-      <input formControlName="vuosittain" 
-      type="checkbox" 
-      class="custom-control-input" 
-      id="vuosittain" 
-      name="vuosittain"
-      >
-      <label class="custom-control-label" for="vuosittain">Vuosittain</label>
+      <label for="kaudetAlku">Kaudet</label>
+      <label for="kaudetLoppu" class="float-right">-</label>
+      <select formControlName="kaudetAlku"
+      class="custom-select"
+      type="text" 
+      id="kaudetAlku" 
+      name="kaudetAlku">
+        <option 
+        *ngFor="let kausi of apu['kaudet'];"
+        [value]="kausi">
+        {{kausi}}
+        </option>
+      </select>
+      
     </div>
+    <div class="my-2 col-6">
+      
+      <div class="custom-control custom-switch float-right mb-2">
+        <input formControlName="vuosittain" 
+        type="checkbox" 
+        class="custom-control-input" 
+        id="vuosittain" 
+        name="vuosittain"
+        >
+        <label class="custom-control-label" for="vuosittain">Vuosittain</label>
+      </div>
 
-    <select formControlName="kaudetLoppu"
-    class="custom-select"
-    type="text" 
-    id="kaudetLoppu" 
-    name="kaudetLoppu">
-      <option 
-      *ngFor="let kausi of apu['kaudet'];"
-      [value]="kausi">
-      {{kausi}}
-    </option>
-    </select>
+      <select formControlName="kaudetLoppu"
+      class="custom-select"
+      type="text" 
+      id="kaudetLoppu" 
+      name="kaudetLoppu">
+        <option 
+        *ngFor="let kausi of apu['kaudet'];"
+        [value]="kausi">
+        {{kausi}}
+      </option>
+      </select>
+    </div>
+  </div>
+  <div class="row" >
+    <div class="my-2 col-6">
+      <label for="sarja">Sarja</label>
+      <select formControlName="sarja"
+      class="custom-select"
+      type="text" 
+      id="sarja" 
+      name="sarja">
+        <option 
+        *ngFor="let sarja of apu['sarjat'];"
+        [value]="sarja">
+        {{sarja}}
+        </option>
+      </select>
+    </div>
+    <div class="my-2 col-6">
+      <label for="sarjavaihe">Sarjavaihe</label>
+      <select formControlName="sarjavaihe"
+      class="custom-select"
+      type="text" 
+      id="sarjavaihe" 
+      name="sarjavaihe">
+        <option
+        value="">
+        Mikä tahansa
+        </option>
+        <option 
+        *ngFor="let sarjavaihe of apu['peliTyypit'];"
+        [value]="sarjavaihe">
+        {{sarjavaihe}}
+        </option>
+        <option
+        value="Eritelty">
+        Eritelty
+        </option>
+      </select>
+    </div>
   </div>
 </div>
