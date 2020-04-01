@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import IKyselyApu from '../models/kyselyApu.model';
+import { IKyselyApu } from '../models/kyselyApu.model';
 import { DotnetRESTservice } from './dotnetAPI.service';
 
 @Injectable({

@@ -106,6 +106,7 @@ export class DotnetRESTservice {
     const getUrl = this.serverUrl + '/apu/sarjavaihe';
     return this.http.get(getUrl, {params});
   }
+
   haeSarjaApu(vuosiAlkaen: string = '1993', vuosiLoppuen: string = '2020') {
     let params = new HttpParams();
     params = params.append('kaudetAlku', vuosiAlkaen.toString());

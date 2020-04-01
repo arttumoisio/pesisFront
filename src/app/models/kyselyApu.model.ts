@@ -1,6 +1,6 @@
-// import { Observable } from 'rxjs';
+// import { Observable, Subject } from 'rxjs';
 
-interface IKyselyApu {
+export interface IKyselyApu {
   ulkopeliPaikat: string[];
   lyontijarjestys: number[];
   kaudet: number[];
@@ -14,5 +14,3 @@ interface IKyselyApu {
   tulos: string[];
   lukkarit: string[];
 }
-
-export default IKyselyApu;
