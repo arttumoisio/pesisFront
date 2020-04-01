@@ -6,8 +6,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavigointiComponent } from './components/navigointi/navigointi.component';
-import { PelaajatComponent } from './components/vanhat/pelaajat/pelaajat.component';
-import { JoukkueetComponent } from './components/vanhat/joukkueet/joukkueet.component';
 import { MVPelaajatComponent } from './components/views/mvpelaajat/mvpelaajat.component';
 import { MVJoukkueetComponent } from './components/views/mvjoukkueet/mvjoukkueet.component';
 import { TuomaritComponent } from './components/views/tuomarit/tuomarit.component';
@@ -39,8 +37,6 @@ import { TuomaritExtraFormComponent } from './components/forms/tuomarit-extra-fo
     PaginatorPipe,
 
     NavigointiComponent,
-    PelaajatComponent,
-    JoukkueetComponent,
     MVPelaajatComponent,
     MVJoukkueetComponent,
     TuomaritComponent,
@@ -66,6 +62,6 @@ import { TuomaritExtraFormComponent } from './components/forms/tuomarit-extra-fo
   ],
   providers: [
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule { }
