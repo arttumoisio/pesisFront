@@ -1,49 +1,48 @@
-import { Injectable, EventEmitter } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { SortService } from './sort.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class DataService {
-  data: object[];
+
+  public dataChangedEmitter = new EventEmitter();
+
+  private data: object[];
   private length: number;
-  otsikot: string[];
+  private otsikot: string[];
   private errorMsg: string;
   private loading: boolean = true;
 
-
-
-  dataChangedEmitter = new EventEmitter();
-
   constructor(private ss: SortService) {
-    ss.sortedEmitter.subscribe((data)=>{
+    ss.sortedEmitter.subscribe((data) => {
       this.setSortedData(data);
     });
-    ss.sortEmitter.subscribe(()=>{
+    ss.sortEmitter.subscribe(() => {
       this.ss.workerSort(this.data);
     });
    }
 
-  getData(): object[] {
+  public getData(): object[] {
     return this.data;
   }
 
-  getLength(): number {
+  public getLength(): number {
     return this.length;
   }
-  getLoading(): boolean {
+  public getLoading(): boolean {
     return this.loading;
   }
 
-  getErrorMsg(): string {
+  public getErrorMsg(): string {
     return this.errorMsg;
   }
-  setErrorMsg(e:string): void {
+  public setErrorMsg(e: string): void {
     this.errorMsg = e;
   }
 
-  setOtsikot():void {
-    if (this.data === undefined || this.data.length === 0 ) {
+  public setOtsikot(): void {
+    if (this.data === undefined || this.data.length === 0) {
       this.otsikot = [];
       this.errorMsg = 'Haku ei tuottanut yhtään tulosta.';
     } else {
@@ -52,29 +51,29 @@ export class DataService {
     }
   }
 
-  getOtsikot(): string[] {
+  public getOtsikot(): string[] {
     return this.otsikot;
   }
 
-  startLoading() {
-    this.data = [];
+  public startLoading() {
+    this.data = undefined;
     this.length = 0;
     this.dataChangedEmitter.emit();
     this.loading = true;
   }
 
-  resetData():void{
-    this.data = [];
-    this.otsikot = [];
+  public resetData(): void {
+    this.data = undefined;
+    this.otsikot = undefined;
     this.errorMsg = '';
     this.length = 0;
-    this.loading = false;
+    this.loading = true;
   }
 
-  setRawData(data: object[] = undefined) : void {
-    
-    if(!data || data === [] || data.length<=0){
-      this.data = [];
+  public setRawData(data: object[] = undefined): void {
+
+    if (!data || data === [] || data.length <= 0) {
+      this.data = undefined;
       this.dataChangedEmitter.emit();
       this.loading = false;
     } else {
@@ -84,20 +83,19 @@ export class DataService {
       this.length = data.length;
     }
     this.setOtsikot();
-    if(this.ss.getSortParams().sarake){
+    if (this.ss.getSortParams().sarake) {
       // this.ss.sortDataSync(this.data);
       this.ss.workerSort(this.data);
 
       this.loading = false;
-    } else{
+    } else {
       this.dataChangedEmitter.emit();
       this.loading = false;
     }
-    
-    
+
   }
 
-  setSortedData(data: object[]) : void{
+  public setSortedData(data: object[]): void {
     this.data = data;
     this.dataChangedEmitter.emit();
   }

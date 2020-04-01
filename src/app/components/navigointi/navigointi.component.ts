@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { DataService } from 'src/app/services/dataservice.service';
 import { PiilotusService } from 'src/app/services/piilotus.service';
 
 @Component({
@@ -7,6 +6,7 @@ import { PiilotusService } from 'src/app/services/piilotus.service';
   templateUrl: './navigointi.component.html',
   styleUrls: ['./navigointi.component.css']
 })
+
 export class NavigointiComponent implements OnInit {
 
   constructor(private pis: PiilotusService) { }

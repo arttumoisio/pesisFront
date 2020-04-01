@@ -6,26 +6,26 @@ import { FilterService } from 'src/app/services/filter.service';
 @Component({
   selector: 'app-filter-form',
   templateUrl: './filter-form.component.html',
-  styleUrls: ['./filter-form.component.css']
+  styleUrls: ['./filter-form.component.css'],
 })
 export class FilterFormComponent implements OnInit, OnDestroy {
-  
+
   operaattorit: string[] = [
-    ">=",
-    "<=",
-    "=",
-    "!=",
+    '>=',
+    '<=',
+    '=',
+    '!=',
   ];
 
   filterForm: FormGroup;
-  get intFilters() : {string:string; operator:string; column:string;}[] {
+  get intFilters(): Array<{string: string; operator: string; column: string; }> {
     return this.fs.getIntFilters();
   }
   get otsikot(): string[] {
     const otsikot: string[] = this.dataService.getOtsikot().slice();
-    this.intFilters.map((used)=>{
-      const i = otsikot.findIndex(otsikko=>otsikko===used.column);
-      if (i != -1 ) otsikot.splice(i,1);
+    this.intFilters.map((used) => {
+      const i = otsikot.findIndex((otsikko) => otsikko === used.column);
+      if (i !== -1) { otsikot.splice(i, 1); }
     });
     return otsikot;
   }
@@ -37,40 +37,40 @@ export class FilterFormComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
 
     this.filterForm = this.formBuilder.group({
-      column: this.formBuilder.control('Ottelut',[Validators.required]),
-      operator: this.formBuilder.control('>=',[Validators.required]),
-      string: this.formBuilder.control('',[Validators.required,Validators.minLength(1)],),
+      column: this.formBuilder.control('Ottelut', [Validators.required]),
+      operator: this.formBuilder.control('>=', [Validators.required]),
+      string: this.formBuilder.control('', [Validators.required, Validators.minLength(1)]),
     });
   }
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.fs.setIntFilters([]);
   }
 
   onLisaaSuodatin() {
-    if (String(this.filterForm.value.column) == "" ||
-        String(this.filterForm.value.operator) == "" ||
-        String(this.filterForm.value.string) == "" 
+    if (String(this.filterForm.value.column) === '' ||
+        String(this.filterForm.value.operator) === '' ||
+        String(this.filterForm.value.string) === ''
     ) {
-      console.log("Form invalid!");
+      // console.log('Form invalid!');
       return;
     }
     this.fs.addIntFilter(this.filterForm.value);
     this.setSarake();
   }
-  
-  setSarake(){
 
-    if ( this.filterForm) {
+  setSarake() {
+
+    if (this.filterForm) {
       this.filterForm.reset();
       this.filterForm.setValue({
-        column:this.otsikot[0],
-        operator:">=",
-        string:""
+        column: this.otsikot[0],
+        operator: '>=',
+        string: '',
       });
-    };
+    }
   }
 
-  removeFilter(filter: {string:string;operator:string;column:string;}){
+  removeFilter(filter: {string: string; operator: string; column: string; }) {
     // console.log('remove filter');
     this.fs.removeIntFilter(filter);
     this.setSarake();
@@ -85,5 +85,5 @@ export class FilterFormComponent implements OnInit, OnDestroy {
   get string() {
     return this.filterForm.get('string') as FormControl;
   }
-  
+
 }

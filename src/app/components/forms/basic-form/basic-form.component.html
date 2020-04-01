@@ -8,7 +8,8 @@
       class="custom-select"
       type="text" 
       id="kaudetAlku" 
-      name="kaudetAlku">
+      name="kaudetAlku"
+      (change)="onAlku()">
         <option 
         *ngFor="let kausi of apu['kaudet'];"
         [value]="kausi">
@@ -33,7 +34,8 @@
       class="custom-select"
       type="text" 
       id="kaudetLoppu" 
-      name="kaudetLoppu">
+      name="kaudetLoppu"
+      (change)="onLoppu()">
         <option 
         *ngFor="let kausi of apu['kaudet'];"
         [value]="kausi">
@@ -49,7 +51,8 @@
       class="custom-select"
       type="text" 
       id="sarja" 
-      name="sarja">
+      name="sarja"
+      (change)="onSarja()">
         <option 
         *ngFor="let sarja of apu['sarjat'];"
         [value]="sarja">
@@ -63,7 +66,8 @@
       class="custom-select"
       type="text" 
       id="sarjavaihe" 
-      name="sarjavaihe">
+      name="sarjavaihe"
+      (change)="onSarjavaihe()">
         <option
         value="">
         Mikä tahansa

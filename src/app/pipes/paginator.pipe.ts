@@ -10,7 +10,7 @@ export class PaginatorPipe implements PipeTransform {
 
   transform(data: object[], arg:any=undefined): object[] {
     const {firstRow, show} = this.ps.getPagination();
-    console.log('Pagination pipe:',data.length);
+    // console.log('Pagination pipe:',data.length);
     return data.slice(firstRow,firstRow+show);
   }
 

@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
-import { KyselyApu } from '../models/kyselyApu.model';
+import IKyselyApu from '../models/kyselyApu.model';
 import { DotnetRESTservice } from './dotnetAPI.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class KyselyApuService {
 
-  kyselyData: KyselyApu = {
+  kyselyData: IKyselyApu = {
     ulkopeliPaikat: [
       '1V',
       '2V',
@@ -19,9 +19,9 @@ export class KyselyApuService {
       '3K',
       'L',
       'J',
-    ],
+      ],
 
-  lyontijarjestys: [
+    lyontijarjestys: [
     1,
     2,
     3,
@@ -35,49 +35,25 @@ export class KyselyApuService {
     11,
     12,
     13,
-  ],
+    ],
 
-  kaudet: [
+    kaudet: [
     1994,
-    // 1995,
-    // 1996,
-    // 1997,
-    // 1998,
-    // 1999,
-    // 2000,
-    // 2001,
-    // 2002,
-    // 2003,
-    // 2004,
-    // 2005,
-    // 2006,
-    // 2007,
-    // 2008,
-    // 2009,
-    // 2010,
-    // 2011,
-    // 2012,
-    // 2013,
-    // 2014,
-    // 2015,
-    // 2016,
-    // 2017,
-    // 2018,
     2019,
-  ],
+    ],
 
-  peliTyypit: [
+    peliTyypit: [
     'HalliSM',
     'Runkosarja',
     'Pudotuspelit',
     'Itä-Länsi',
-  ],
+    ],
 
-  sarjat: [
+    sarjat: [
     'Miesten superpesis',
-  ],
+    ],
 
-  joukkueet: [
+    joukkueet: [
     'Sotkamon Jymy',
     // 'Manse PP',
     // 'Seinäjoen Mailajussit',
@@ -92,20 +68,26 @@ export class KyselyApuService {
     // 'Kiteen Pallo',
     // 'Koskenkorvan Urheilijat',
     'Imatran Pallo-Veikot',
-  ],
+    ],
 
-  handness: [
+    kotijoukkueet: [
+    ],
+
+    vierasjoukkueet: [
+    ],
+
+    handness: [
     'Vasen',
     'Oikea',
-  ],
+    ],
 
-  paikka: [
+    paikka: [
     'Koti',
     'Vieras',
     'Eritelty',
-  ],
+    ],
 
-  tulos: [
+    tulos: [
     'Eritelty',
     'Voitto',
     'Tappio',
@@ -113,11 +95,11 @@ export class KyselyApuService {
     '2p Voitto',
     '1p Tappio',
     '0p Tappio',
-  ],
+    ],
 
-  lukkarit: [
+    lukkarit: [
     'Eritelty',
-  ],
+    ],
 
   };
 
@@ -129,42 +111,52 @@ export class KyselyApuService {
     this.haeLukkarit();
   }
 
-  haeVuodet(){
+  haeVuodet() {
     this.dotnetApi.haeVuodetApu().subscribe((data: object[]) => {
       // console.log("vuodet tuli", data);
-      this.kyselyData.kaudet = [];
-      data.map((elem)=>{this.kyselyData.kaudet.push(Number(elem['kausi']));});
+      this.kyselyData.kaudet = data.map((elem: {kausi: number; }) => elem.kausi);
     });
   }
-  haeSarjavaiheet(alku:any = "1998", loppu:any = "2090"){
-    this.dotnetApi.haeSarjaVaiheApu(alku,loppu).subscribe((data: object[]) => {
+  haeSarjavaiheet(alku: any = '1994', loppu: any = '2090') {
+    this.dotnetApi.haeSarjaVaiheApu(alku, loppu).subscribe((data: object[]) => {
       // console.log("sarjavaiheet tuli", data);
-      this.kyselyData.peliTyypit = [];
-      data.map((elem)=>{this.kyselyData.peliTyypit.push(String(elem['sarjavaihe']));});
+      this.kyselyData.peliTyypit = data.map((elem: {sarjavaihe: string; }) => elem.sarjavaihe);
     });
   }
-  haeSarjat(alku:any = "1998", loppu:any = "2090"){
-    this.dotnetApi.haeSarjaApu(alku,loppu).subscribe((data: object[]) => {
+  haeSarjat(alku: any = '1994', loppu: any = '2090') {
+    this.dotnetApi.haeSarjaApu(alku, loppu).subscribe((data: object[]) => {
       // console.log("sarjavaiheet tuli", data);
-      this.kyselyData.sarjat = [];
-      data.map((elem)=>{this.kyselyData.sarjat.push(String(elem['sarja']));});
+      this.kyselyData.sarjat = data.map((elem: {sarja: string; }) => elem.sarja);
     });
   }
-  haeJoukkueet(alku:any = "1998", loppu:any = "2090"){
-    // console.log("haetaan joukkueet",this.kyselyData.joukkueet.length, alku,loppu);
-    this.dotnetApi.haeJoukkueetApu(alku,loppu).subscribe((data: object[]) => {
-      // console.log("joukkueet tuli", data);
+  haeJoukkueet(
+    alku: any = '1990',
+    loppu: any = '2090',
+    sarja: string = 'Miesten superpesis',
+    sarjavaihe: string = '') {
+    // console.log('haetaan joukkueet', this.kyselyData.joukkueet.length, alku, loppu);
+    this.dotnetApi.haeJoukkueetApu(alku, loppu, sarja, sarjavaihe).subscribe((data: object[]) => {
+      // console.log('joukkueet tuli', data);
       this.kyselyData.joukkueet = [];
-      data.map((elem)=>{this.kyselyData.joukkueet.push(String(elem['joukkue']));});
+      this.kyselyData.kotijoukkueet = [];
+      this.kyselyData.joukkueet = data.map((elem: {joukkue: string; koti: number; vieras: number; }) => {
+        if (elem.koti === 1) {this.kyselyData.kotijoukkueet.push(elem.joukkue); }
+        if (elem.vieras === 1) {this.kyselyData.vierasjoukkueet.push(elem.joukkue); }
+        return elem.joukkue;
+      });
     });
   }
-  haeLukkarit(alku:any = "1998", loppu:any = "2090"){
-    // console.log("haetaan lukkarit",this.kyselyData.lukkarit.length, alku,loppu);
-    
-    this.dotnetApi.haeLukkaritApu(alku,loppu).subscribe((data: object[])=>{
-      // console.log("lukkarit tuli", data);
-      this.kyselyData.lukkarit = [];
-      data.map((elem)=>{this.kyselyData.lukkarit.push(String(elem['lukkari']));});
+  haeLukkarit(
+    alku: any = '1990',
+    loppu: any = '2090',
+    sarja: string = 'Miesten superpesis',
+    sarjavaihe: string = '',
+  ) {
+    // console.log('haetaan lukkarit', this.kyselyData.lukkarit.length, alku, loppu);
+
+    this.dotnetApi.haeLukkaritApu(alku, loppu, sarja, sarjavaihe).subscribe((data: object[]) => {
+      // console.log('lukkarit tuli', data);
+      this.kyselyData.lukkarit = data.map((elem: {lukkari: string; }) => elem.lukkari);
     });
   }
 }

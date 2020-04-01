@@ -104,7 +104,7 @@ export class FilterPipe implements PipeTransform {
       }
       
     }
-    console.log("Filterpipe:",data.length);
+    // console.log("Filterpipe:",data.length);
     this.ps.setRecords(data.length);
     // if(data.length<=0){this.ds.setErrorMsg("Suodatit kaikki tulokset pois.");}
     return data;

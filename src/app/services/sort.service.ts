@@ -1,64 +1,73 @@
 import { Injectable, EventEmitter } from '@angular/core';
-import { DataService } from './dataservice.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class SortService {
+
+  sortEmitter = new EventEmitter();
+  sortedEmitter = new EventEmitter<object[]>();
 
   private sarake: string = '';
   private reversed: boolean = false;
 
-  public sortEmitter = new EventEmitter();
-  public sortedEmitter = new EventEmitter<object[]>();
+  private worker: Worker;
+  private workerSupport: boolean;
 
-  constructor() { }
+  constructor() {
+    if (typeof Worker !== 'undefined') {
+      this.workerSupport = true;
+    } else {
+      // Web Workers are not supported in this environment.
+      console.log('Worker not supported');
+      this.workerSupport = false;
+    }
 
-  getSortParams() : {sarake:string; reversed:boolean;}{
-    return {sarake:this.sarake,reversed:this.reversed};
+   }
+
+  getSortParams(): {sarake: string; reversed: boolean; } {
+    return {sarake: this.sarake, reversed: this.reversed};
   }
-  setSortParams(sarake:string) : void{
-    if (sarake === this.sarake){
-      this.reversed = !this.reversed
+  setSortParams(sarake: string): void {
+    if (sarake === this.sarake) {
+      this.reversed = !this.reversed;
     } else {
       this.sarake = sarake;
       this.reversed = false;
     }
     this.sortEmitter.emit();
   }
-  resetSortParams() : void{
+  resetSortParams(): void {
     this.reversed = false;
     this.sarake = '';
   }
 
-  returnData: object[] = [];
-
   workerSort(data2: object[]) {
-    if (typeof Worker !== 'undefined') 
-    {
-      // Create a new
-      const worker = new Worker('../workers/sort.worker', { type: 'module' });
-      worker.onmessage = ({ data }) => {
-        this.sortedEmitter.emit(data); 
-      }
-      worker.postMessage({
-          data:data2,
-          sarake:this.sarake, 
-          reverse:this.reversed
-      });
-    } else {
-      // Web Workers are not supported in this environment.
-      // You should add a fallback so that your program still executes correctly.
-      console.log("Worker not supported");
+    if (!this.workerSupport) {
       this.sortDataSync(data2);
+      return;
     }
+    if (this.worker) {
+      this.worker.terminate();
+      // console.log('terminated before sorting :', this.sarake, this.reversed);
+    }
+    this.worker = new Worker('../workers/sort.worker', { type: 'module' });
+    this.worker.onmessage = ({ data }) => {
+      this.sortedEmitter.emit(data);
+      // console.log('sorted and emitted:', this.sarake, this.reversed);
+    };
+    this.worker.postMessage({
+        data: data2,
+        sarake: this.sarake,
+        reverse: this.reversed,
+    });
 
   }
 
   sortDataSync(data: object[]) {
     data.sort((a, b) => {
-      if ( a[this.sarake] < b[this.sarake]) {return this.reversed ? -1 : 1;}
-      if ( a[this.sarake] > b[this.sarake]) {return this.reversed ? 1 : -1;}
+      if (a[this.sarake] < b[this.sarake]) {return this.reversed ? -1 : 1; }
+      if (a[this.sarake] > b[this.sarake]) {return this.reversed ? 1 : -1; }
       return 0;
     });
   }

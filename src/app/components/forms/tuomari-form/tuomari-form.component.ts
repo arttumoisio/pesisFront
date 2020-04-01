@@ -1,10 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { KyselyApuService } from 'src/app/services/kysely-apu.service';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { SortService } from 'src/app/services/sort.service';
 import { DotnetRESTservice } from 'src/app/services/dotnetAPI.service';
 import { DataService } from 'src/app/services/dataservice.service';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { KyselyApu } from 'src/app/models/kyselyApu.model';
+import { FormGroup} from '@angular/forms';
 import { FilterService } from 'src/app/services/filter.service';
 
 @Component({
@@ -12,40 +10,22 @@ import { FilterService } from 'src/app/services/filter.service';
   templateUrl: './tuomari-form.component.html',
   styleUrls: ['./tuomari-form.component.css']
 })
-export class TuomariFormComponent implements OnInit {
-  reactiveKyselyForm: FormGroup;
+export class TuomariFormComponent implements OnInit, AfterViewInit {
 
+  reactiveKyselyForm: FormGroup;
   lisaaSuodattimia = false; // in production this is: false;
   suodinTeksti = 'Enemmän'; // in production this is: 'Enemmän'
 
-  get apu(): KyselyApu {return this.kyselyService.kyselyData;};
-
-  constructor(private kyselyService: KyselyApuService,
-              private ss: SortService,
+  constructor(private ss: SortService,
               private dotnetApi: DotnetRESTservice,
               private ds: DataService,
               private fs: FilterService) { }
 
   ngOnInit() {
-    const minKausi = this.apu.kaudet[0];
-    const maxKausi = this.apu.kaudet[this.kyselyService.kyselyData.kaudet.length - 1];
-    this.reactiveKyselyForm = new FormGroup({
-      kaudetAlku:   new FormControl(
-        minKausi, 
-        [Validators.min(minKausi), Validators.max(maxKausi)]
-      ),
-      kaudetLoppu:  new FormControl(
-        maxKausi, 
-        [Validators.min(minKausi), Validators.max(maxKausi)]
-      ),
-      sarjavaihe:   new FormControl(''),
-      sarja:   new FormControl('Miesten superpesis'),
-      vuosittain: new FormControl(false),
-      kotijoukkue: new FormControl(''),
-      vierasjoukkue: new FormControl(''),
-      lukkari: new FormControl(''),
-      STPT: new FormControl(''),
-    });
+    this.reactiveKyselyForm = new FormGroup({    });
+  }
+  
+  ngAfterViewInit(){
     this.onSubmit();
   }
 
@@ -63,15 +43,11 @@ export class TuomariFormComponent implements OnInit {
   onSubmit() {
     // console.log(this.reactiveKyselyForm.value);
     this.ds.startLoading();
-    const alku: string = this.reactiveKyselyForm.value.kaudetAlku;
-    const loppu: string = this.reactiveKyselyForm.value.kaudetLoppu;
     this.dotnetApi.onHaeTuomarit(this.reactiveKyselyForm.value)
     .subscribe((responseData: object[]) => {
         const data = [];
         responseData.map((elem)=>{data.push(elem)});
         this.ds.setRawData(data);
-        this.kyselyService.haeLukkarit( alku, loppu );
-        this.kyselyService.haeJoukkueet( alku, loppu );
     });
     
   }

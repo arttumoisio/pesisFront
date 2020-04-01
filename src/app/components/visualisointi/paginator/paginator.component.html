@@ -15,7 +15,13 @@
     <div class="col-8">
 
         {{records}} riviä. Sivu 
-        <input type="number" [min]="1" [max]="pages" [value]="currentPage" (change)="changePage($event.target.value)">
+        <input 
+        type="number" 
+        [min]="1" 
+        [max]="pages" 
+        [value]="currentPage" 
+        (change)="changePage($event.target.value)"
+        >
         /{{pages}}
         <select 
         name="show" 

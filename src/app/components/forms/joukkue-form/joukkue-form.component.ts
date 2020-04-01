@@ -1,5 +1,5 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { KyselyApu } from 'src/app/models/kyselyApu.model';
 import { KyselyApuService } from 'src/app/services/kysely-apu.service';
 import { DataService } from 'src/app/services/dataservice.service';
@@ -12,7 +12,7 @@ import { FilterService } from 'src/app/services/filter.service';
   templateUrl: './joukkue-form.component.html',
   styleUrls: ['./joukkue-form.component.css']
 })
-export class JoukkueFormComponent implements OnInit, OnDestroy {
+export class JoukkueFormComponent implements OnInit, OnDestroy, AfterViewInit {
 
   reactiveKyselyForm: FormGroup;
 
@@ -28,25 +28,10 @@ export class JoukkueFormComponent implements OnInit, OnDestroy {
               private fs: FilterService) { }
 
   ngOnInit() {
-    const minKausi = this.apu.kaudet[0];
-    const maxKausi = this.apu.kaudet[this.kyselyService.kyselyData.kaudet.length - 1];
-    this.reactiveKyselyForm = new FormGroup({
-      kaudetAlku:   new FormControl(
-        minKausi, 
-        [Validators.min(minKausi), Validators.max(maxKausi)]
-      ),
-      kaudetLoppu:  new FormControl(
-        maxKausi, 
-        [Validators.min(minKausi), Validators.max(maxKausi)]
-      ),
-      sarjavaihe:   new FormControl(''),
-      sarja:   new FormControl('Miesten superpesis'),
-      vuosittain: new FormControl(false),
-      joukkue: new FormControl(''),
-      paikka:   new FormControl(''),
-      vastustaja:   new FormControl(''),
-      tulos:   new FormControl(''),
-    });
+    this.reactiveKyselyForm = new FormGroup({});
+  }
+  
+  ngAfterViewInit(){
     this.onSubmit();
   }
 

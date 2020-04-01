@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormGroup, FormControl } from '@angular/forms';
 import { KyselyApu } from 'src/app/models/kyselyApu.model';
 import { KyselyApuService } from 'src/app/services/kysely-apu.service';
 
@@ -17,6 +17,10 @@ export class TeamsExtraFormComponent implements OnInit {
   constructor(private kas: KyselyApuService) { }
 
   ngOnInit(): void {
+    this.parentForm.addControl('joukkue', new FormControl(''));
+    this.parentForm.addControl('paikka', new FormControl(''));
+    this.parentForm.addControl('vastustaja', new FormControl(''));
+    this.parentForm.addControl('tulos', new FormControl(''));
   }
 
 }
