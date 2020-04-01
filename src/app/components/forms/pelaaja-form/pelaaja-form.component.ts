@@ -1,11 +1,11 @@
 import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { KyselyApu } from 'src/app/models/kyselyApu.model';
-import { KyselyApuService } from 'src/app/services/kysely-apu.service';
-import { DotnetRESTservice } from 'src/app/services/dotnetAPI.service';
-import { DataService } from 'src/app/services/dataservice.service';
-import { SortService } from 'src/app/services/sort.service';
-import { FilterService } from 'src/app/services/filter.service';
+import { IKyselyApu } from '../../../models/kyselyApu.model';
+import { KyselyApuService } from '../../../services/kysely-apu.service';
+import { DotnetRESTservice } from '../../../services/dotnetAPI.service';
+import { DataService } from '../../../services/dataservice.service';
+import { SortService } from '../../../services/sort.service';
+import { FilterService } from '../../../services/filter.service';
 
 @Component({
   selector: 'app-pelaaja-form',
@@ -19,7 +19,7 @@ export class PelaajaFormComponent implements OnInit, OnDestroy, AfterViewInit {
   lisaaSuodattimia = false;
   suodinTeksti = 'Enemmän';
 
-  get apu():KyselyApu {return this.kyselyService.kyselyData;}
+  get apu(): IKyselyApu {return this.kyselyService.kyselyData;}
 
   constructor(
     private kyselyService: KyselyApuService,

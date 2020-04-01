@@ -1,16 +1,16 @@
 import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { KyselyApu } from 'src/app/models/kyselyApu.model';
-import { KyselyApuService } from 'src/app/services/kysely-apu.service';
-import { DataService } from 'src/app/services/dataservice.service';
-import { DotnetRESTservice } from 'src/app/services/dotnetAPI.service';
-import { SortService } from 'src/app/services/sort.service';
-import { FilterService } from 'src/app/services/filter.service';
+import { IKyselyApu } from '../../../models/kyselyApu.model';
+import { KyselyApuService } from '../../../services/kysely-apu.service';
+import { DataService } from '../../../services/dataservice.service';
+import { DotnetRESTservice } from '../../../services/dotnetAPI.service';
+import { SortService } from '../../../services/sort.service';
+import { FilterService } from '../../../services/filter.service';
 
 @Component({
   selector: 'app-joukkue-form',
   templateUrl: './joukkue-form.component.html',
-  styleUrls: ['./joukkue-form.component.css']
+  styleUrls: ['./joukkue-form.component.css'],
 })
 export class JoukkueFormComponent implements OnInit, OnDestroy, AfterViewInit {
 
@@ -19,7 +19,7 @@ export class JoukkueFormComponent implements OnInit, OnDestroy, AfterViewInit {
   lisaaSuodattimia = false; // in production this is: false;
   suodinTeksti = 'Enemmän'; // in production this is: 'Enemmän'
 
-  get apu(): KyselyApu {return this.kyselyService.kyselyData;};
+  get apu(): IKyselyApu {return this.kyselyService.kyselyData; }
 
   constructor(private kyselyService: KyselyApuService,
               private ss: SortService,
@@ -30,12 +30,12 @@ export class JoukkueFormComponent implements OnInit, OnDestroy, AfterViewInit {
   ngOnInit() {
     this.reactiveKyselyForm = new FormGroup({});
   }
-  
-  ngAfterViewInit(){
+
+  ngAfterViewInit() {
     this.onSubmit();
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.ss.resetSortParams();
     this.fs.resetFilters();
     this.ds.resetData();
@@ -52,7 +52,7 @@ export class JoukkueFormComponent implements OnInit, OnDestroy, AfterViewInit {
     this.dotnetApi.onHaeJoukkueet(this.reactiveKyselyForm.value)
     .subscribe((responseData: object[]) => {
         const data = [];
-        responseData.map((elem)=>{data.push(elem)});
+        responseData.map((elem) => {data.push(elem);});
         this.ds.setRawData(data);
     });
   }

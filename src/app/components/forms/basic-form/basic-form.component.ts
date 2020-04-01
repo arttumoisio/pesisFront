@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { KyselyApu } from '../../../models/kyselyApu.model';
+import { IKyselyApu } from '../../../models/kyselyApu.model';
 import { KyselyApuService } from '../../../services/kysely-apu.service';
 
 @Component({
@@ -13,7 +13,7 @@ export class BasicFormComponent implements OnInit, OnDestroy {
   @Input() parentForm: FormGroup;
   @Input() lisaaSuodattimia: boolean;
 
-  get apu(): KyselyApu { return this.kas.kyselyData; }
+  get apu(): IKyselyApu { return this.kas.kyselyData; }
 
   constructor(private kas: KyselyApuService) { }
 
