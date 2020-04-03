@@ -1,5 +1,5 @@
 <div [formGroup]="parentForm" class="row">
-<div class="my-2 col-xl-2 col-lg-4 col-md-3 col-6">
+<div class="my-2 col-6">
     <label for="joukkue">Joukkue</label>
     <select
     formControlName="joukkue"
@@ -18,7 +18,7 @@
     </option>
     </select>
   </div>
-<app-extra-fields class="mt-2 mb-4 col-xl-2 col-lg-2 col-md-3 col-6" [parentForm]="parentForm"></app-extra-fields>
+<app-extra-fields class="my-2 col-6" [parentForm]="parentForm"></app-extra-fields>
 
-<app-filter-form class="mt-2 mb-4 col-xl-6 col-lg-6 col-md-6 col-12"></app-filter-form>
+<app-filter-form class="my-2 col-12"></app-filter-form>
 </div>

@@ -1,5 +1,5 @@
 <div [formGroup]="parentForm" class="row">
-    <div class="my-2 col-md-3 col-6">
+    <div class="my-2 col-md-4 col-6">
         <label for="kotijoukkue">Kotijoukkue</label>
         <select
         formControlName="kotijoukkue"
@@ -16,13 +16,13 @@
         Eritelty
         </option>
         <option 
-        *ngFor="let joukkue of apu['joukkueet']" 
+        *ngFor="let joukkue of apu['kotijoukkueet']" 
         [value]="joukkue">
         {{ joukkue }}
         </option>
         </select>
       </div>
-    <div class="my-2 col-md-3 col-6">
+    <div class="my-2 col-md-4 col-6">
         <label for="vierasjoukkue">Vierasjoukkue</label>
         <select
         formControlName="vierasjoukkue"
@@ -39,13 +39,13 @@
         Eritelty
         </option>
         <option 
-        *ngFor="let joukkue of apu['joukkueet']" 
+        *ngFor="let joukkue of apu['vierasjoukkueet']" 
         [value]="joukkue">
         {{ joukkue }}
         </option>
         </select>
       </div>
-    <div class="my-2 col-md-3 col-6">
+    <div class="my-2 col-md-4 col-6">
         <label for="lukkari">Lukkari</label>
         <select
         formControlName="lukkari"
@@ -68,7 +68,7 @@
         </option>
         </select>
       </div>
-    <div class="my-2 col-md-3 col-6">
+    <div class="my-2 col-md-4 col-6">
         <label for="tuomari">ST/PT</label>
         <select
         formControlName="STPT"
@@ -90,5 +90,5 @@
         </option>
         </select>
       </div>
-    <app-filter-form class="mt-2 mb-4 col-md-6 col-12"></app-filter-form>
+    <app-filter-form class="my-2 col-md-8 col-12"></app-filter-form>
     </div>

@@ -1,4 +1,6 @@
-div[class*="col"] {
-    padding-right: 0;
+div[class*="left"] {
+  padding-right: 0;
+}
+div[class*="right"] {
     padding-left: 0;
   }

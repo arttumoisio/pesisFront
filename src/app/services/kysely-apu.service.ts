@@ -137,13 +137,15 @@ export class KyselyApuService {
     // console.log('haetaan joukkueet', this.kyselyData.joukkueet.length, alku, loppu);
     this.dotnetApi.haeJoukkueetApu(alku, loppu, sarja, sarjavaihe).subscribe((data: object[]) => {
       // console.log('joukkueet tuli', data);
-      this.kyselyData.joukkueet = [];
       this.kyselyData.kotijoukkueet = [];
+      this.kyselyData.vierasjoukkueet = [];
       this.kyselyData.joukkueet = data.map((elem: {joukkue: string; koti: number; vieras: number; }) => {
         if (elem.koti === 1) {this.kyselyData.kotijoukkueet.push(elem.joukkue); }
         if (elem.vieras === 1) {this.kyselyData.vierasjoukkueet.push(elem.joukkue); }
         return elem.joukkue;
       });
+      // console.log(this.kyselyData.kotijoukkueet);
+      // console.log(this.kyselyData.vierasjoukkueet);
     });
   }
   haeLukkarit(

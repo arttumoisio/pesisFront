@@ -1,8 +1,7 @@
-<div class="container-fluid">
-<div class="container-fluid my-2 komp">
+<div class="container my-2">
     <form [formGroup]="filterForm"(ngSubmit)="onSuodata()">
     <div class="row">
-      <div class="col-6">
+      <div class="col-6 left">
         <input
         type="text"
         class="form-control"
@@ -12,7 +11,7 @@
         (focusout)="onSuodata()"
         />
       </div>
-      <div class="col-6">
+      <div class="col-6 right">
               <select 
               name="column" 
               type="text"
@@ -35,5 +34,4 @@
     </div>
     </form>
   </div>
-</div>
   

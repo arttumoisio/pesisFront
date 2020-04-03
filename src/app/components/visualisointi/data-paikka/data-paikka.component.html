@@ -15,9 +15,7 @@
 </tr>
 </thead>
 
-<div class="viewportdiv" id="viewportdiv" (scroll)="onTableScroll($event)">
-  <div class="komp viewportdiv2">
-    <div class="xl-col-6 col-12 tablediv">
+<div class="viewportdiv tablediv" id="viewportdiv" (scroll)="onTableScroll($event)">
       <table id="datataulu">
         <thead id="tablehead"  [ngClass]="{'stickyfix': showSticky}">
           <tr>
@@ -57,9 +55,7 @@
       </tr>
     </tbody>
   </table>
-    </div>
 
-  </div>
 
     <div class="paginator komp">
       <app-paginator></app-paginator>
