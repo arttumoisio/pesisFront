@@ -1,5 +1,4 @@
-import { AfterViewInit, Component, HostListener, OnDestroy, OnInit} from '@angular/core';
-import { Subscription } from 'rxjs';
+import { AfterViewInit, Component, HostListener, OnDestroy } from '@angular/core';
 import { DataService } from '../../../services/dataservice.service';
 import { FilterService } from '../../../services/filter.service';
 import { PaginatorService } from '../../../services/paginator.service';
@@ -11,7 +10,7 @@ import { TableStateService } from '../../../services/table-state.service';
   templateUrl: './data-paikka.component.html',
   styleUrls: ['./data-paikka.component.css'],
 })
-export class DataPaikkaComponent implements OnInit, AfterViewInit, OnDestroy {
+export class DataPaikkaComponent implements AfterViewInit, OnDestroy {
 
   // data : object[];
   // filters;
@@ -24,9 +23,9 @@ export class DataPaikkaComponent implements OnInit, AfterViewInit, OnDestroy {
   get otsikot(): string[] {return this.ds.getOtsikot(); }
   get firstRow() {return this.ps.getPagination().firstRow; }
 
-  public theadoffset: string = '0px';
-  public showSticky = false;
-  public offsetTop: number = undefined;
+  theadoffset: string = '0px';
+  showSticky = false;
+  offsetTop: number = undefined;
 
   // subscriptions: Subscription[];
 
@@ -43,24 +42,20 @@ export class DataPaikkaComponent implements OnInit, AfterViewInit, OnDestroy {
       // }));
   }
 
-  public ngOnInit() {
-
-  }
-
-  public ngAfterViewInit() {
+  ngAfterViewInit() {
     document.getElementById('viewportdiv').scrollLeft = this.tss.tableScroll;
   }
 
-  public ngOnDestroy() {
+  ngOnDestroy() {
     this.ps.resetPagination();
     // this.subscriptions.map(elem=>elem.unsubscribe());
   }
 
-  public sortData(sarake: string) {
+  sortData(sarake: string) {
     // console.log("Sortattava sarake:",sarake,"Reversed:", this.ss.getSortParams().reversed);
     this.ss.setSortParams(sarake);
   }
-  public setOffSetTopOnce(ost: number) {
+  setOffSetTopOnce(ost: number) {
     // if (this.offsetTop === undefined){
     //   this.offsetTop = ost + window.scrollY;
     // }
@@ -68,18 +63,14 @@ export class DataPaikkaComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   @HostListener('window:scroll', ['$event'])
-  public onScroll(event: Event) {
+  onScroll(event: Event) {
     // console.log("windowscroll");
 
     const theadElem: HTMLElement = document.getElementById('tablehead');
     const {y} = theadElem.getBoundingClientRect();
     const w = window.scrollY;
     this.setOffSetTopOnce(y);
-    if (w >= this.offsetTop) {
-      this.showSticky = true;
-    } else {
-      this.showSticky = false;
-    }
+    this.showSticky = w >= this.offsetTop;
   }
 
   // @HostListener('window:resize', ['$event'])
@@ -87,7 +78,7 @@ export class DataPaikkaComponent implements OnInit, AfterViewInit, OnDestroy {
   //   this.offsetTop = undefined;
   // }
 
-  public onTableScroll(event: Event) {
+  onTableScroll(event: Event) {
     const target = event.target as HTMLElement;
     this.theadoffset = -target.scrollLeft + 'px';
     this.tss.tableScroll = target.scrollLeft;
