@@ -38,8 +38,8 @@ export class KyselyApuService {
     ],
 
     kaudet: [
+    2020,
     1994,
-    2019,
     ],
 
     peliTyypit: [
