@@ -8,7 +8,7 @@ export class PaginatorService {
   private pagination: {currentPage: number; pages: number; show: number; records: number; firstRow: number; } = {
     currentPage: 1,
     pages: 1,
-    show: 100,
+    show: 20,
     records: 0,
     firstRow: 0,
   };
@@ -22,7 +22,7 @@ export class PaginatorService {
   }
 
   resetPagination(): void {
-    this.pagination = {currentPage: 1, pages: 1, show: 40, records: 1, firstRow: 0};
+    this.pagination = {currentPage: 1, pages: 1, show: this.pagination.show, records: 1, firstRow: 0};
     this.update();
   }
 
