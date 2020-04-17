@@ -1,20 +1,20 @@
 import { Component } from '@angular/core';
-import { DataService } from 'src/app/services/dataservice.service';
-import { PiilotusService } from 'src/app/services/piilotus.service';
+import { DataService } from '../../services/dataservice.service';
 
 @Component({
   selector: 'app-visualisointi',
   templateUrl: './visualisointi.component.html',
-  styleUrls: ['./visualisointi.component.css']
+  styleUrls: ['./visualisointi.component.css'],
+  host: {
+    class: 'customComponent',
+  },
 })
-export class VisualisointiComponent{
+export class VisualisointiComponent {
 
-  constructor (private ds: DataService,
-    private pis: PiilotusService) {
+  constructor(private ds: DataService) {
   }
 
-  get piilotaValikko() : boolean {return this.pis.getPiilotus();}
-  get errorMessage() : string {return this.ds.getErrorMsg();}
-  get data() : object[] {return this.ds.getData();}
-  get loading() : boolean {return this.ds.getLoading();}
+  get errorMessage(): string {return this.ds.getErrorMsg(); }
+  get data(): object[] {return this.ds.getData(); }
+  get loading(): boolean {return this.ds.getLoading(); }
 }
