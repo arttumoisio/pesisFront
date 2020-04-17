@@ -9,6 +9,9 @@ import { TableStateService } from '../../../services/table-state.service';
   selector: 'app-data-paikka',
   templateUrl: './data-paikka.component.html',
   styleUrls: ['./data-paikka.component.css'],
+  host: {
+    class: 'customComponent',
+  },
 })
 export class DataPaikkaComponent implements AfterViewInit, OnDestroy {
 
@@ -43,11 +46,33 @@ export class DataPaikkaComponent implements AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit() {
-    document.getElementById('viewportdiv').scrollLeft = this.tss.tableScroll;
+    const lastColWidth: number = document.getElementById('viimeinen').scrollWidth;
+    // console.log(lastColWidth);
+    document.getElementById('viimeinenotsikko').style.minWidth = `${lastColWidth}px`;
+
+    // console.log(document.getElementById('bodyscroll').scrollLeft);
+    document.getElementById('bodyscroll').scrollLeft = this.tss.tableScroll;
+    // console.log(this.tss.tableScroll);
+    // console.log(document.getElementById('bodyscroll').scrollLeft);
+  }
+
+  // get tableScroll(): number {
+  //   console.log(this.tss.tableScroll);
+
+  //   return this.tss.tableScroll;
+  // }
+
+  setScroll(scroll: number) {
+    this.tss.tableScroll = scroll;
+    // console.log(scroll);
   }
 
   ngOnDestroy() {
     this.ps.resetPagination();
+
+    // console.log('on destroy', this.tss.tableScroll);
+    
+    // this.tss.tableScroll = document.getElementById('bodyscroll').scrollLeft;
     // this.subscriptions.map(elem=>elem.unsubscribe());
   }
 
@@ -55,67 +80,16 @@ export class DataPaikkaComponent implements AfterViewInit, OnDestroy {
     // console.log("Sortattava sarake:",sarake,"Reversed:", this.ss.getSortParams().reversed);
     this.ss.setSortParams(sarake);
   }
-  setOffSetTopOnce(ost: number) {
-    // if (this.offsetTop === undefined){
-    //   this.offsetTop = ost + window.scrollY;
-    // }
-    this.offsetTop = ost + window.scrollY;
-  }
 
   @HostListener('window:scroll', ['$event'])
   onScroll(event: Event) {
+    console.log(event.type);
+    console.log(typeof(event));
+
     // console.log("windowscroll");
 
-    const theadElem: HTMLElement = document.getElementById('tablehead');
-    const {y} = theadElem.getBoundingClientRect();
+    const tbodyDiv: HTMLElement = document.getElementById('bodyscroll');
+    const {x, y} = tbodyDiv.getBoundingClientRect();
     const w = window.scrollY;
-    this.setOffSetTopOnce(y);
-    this.showSticky = w >= this.offsetTop;
   }
-
-  // @HostListener('window:resize', ['$event'])
-  // onResize(event) {
-  //   this.offsetTop = undefined;
-  // }
-
-  onTableScroll(event: Event) {
-    const target = event.target as HTMLElement;
-    this.theadoffset = -target.scrollLeft + 'px';
-    this.tss.tableScroll = target.scrollLeft;
-  }
-
-  // tablepos: number = 0;
-  // tablepospx: string = "px"
-  // @HostListener('window:wheel', ['$event'])
-  // onWheel(event: WheelEvent) {
-  //   const x = event.deltaX;
-  //   this.tablepos -= x;
-  //   if (this.tablepos > 0){
-  //     this.tablepos = 0;
-  //   } else if (this.tablepos < document.body.scrollWidth-tableElem.scrollWidth) {
-  //     this.tablepos = document.body.scrollWidth-tableElem.scrollWidth;
-  //   }this.tablepospx = this.tablepos + 'px';
-  // }
-  // touchStart: number;
-  // distancex: number = 0;
-  // previousx: number;
-  // @HostListener('window:touchstart', ['$event'])
-  // onTouchStart(event: TouchEvent) {
-  //   this.touchStart = event.targetTouches.item(0).screenX;
-  //   this.previousx = 0;
-  // }
-  // @HostListener('window:touchmove', ['$event'])
-  // onTouchMove(event: TouchEvent) {
-  //   const x = event.touches.item(0).screenX - this.touchStart;
-  //   const absMove = this.previousx - x;
-  //   const tableElem: HTMLElement = document.getElementById("datataulu");
-  //   this.tablepos -= absMove;
-  //   if (this.tablepos > 0){
-  //     this.tablepos = 0;
-  //   } else if (this.tablepos < document.body.scrollWidth-tableElem.scrollWidth) {
-  //     this.tablepos = document.body.scrollWidth-tableElem.scrollWidth;
-  //   }
-  //   this.tablepospx = this.tablepos + 'px';
-  //   this.previousx = x;
-  // }
 }

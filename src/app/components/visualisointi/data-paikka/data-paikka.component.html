@@ -1,65 +1,64 @@
-
-<thead [ngStyle]="{'left': theadoffset}" *ngIf="showSticky"  class="stickyfix" id="tablehead2"
-[ngStyle]="{'left': theadoffset}">
-  <tr>
-    <th id="headers" class="sija">#</th>
-    <th *ngFor="let otsikko of otsikot, index as i," 
-    (click)="sortData(otsikko)"
-    [ngClass]="{  'sticky': i==0,
-    'desc-sort': otsikko==jarjestetty&&(!reversed),
-    'asc-sort': otsikko==jarjestetty&&reversed,
-    'sortattava' : true
-  }"
-  id="headers"
-  >{{otsikko}}</th>
-</tr>
-</thead>
-
-<div class="viewportdiv tablediv" id="viewportdiv" (scroll)="onTableScroll($event)">
-      <table id="datataulu">
-        <thead id="tablehead"  [ngClass]="{'stickyfix': showSticky}">
+<div class="viewportdiv tablediv" id="viewportdiv">
+  <table id="datataulu">
+    <div 
+    class="wrapper headwrapper"
+    #scrollOne
+    >
+      <thead
+        #tableHeadd
+        id="tablehead"  
+        [ngClass]="{'stickyfix': showSticky}">
           <tr>
-            <th id="headers" class="sija">#</th>
+            <th>#</th>
             <th *ngFor="let otsikko of otsikot, index as i," 
             (click)="sortData(otsikko)"
-            [ngClass]="{  'sticky': i==0,
+            [ngClass]="{
             'desc-sort': otsikko==jarjestetty&&(!reversed),
             'asc-sort': otsikko==jarjestetty&&reversed,
             'sortattava' : true
           }"
-          id="headers"
+          [id]="i == otsikot.length-1 ? 'viimeinenotsikko':''"
           >{{otsikko}}</th>
         </tr>
       </thead>
-      <tbody  id="body">
-        <tr
-        *ngFor="let rivi of data | filter:filters | paginator:pagination; index as i;"
-        [ngClass]="{ 
-          
-        }">
-        <td 
-        [ngClass]="{ 
-          'pariton': i%2==1,
-          'parillinen' : i%2==0,
-          'sija' : true
-        }">{{i+1+firstRow}}</td>
-        <td *ngFor="let otsikko of otsikot; index as io," 
-        [ngClass]="{ 
-          'sticky': io==0,
-          'pariton': i%2==1,
-          'parillinen' : i%2==0,
-          'sorted' : otsikko===jarjestetty,
-          'otsikollinen' : true
-        }">
-        {{rivi[otsikko]}}</td>
-      </tr>
-    </tbody>
-  </table>
 
-
-    <div class="paginator komp">
-      <app-paginator></app-paginator>
     </div>
+    <div 
+    class="wrapper bodywrapper"
+    (scroll)="
+    setScroll(scrollTwo.scrollLeft);
+    tableHeadd.style.left = '-'+scrollTwo.scrollLeft.toString()+'px';
+    "
+    id="bodyscroll"
+    #scrollTwo
+    >
+        <tbody
+        
+        id="body">
+          <tr
+          *ngFor="let rivi of data | filter:filters | paginator:pagination; index as i;"
+          [ngClass]="{ 
+            
+          }">
+          <td 
+          [ngClass]="{ 
+            'pariton': i%2==1,
+            'parillinen' : i%2==0
+          }">{{i+1+firstRow}}</td>
+          <td *ngFor="let otsikko of otsikot; index as io," 
+          [ngClass]="{
+            'pariton': i%2==1,
+            'parillinen' : i%2==0,
+            'sorted' : otsikko===jarjestetty,
+            'otsikollinen' : true
+          }"
+          [id]="io == otsikot.length-1 && i == 0 ? 'viimeinen':''">
+          {{rivi[otsikko]}}</td>
+        </tr>
+        </tbody>
+      </div>
+  </table>
 </div>
+
 
 
