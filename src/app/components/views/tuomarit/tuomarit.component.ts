@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { PiilotusService } from 'src/app/services/piilotus.service';
+import { PiilotusService } from '../../../services/piilotus.service';
 
 @Component({
   selector: 'app-tuomarit',
   templateUrl: './tuomarit.component.html',
-  styleUrls: ['./tuomarit.component.css']
+  styleUrls: ['./tuomarit.component.css'],
+  host: {
+    class: 'customComponent',
+  },
 })
 export class TuomaritComponent implements OnInit {
 
@@ -13,10 +16,8 @@ export class TuomaritComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  get piilotaValikko() : boolean {
+  get piilotaValikko(): boolean {
     return this.pis.getPiilotus();
   }
-
-  
 
 }

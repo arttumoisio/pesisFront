@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { PiilotusService } from 'src/app/services/piilotus.service';
+import { PiilotusService } from '../../services/piilotus.service';
 
 @Component({
   selector: 'app-navigointi',
   templateUrl: './navigointi.component.html',
-  styleUrls: ['./navigointi.component.css']
+  styleUrls: ['./navigointi.component.css'],
+  host: {
+    class: 'customComponent',
+  },
 })
 
 export class NavigointiComponent implements OnInit {

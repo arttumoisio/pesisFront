@@ -1,18 +1,20 @@
-import { Component, OnInit } from '@angular/core';
-import { DataService } from 'src/app/services/dataservice.service';
-import { PiilotusService } from 'src/app/services/piilotus.service';
+import { Component } from '@angular/core';
+import { PiilotusService } from '../../../services/piilotus.service';
+
 @Component({
   selector: 'app-mvpelaajat',
   templateUrl: './mvpelaajat.component.html',
-  styleUrls: ['./mvpelaajat.component.css']
+  styleUrls: ['./mvpelaajat.component.css'],
+  host: {
+    class: 'customComponent',
+  },
 })
-export class MVPelaajatComponent implements OnInit {
+export class MVPelaajatComponent {
 
-  constructor (private pis: PiilotusService) {}
-  
-  ngOnInit(){}
+  constructor(private pis: PiilotusService) {}
 
-  get piilotaValikko() : boolean {
+  get piilotaValikko(): boolean {
+    // console.log(this.pis.getPiilotus());
     return this.pis.getPiilotus();
   }
 }
