@@ -10,7 +10,10 @@ import { FilterService } from '../../../services/filter.service';
 @Component({
   selector: 'app-pelaaja-form',
   templateUrl: './pelaaja-form.component.html',
-  styleUrls: ['./pelaaja-form.component.css']
+  styleUrls: ['./pelaaja-form.component.css'],
+  host: {
+    class: 'customComponent',
+  },
 })
 export class PelaajaFormComponent implements OnInit, OnDestroy, AfterViewInit {
 
@@ -19,7 +22,7 @@ export class PelaajaFormComponent implements OnInit, OnDestroy, AfterViewInit {
   lisaaSuodattimia = false;
   suodinTeksti = 'Enemmän';
 
-  get apu(): IKyselyApu {return this.kyselyService.kyselyData;}
+  get apu(): IKyselyApu {return this.kyselyService.kyselyData; }
 
   constructor(
     private kyselyService: KyselyApuService,
@@ -30,21 +33,18 @@ export class PelaajaFormComponent implements OnInit, OnDestroy, AfterViewInit {
     ) {}
 
   ngOnInit() {
-    const minKausi = this.apu.kaudet[0];
-    const maxKausi = this.apu.kaudet[this.apu.kaudet.length - 1];
     this.reactiveKyselyForm = new FormGroup({});
   }
-  
-  ngAfterViewInit(){
+
+  ngAfterViewInit() {
     this.onSubmit();
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.ss.resetSortParams();
     this.fs.resetFilters();
     this.ds.resetData();
   }
-
 
   onLisaaSuodattimia() {
     if (this.lisaaSuodattimia) {
@@ -54,20 +54,10 @@ export class PelaajaFormComponent implements OnInit, OnDestroy, AfterViewInit {
     this.suodinTeksti = this.lisaaSuodattimia ? 'Vähemmän' : 'Enemmän';
   }
 
-
   onSubmit() {
     // console.log(this.reactiveKyselyForm.value);
-    this.ds.startLoading();
-    this.dotnetApi.onHaePelaajat(this.reactiveKyselyForm.value)
-    .subscribe( (responseData => {
-        const data = [];
-        for (const elem in responseData) {
-          if (elem) {
-            data.push(responseData[elem]);
-          }
-        }
-        this.ds.setRawData(data);
-    }));
+
+    this.dotnetApi.onHaePelaajat(this.reactiveKyselyForm.value);
 
   }
 

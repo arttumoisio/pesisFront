@@ -6,7 +6,10 @@ import { KyselyApuService } from '../../../services/kysely-apu.service';
 @Component({
   selector: 'app-teams-extra-form',
   templateUrl: './teams-extra-form.component.html',
-  styleUrls: ['./teams-extra-form.component.css']
+  styleUrls: ['./teams-extra-form.component.css'],
+  host: {
+    class: 'customComponent',
+  },
 })
 export class TeamsExtraFormComponent implements OnInit {
   

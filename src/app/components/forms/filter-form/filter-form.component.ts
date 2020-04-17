@@ -7,6 +7,9 @@ import { FilterService } from 'src/app/services/filter.service';
   selector: 'app-filter-form',
   templateUrl: './filter-form.component.html',
   styleUrls: ['./filter-form.component.css'],
+  host: {
+    class: 'customComponent',
+  },
 })
 export class FilterFormComponent implements OnInit, OnDestroy {
 

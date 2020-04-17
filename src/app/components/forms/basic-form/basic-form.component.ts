@@ -7,6 +7,9 @@ import { KyselyApuService } from '../../../services/kysely-apu.service';
   selector: 'app-basic-form',
   templateUrl: './basic-form.component.html',
   styleUrls: ['./basic-form.component.css'],
+  host: {
+    class: 'customComponent',
+  },
 })
 export class BasicFormComponent implements OnInit, OnDestroy {
 
@@ -18,8 +21,8 @@ export class BasicFormComponent implements OnInit, OnDestroy {
   constructor(private kas: KyselyApuService) { }
 
   ngOnInit(): void {
-    const minKausi = this.apu.kaudet[0];
-    const maxKausi = this.apu.kaudet[this.kas.kyselyData.kaudet.length - 1];
+    const minKausi = this.apu.kaudet[this.kas.kyselyData.kaudet.length - 1];
+    const maxKausi = this.apu.kaudet[0];
     this.parentForm.addControl('kaudetAlku', new FormControl(
       minKausi,
       [Validators.min(minKausi), Validators.max(maxKausi)],

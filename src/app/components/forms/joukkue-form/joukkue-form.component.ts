@@ -11,6 +11,9 @@ import { FilterService } from '../../../services/filter.service';
   selector: 'app-joukkue-form',
   templateUrl: './joukkue-form.component.html',
   styleUrls: ['./joukkue-form.component.css'],
+  host: {
+    class: 'customComponent',
+  },
 })
 export class JoukkueFormComponent implements OnInit, OnDestroy, AfterViewInit {
 
@@ -47,13 +50,7 @@ export class JoukkueFormComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   onSubmit() {
-    this.ds.startLoading();
     // console.log(this.reactiveKyselyForm.value);
-    this.dotnetApi.onHaeJoukkueet(this.reactiveKyselyForm.value)
-    .subscribe((responseData: object[]) => {
-        const data = [];
-        responseData.map((elem) => {data.push(elem);});
-        this.ds.setRawData(data);
-    });
+    this.dotnetApi.onHaeJoukkueet(this.reactiveKyselyForm.value);
   }
 }

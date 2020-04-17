@@ -8,7 +8,10 @@ import { FilterService } from 'src/app/services/filter.service';
 @Component({
   selector: 'app-tuomari-form',
   templateUrl: './tuomari-form.component.html',
-  styleUrls: ['./tuomari-form.component.css']
+  styleUrls: ['./tuomari-form.component.css'],
+  host: {
+    class: 'customComponent',
+  },
 })
 export class TuomariFormComponent implements OnInit, AfterViewInit {
 
@@ -42,13 +45,6 @@ export class TuomariFormComponent implements OnInit, AfterViewInit {
 
   onSubmit() {
     // console.log(this.reactiveKyselyForm.value);
-    this.ds.startLoading();
-    this.dotnetApi.onHaeTuomarit(this.reactiveKyselyForm.value)
-    .subscribe((responseData: object[]) => {
-        const data = [];
-        responseData.map((elem)=>{data.push(elem)});
-        this.ds.setRawData(data);
-    });
-    
+    this.dotnetApi.onHaeTuomarit(this.reactiveKyselyForm.value);
   }
 }

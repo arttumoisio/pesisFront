@@ -6,7 +6,10 @@ import { FilterService } from 'src/app/services/filter.service';
 @Component({
   selector: 'app-suodin-form',
   templateUrl: './suodin-form.component.html',
-  styleUrls: ['./suodin-form.component.css']
+  styleUrls: ['./suodin-form.component.css'],
+  host: {
+    class: 'customComponent',
+  },
 })
 export class SuodinFormComponent implements OnInit {
   

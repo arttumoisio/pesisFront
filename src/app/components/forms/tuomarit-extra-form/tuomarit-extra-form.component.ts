@@ -7,6 +7,9 @@ import { KyselyApuService } from '../../../services/kysely-apu.service';
   selector: 'app-tuomarit-extra-form',
   templateUrl: './tuomarit-extra-form.component.html',
   styleUrls: ['./tuomarit-extra-form.component.css'],
+  host: {
+    class: 'customComponent',
+  },
 })
 export class TuomaritExtraFormComponent implements OnInit {
 

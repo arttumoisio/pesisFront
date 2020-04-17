@@ -6,7 +6,10 @@ import { FormGroup } from '@angular/forms';
 @Component({
   selector: 'app-extra-fields',
   templateUrl: './extra-fields.component.html',
-  styleUrls: ['./extra-fields.component.css']
+  styleUrls: ['./extra-fields.component.css'],
+  host: {
+    class: 'customComponent',
+  },
 })
 export class ExtraFieldsComponent implements OnInit {
 
