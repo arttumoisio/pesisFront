@@ -3,26 +3,26 @@
 
     <button 
     class="btn btn-primary" 
-    [disabled]="1>=currentPage"
+    [disabled]="1>=(pagination|async).currentPage"
     (click)="onFirstPage()"
     >&lt;&lt;</button>
     <button 
     class="btn btn-primary" 
-    [disabled]="1>=currentPage"
+    [disabled]="1>=(pagination|async).currentPage"
     (click)="onPreviousPage()"
     >&lt;</button>
 </div>
     <div class="col-8 paginator-content">
 
-        {{records}} riviä. Sivu 
+        {{(pagination|async).records}} riviä. Sivu 
         <input 
         type="number" 
         [min]="1" 
-        [max]="pages" 
-        [value]="currentPage" 
+        [max]="(pagination|async).pages" 
+        [value]="(pagination|async).currentPage" 
         (change)="changePage($event.target.value)"
         >
-        /{{pages}}
+        /{{(pagination|async).pages}}
         <select 
         name="show" 
         id="show"
@@ -31,7 +31,7 @@
         <option 
         *ngFor="let opt of showArray" 
         [value]="opt" 
-        [selected]="opt===show"
+        [selected]="opt===(pagination|async).show"
         >{{opt}} riviä</option>
     </select>
     </div>
@@ -39,12 +39,12 @@
 
         <button 
         class="btn btn-primary" 
-        [disabled]="currentPage===pages"
+        [disabled]="(pagination|async).currentPage===(pagination|async).pages"
         (click)="onNextPage()"
         >&gt;</button>
         <button 
         class="btn btn-primary" 
-        [disabled]="currentPage===pages"
+        [disabled]="(pagination|async).currentPage===(pagination|async).pages"
         (click)="onLastPage()"
         >&gt;&gt;</button>
     </div>

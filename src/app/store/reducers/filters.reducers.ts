@@ -12,6 +12,26 @@ export const FilterReducers = (
                 filters: action.payload,
             };
         }
+        case EFilterActions.AddFilter: {
+            return {
+                ...state,
+                filters: [...state.filters, action.payload],
+            };
+        }
+        case EFilterActions.ResetFilters: {
+            return {
+                ...initialFilterState,
+            };
+        }
+        case EFilterActions.DeleteFilter: {
+            const index = Number(action.payload);
+            const newFilters = [...state.filters];
+            newFilters.splice(index, 1);
+            return {
+                ...state,
+                filters: newFilters,
+            };
+        }
         case EFilterActions.GetSuodinSuccess: {
             return {
                 ...state,

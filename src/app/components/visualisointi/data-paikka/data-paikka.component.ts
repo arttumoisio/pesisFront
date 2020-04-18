@@ -1,9 +1,12 @@
-import { AfterViewInit, Component, HostListener, OnDestroy } from '@angular/core';
+import { AfterViewInit, Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { DataService } from '../../../services/dataservice.service';
-import { FilterService } from '../../../services/filter.service';
-import { PaginatorService } from '../../../services/paginator.service';
 import { SortService } from '../../../services/sort.service';
 import { TableStateService } from '../../../services/table-state.service';
+import { Store } from '@ngrx/store';
+import { Observable, Subscription } from 'rxjs';
+import { IPaginationState } from '../../../store/state/pagination.state';
+import * as PaginationActions from '../../../store/actions/pagination.actions';
+import { IFilterState } from '../../../store/state/filters.state';
 
 @Component({
   selector: 'app-data-paikka',
@@ -13,39 +16,52 @@ import { TableStateService } from '../../../services/table-state.service';
     class: 'customComponent',
   },
 })
-export class DataPaikkaComponent implements AfterViewInit, OnDestroy {
+export class DataPaikkaComponent implements OnInit, AfterViewInit, OnDestroy {
 
   // data : object[];
   // filters;
   // pagination;
   get data(): object[] {return this.ds.getData(); }
-  get filters() {return this.fs.getFilters(); }
-  get pagination() {return this.ps.getPagination(); }
+  // get filters() {return this.fs.getFilters(); }
+
+  // get pagination() {return this.ps.getPagination(); }
+  pagination: Observable< IPaginationState >;
+  filters: Observable< IFilterState >;
+
   get jarjestetty(): string {return this.ss.getSortParams().sarake; }
   get reversed(): boolean {return this.ss.getSortParams().reversed; }
   get otsikot(): string[] {return this.ds.getOtsikot(); }
-  get firstRow() {return this.ps.getPagination().firstRow; }
 
   theadoffset: string = '0px';
   showSticky = false;
   offsetTop: number = undefined;
 
-  // subscriptions: Subscription[];
+  subscriptions: Subscription[] = [];
 
   constructor(
     private ds: DataService,
-    private fs: FilterService,
     private ss: SortService,
-    private ps: PaginatorService,
     private tss: TableStateService,
+    private store: Store<{
+      pagination: IPaginationState,
+      filters: IFilterState,
+     }>,
     ) {
+
       // this.data = this.ds.getData();
       // this.subscriptions.push(this.ds.dataChangedEmitter.subscribe(()=>{
       //   this.data = this.ds.getData();
       // }));
   }
 
+  ngOnInit() {
+    this.pagination = this.store.select('pagination');
+    this.filters = this.store.select('filters');
+    this.subscriptions.push(this.pagination.subscribe((data) => console.log(data)));
+  }
+
   ngAfterViewInit() {
+
     const lastColWidth: number = document.getElementById('viimeinen').scrollWidth;
     // console.log(lastColWidth);
     document.getElementById('viimeinenotsikko').style.minWidth = `${lastColWidth}px`;
@@ -68,10 +84,12 @@ export class DataPaikkaComponent implements AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.ps.resetPagination();
-
+    this.store.dispatch(new PaginationActions.ResetPagination());
+    this.subscriptions.map((sub) => {
+      sub.unsubscribe();
+    });
     // console.log('on destroy', this.tss.tableScroll);
-    
+
     // this.tss.tableScroll = document.getElementById('bodyscroll').scrollLeft;
     // this.subscriptions.map(elem=>elem.unsubscribe());
   }

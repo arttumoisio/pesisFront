@@ -36,7 +36,7 @@
         
         id="body">
           <tr
-          *ngFor="let rivi of data | filter:filters | paginator:pagination; index as i;"
+          *ngFor="let rivi of data | filter:(filters|async) | paginator:(pagination|async); index as i;"
           [ngClass]="{ 
             
           }">
@@ -44,7 +44,7 @@
           [ngClass]="{ 
             'pariton': i%2==1,
             'parillinen' : i%2==0
-          }">{{i+1+firstRow}}</td>
+            }">{{i+1+(((pagination|async).currentPage-1)*(pagination|async).show)}}</td>
           <td *ngFor="let otsikko of otsikot; index as io," 
           [ngClass]="{
             'pariton': i%2==1,

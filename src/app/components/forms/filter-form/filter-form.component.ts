@@ -1,7 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { DataService } from 'src/app/services/dataservice.service';
+import { DataService } from '../../../services/dataservice.service';
 import { FormGroup, FormBuilder, FormArray, FormControl, Validators } from '@angular/forms';
-import { FilterService } from 'src/app/services/filter.service';
+import { Store } from '@ngrx/store';
+import { IFilterState } from '../../../store/state/filters.state';
+import * as FilterActions from '../../../store/actions/filters.actions';
+import { Observable } from 'rxjs';
+import { IFilter } from '../../../models/filters.interface';
 
 @Component({
   selector: 'app-filter-form',
@@ -21,24 +25,22 @@ export class FilterFormComponent implements OnInit, OnDestroy {
   ];
 
   filterForm: FormGroup;
-  get intFilters(): Array<{string: string; operator: string; column: string; }> {
-    return this.fs.getIntFilters();
-  }
+
+  used: string[] = ['LV', 'KL'];
   get otsikot(): string[] {
-    const otsikot: string[] = this.dataService.getOtsikot().slice();
-    this.intFilters.map((used) => {
-      const i = otsikot.findIndex((otsikko) => otsikko === used.column);
-      if (i !== -1) { otsikot.splice(i, 1); }
-    });
-    return otsikot;
+    return this.dataService.getOtsikot();
+    // return this.dataService.getOtsikot().filter((otsikko) => this.used.indexOf(otsikko) === -1);
   }
+
+  filters: Observable< IFilterState >;
 
   constructor(private dataService: DataService,
               private formBuilder: FormBuilder,
-              private fs: FilterService) { }
+              private store: Store<{ filters: IFilterState }>,
+              ) { }
 
   ngOnInit(): void {
-
+    this.filters = this.store.select('filters');
     this.filterForm = this.formBuilder.group({
       column: this.formBuilder.control('Ottelut', [Validators.required]),
       operator: this.formBuilder.control('>=', [Validators.required]),
@@ -46,7 +48,7 @@ export class FilterFormComponent implements OnInit, OnDestroy {
     });
   }
   ngOnDestroy() {
-    this.fs.setIntFilters([]);
+    return;
   }
 
   onLisaaSuodatin() {
@@ -57,7 +59,11 @@ export class FilterFormComponent implements OnInit, OnDestroy {
       // console.log('Form invalid!');
       return;
     }
-    this.fs.addIntFilter(this.filterForm.value);
+    const newFilter: IFilter = {
+      ...this.filterForm.value as IFilter,
+    };
+
+    this.store.dispatch(new FilterActions.AddFilter(newFilter));
     this.setSarake();
   }
 
@@ -73,9 +79,10 @@ export class FilterFormComponent implements OnInit, OnDestroy {
     }
   }
 
-  removeFilter(filter: {string: string; operator: string; column: string; }) {
+  removeFilter(filter: {string: string; operator: string; column: string; }, index: number) {
     // console.log('remove filter');
-    this.fs.removeIntFilter(filter);
+    // this.fs.removeIntFilter(filter);
+    this.store.dispatch(new FilterActions.DeleteFilter(index));
     this.setSarake();
   }
 

@@ -78,6 +78,14 @@ export const paginationReducers = (
                     currentPage: newPage,
                 };
             }
+            case EPaginationActions.ResetPagination: {
+                return {
+                    ...state,
+                    currentPage: 1,
+                    pages: 1,
+                    records: 0,
+                };
+            }
             case EPaginationActions.ToPreviousPage: {
                 const newPage = countNewPage(state.currentPage - 1, state.pages);
                 return {

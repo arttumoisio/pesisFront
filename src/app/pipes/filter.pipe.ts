@@ -1,21 +1,26 @@
 
-import { Pipe, PipeTransform, Injectable } from '@angular/core';
-import { FilterService } from '../services/filter.service';
-import { PaginatorService } from '../services/paginator.service';
-import { DataService } from '../services/dataservice.service';
+import { Pipe, PipeTransform } from '@angular/core';
+import { Store } from '@ngrx/store';
+import * as PaginationActions from '../store/actions/pagination.actions';
+import { IFilterState } from '../store/state/filters.state';
 
+enum operators {
+  EQUALS = '=',
+  LESSER = '<=',
+  GREATER = '>=',
+  NOTEQUALS = '!=',
+}
 @Pipe({
-  name: 'filter'
+  name: 'filter',
 })
 export class FilterPipe implements PipeTransform {
 
-  constructor(private fs: FilterService,
-              private ps: PaginatorService,
-              private ds: DataService
-              ){
-              }
+  constructor(
+    private store: Store<{ filters: IFilterState}>,
+            ) {
+  }
 
-  rowThatIncludes(rivi: object,value: string):boolean{
+  rowThatIncludes(rivi: object, value: string): boolean {
     for (const otsikko in rivi) {
       if (rivi.hasOwnProperty(otsikko)) {
         const element = String(rivi[otsikko]).toLowerCase();
@@ -25,88 +30,83 @@ export class FilterPipe implements PipeTransform {
       }
     }
     return false;
-  } 
-  rowThatIncludesAll(rivi: object,array: string[]):boolean{
-    // console.log(rivi);
-    // console.log(this.rowThatIncludes(rivi, array[0]), array)
-    // return f;
-    for (let i = 0; i < array.length; i++) {
-      if (!this.rowThatIncludes(rivi, array[i])){
+  }
+  rowThatIncludesAll(rivi: object, array: string[]): boolean {
+    for (const elem of array) {
+      if (!this.rowThatIncludes(rivi, elem)) {
         return false;
       }
     }
-
     return true;
-  } 
+  }
 
-  columnThatIncludes(element: any,value: string):boolean{
+  columnThatIncludes(element: any, value: string): boolean {
     return String(element).toLowerCase().includes(value.toLowerCase());
-  } 
-
-  filterEquals(data: object[], str:string, col:string){
-    return data.filter(item => String(item[col]).toLowerCase() === str.toLowerCase());
   }
 
-  filterLesser(data: object[], str:string, col:string){
-    return data.filter(item => Number(item[col]) <= Number(str));
-  }
-  
-  filterGreater(data: object[], str:string, col:string){
-    return data.filter(item => Number(item[col]) >= Number(str));
+  filterEquals(data: object[], str: string, col: string) {
+    return data.filter((item) => String(item[col]).toLowerCase() === str.toLowerCase());
   }
 
-  filterNotEqual(data: object[], str:string, col:string){
-    return data.filter(item => String(item[col]).toLowerCase() !== str.toLowerCase());
+  filterLesser(data: object[], str: string, col: string) {
+    return data.filter((item) => Number(item[col]) <= Number(str));
   }
 
-  transform(data: object[], filters:  any  = undefined): object[] {
-    
-    let strings: string[]   = this.fs.getFiltersObj().strings;
-    let operators: string[] = this.fs.getFiltersObj().operators;
-    let columns: string[]   = this.fs.getFiltersObj().columns;
+  filterGreater(data: object[], str: string, col: string) {
+    return data.filter((item) => Number(item[col]) >= Number(str));
+  }
 
-    if (!data) {return [];}
-    if (strings.length === 0 || columns.length === 0) {
-      return data;
-    }
-    if (operators.length + 1 < strings.length || operators.length + 1 < columns.length) {
-      return data;
-    }
-    
-    for (let i = 0; i < operators.length; i++) {
-      switch (operators[i]) {
-        case '=':
-          data = this.filterEquals(data, strings[i], columns[i]);
-          break;
-        case '<=':
-          data = this.filterLesser(data, strings[i], columns[i]);
-          break;
-        case '>=':
-          data = this.filterGreater(data, strings[i], columns[i]);
-          break;
-        case '!=':
-          data = this.filterNotEqual(data, strings[i], columns[i]);
-          break;
-      
-        default:
-          if(columns[i]) {
-            data = data.filter(singleItem => 
-              this.columnThatIncludes(singleItem[columns[i]],strings[i])
-            );
-          } else {
-            data = data.filter((singleItem) => {
-              let bool = this.rowThatIncludesAll(singleItem,strings[i].split(' '));
-              // console.log(bool);
-              return bool;
-            });
-          }
-          break;
+  filterNotEqual(data: object[], str: string, col: string) {
+    return data.filter((item) => String(item[col]).toLowerCase() !== str.toLowerCase());
+  }
+
+  transform(data: object[], filters?: IFilterState): object[] {
+
+    // console.log(filters);
+
+    if (!data) {return []; }
+
+    if (filters.suodin?.string !== '') {
+      const suodinColumn = filters.suodin.column;
+      const suodinString = filters.suodin.string;
+      if (filters.suodin.column !== '') {
+        data = data.filter((singleItem) =>
+          this.columnThatIncludes(singleItem[suodinColumn], suodinString),
+        );
+      } else {
+        data = data.filter((singleItem) => {
+          return this.rowThatIncludesAll(singleItem, suodinString.split(' '));
+        });
       }
-      
     }
-    // console.log("Filterpipe:",data.length);
-    this.ps.setRecords(data.length);
-    // if(data.length<=0){this.ds.setErrorMsg("Suodatit kaikki tulokset pois.");}
+
+    const count = 0;
+    filters.filters.forEach((filter) => {
+
+      switch (filter.operator) {
+        case operators.EQUALS: {
+          data = this.filterEquals(data, filter.string, filter.column);
+          break;
+        }
+        case operators.LESSER: {
+          data = this.filterLesser(data, filter.string, filter.column);
+          break;
+        }
+        case operators.GREATER: {
+          data = this.filterGreater(data, filter.string, filter.column);
+          break;
+        }
+        case operators.NOTEQUALS: {
+          data = this.filterNotEqual(data, filter.string, filter.column);
+          break;
+        }
+        default : {
+          break;
+        }
+      }
+    });
+
+    this.store.dispatch(new PaginationActions.SetRecords(data.length));
     return data;
   }
 }

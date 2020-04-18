@@ -1,12 +1,14 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import { SortService } from './sort.service';
+import { Store } from '@ngrx/store';
+import { IPaginationState } from '../store/state/pagination.state';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DataService {
 
-  public dataChangedEmitter = new EventEmitter();
+  dataChangedEmitter = new EventEmitter();
 
   private data: object[];
   private length: number;
@@ -14,7 +16,10 @@ export class DataService {
   private errorMsg: string;
   private loading: boolean = true;
 
-  constructor(private ss: SortService) {
+  constructor(
+    private ss: SortService,
+    private store: Store<{ pagination: IPaginationState}>,
+    ) {
     ss.sortedEmitter.subscribe((data) => {
       this.setSortedData(data);
     });
@@ -23,25 +28,25 @@ export class DataService {
     });
    }
 
-  public getData(): object[] {
+  getData(): object[] {
     return this.data;
   }
 
-  public getLength(): number {
+  getLength(): number {
     return this.length;
   }
-  public getLoading(): boolean {
+  getLoading(): boolean {
     return this.loading;
   }
 
-  public getErrorMsg(): string {
+  getErrorMsg(): string {
     return this.errorMsg;
   }
-  public setErrorMsg(e: string): void {
+  setErrorMsg(e: string): void {
     this.errorMsg = e;
   }
 
-  public setOtsikot(): void {
+  setOtsikot(): void {
     if (this.data === undefined || this.data.length === 0) {
       this.otsikot = [];
       this.errorMsg = 'Haku ei tuottanut yhtään tulosta.';
@@ -51,18 +56,18 @@ export class DataService {
     }
   }
 
-  public getOtsikot(): string[] {
+  getOtsikot(): string[] {
     return this.otsikot;
   }
 
-  public startLoading() {
+  startLoading() {
     this.data = undefined;
     this.length = 0;
     this.dataChangedEmitter.emit();
     this.loading = true;
   }
 
-  public resetData(): void {
+  resetData(): void {
     this.data = undefined;
     this.otsikot = undefined;
     this.errorMsg = '';
@@ -70,7 +75,7 @@ export class DataService {
     this.loading = true;
   }
 
-  public setRawData(data: object[] = undefined): void {
+  setRawData(data?: object[]): void {
 
     if (!data || data === [] || data.length <= 0) {
       this.data = undefined;
@@ -95,7 +100,7 @@ export class DataService {
 
   }
 
-  public setSortedData(data: object[]): void {
+  setSortedData(data: object[]): void {
     this.data = data;
     this.dataChangedEmitter.emit();
   }

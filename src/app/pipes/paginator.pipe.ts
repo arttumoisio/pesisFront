@@ -1,17 +1,20 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { PaginatorService } from '../services/paginator.service';
+import { IPagination } from '../models/pagination.interface';
+import { IPaginationState } from '../store/state/pagination.state';
 
 @Pipe({
-  name: 'paginator'
+  name: 'paginator',
 })
 export class PaginatorPipe implements PipeTransform {
 
-  constructor(private ps: PaginatorService){}
+  transform(data: object[], pagination: IPaginationState): object[] {
 
-  transform(data: object[], arg:any=undefined): object[] {
-    const {firstRow, show} = this.ps.getPagination();
-    // console.log('Pagination pipe:',data.length);
-    return data.slice(firstRow,firstRow+show);
+    // console.log(pagination);
+
+    const start = (pagination.currentPage - 1) * pagination.show;
+    const end =   pagination.currentPage * pagination.show;
+
+    return data.slice(start, end);
   }
 
 }

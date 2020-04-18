@@ -10,6 +10,6 @@ export interface IPaginationState {
 export const initialPaginationState: IPaginationState = {
     currentPage: 1,
     show: 20,
-    records: 1,
+    records: 0,
     pages: 1,
 };

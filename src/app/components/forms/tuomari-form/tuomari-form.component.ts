@@ -1,9 +1,8 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
-import { SortService } from 'src/app/services/sort.service';
-import { DotnetRESTservice } from 'src/app/services/dotnetAPI.service';
-import { DataService } from 'src/app/services/dataservice.service';
+import { SortService } from '../../../services/sort.service';
+import { DotnetRESTservice } from '../../../services/dotnetAPI.service';
+import { DataService } from '../../../services/dataservice.service';
 import { FormGroup} from '@angular/forms';
-import { FilterService } from 'src/app/services/filter.service';
 
 @Component({
   selector: 'app-tuomari-form',
@@ -22,19 +21,18 @@ export class TuomariFormComponent implements OnInit, AfterViewInit {
   constructor(private ss: SortService,
               private dotnetApi: DotnetRESTservice,
               private ds: DataService,
-              private fs: FilterService) { }
+              ) { }
 
   ngOnInit() {
     this.reactiveKyselyForm = new FormGroup({    });
   }
-  
-  ngAfterViewInit(){
+
+  ngAfterViewInit() {
     this.onSubmit();
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.ss.resetSortParams();
-    this.fs.resetFilters();
     this.ds.resetData();
   }
 

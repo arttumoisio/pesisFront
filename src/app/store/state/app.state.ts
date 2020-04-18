@@ -7,7 +7,7 @@ import { initialTableState, ITableState } from './table.state';
 
 export interface IAppState {
     router?: RouterReducerState;
-    // filters: IFilterState;
+    filters: IFilterState;
     pagination: IPaginationState;
     // piilotus: IPiilotusState;
     // kyselyApu: IKyselyApuState;
@@ -15,7 +15,7 @@ export interface IAppState {
 }
 
 export const initialAppState: IAppState = {
-    // filters: initialFilterState,
+    filters: initialFilterState,
     pagination: initialPaginationState,
     // piilotus: initialPiilotusState,
     // kyselyApu: initialKyselyApuState,
@@ -24,4 +24,4 @@ export const initialAppState: IAppState = {
 
 export const getInitialState = () => {
     return initialAppState;
-}
+};

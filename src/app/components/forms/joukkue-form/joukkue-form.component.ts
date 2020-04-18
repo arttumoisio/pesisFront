@@ -5,7 +5,6 @@ import { KyselyApuService } from '../../../services/kysely-apu.service';
 import { DataService } from '../../../services/dataservice.service';
 import { DotnetRESTservice } from '../../../services/dotnetAPI.service';
 import { SortService } from '../../../services/sort.service';
-import { FilterService } from '../../../services/filter.service';
 
 @Component({
   selector: 'app-joukkue-form',
@@ -28,7 +27,7 @@ export class JoukkueFormComponent implements OnInit, OnDestroy, AfterViewInit {
               private ss: SortService,
               private dotnetApi: DotnetRESTservice,
               private ds: DataService,
-              private fs: FilterService) { }
+              ) { }
 
   ngOnInit() {
     this.reactiveKyselyForm = new FormGroup({});
@@ -40,7 +39,6 @@ export class JoukkueFormComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngOnDestroy() {
     this.ss.resetSortParams();
-    this.fs.resetFilters();
     this.ds.resetData();
   }
 

@@ -3,9 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { IKyselyApu } from '../../../models/kyselyApu.model';
 import { KyselyApuService } from '../../../services/kysely-apu.service';
 import { DotnetRESTservice } from '../../../services/dotnetAPI.service';
-import { DataService } from '../../../services/dataservice.service';
 import { SortService } from '../../../services/sort.service';
-import { FilterService } from '../../../services/filter.service';
 
 @Component({
   selector: 'app-pelaaja-form',
@@ -28,8 +26,6 @@ export class PelaajaFormComponent implements OnInit, OnDestroy, AfterViewInit {
     private kyselyService: KyselyApuService,
     private ss: SortService,
     private dotnetApi: DotnetRESTservice,
-    private ds: DataService,
-    private fs: FilterService,
     ) {}
 
   ngOnInit() {
@@ -42,8 +38,6 @@ export class PelaajaFormComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngOnDestroy() {
     this.ss.resetSortParams();
-    this.fs.resetFilters();
-    this.ds.resetData();
   }
 
   onLisaaSuodattimia() {

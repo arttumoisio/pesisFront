@@ -7,7 +7,7 @@ import { kyselyApuReducers } from './kyselyApu.reducers';
 import { tableDataReducers } from './table.reducers';
 
 export const appReducers: ActionReducerMap<IAppState, any> =  {
-    // filters: FilterReducers,
+    filters: FilterReducers,
     pagination: paginationReducers,
     // piilotus: piilotusReducers,
     // kyselyApu: kyselyApuReducers,

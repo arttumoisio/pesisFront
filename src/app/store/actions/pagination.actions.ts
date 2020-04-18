@@ -11,6 +11,7 @@ export enum EPaginationActions {
     ToFirstPage = '[Pagination] To First Page',
     ToPreviousPage = '[Pagination] To Previous Page',
     ToNextPage = '[Pagination] To Next Page',
+    ResetPagination = '[Pagination] Reset pagination',
 }
 
 export class SetPagination implements Action {
@@ -18,6 +19,9 @@ export class SetPagination implements Action {
 }
 export class ToLastPage implements Action {
     readonly type = EPaginationActions.ToLastPage;
+}
+export class ResetPagination implements Action {
+    readonly type = EPaginationActions.ResetPagination;
 }
 export class ToFirstPage implements Action {
     readonly type = EPaginationActions.ToFirstPage;
@@ -59,4 +63,5 @@ export type PaginationActions =
  | ToPreviousPage
  | ToNextPage
  | ChangeShow
+ | ResetPagination
 ;

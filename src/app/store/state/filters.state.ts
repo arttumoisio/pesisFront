@@ -6,6 +6,6 @@ export interface IFilterState {
 }
 
 export const initialFilterState: IFilterState = {
-    suodin: null,
-    filters: null,
+    suodin: {column: '', string: ''},
+    filters: [],
 };

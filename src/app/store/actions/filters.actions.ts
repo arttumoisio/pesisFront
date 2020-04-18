@@ -6,6 +6,23 @@ export enum EFilterActions {
     GetFiltersSuccess = '[Filters] Get Filters Success',
     GetSuodin = '[Filters] Get Suodin',
     GetSuodinSuccess = '[Filters] Get Suodin Success',
+    AddFilter = '[Filters] Add a new filter',
+    DeleteFilter = '[Filters] Delete a filter',
+    ResetFilters = '[Filters] Reset Filters',
+}
+
+export class AddFilter implements Action {
+    readonly type = EFilterActions.AddFilter;
+    constructor(public payload: IFilter) {}
+}
+
+export class ResetFilters implements Action {
+    readonly type = EFilterActions.ResetFilters;
+}
+
+export class DeleteFilter implements Action {
+    readonly type = EFilterActions.DeleteFilter;
+    constructor(public payload: number) {}
 }
 
 export class GetFilters implements Action {
@@ -28,7 +45,10 @@ export class GetSuodinSuccess implements Action {
 
 export type FiltersActions =
  | GetFilters
+ | DeleteFilter
+ | AddFilter
  | GetFiltersSuccess
  | GetSuodin
  | GetSuodinSuccess
+ | ResetFilters
 ;
