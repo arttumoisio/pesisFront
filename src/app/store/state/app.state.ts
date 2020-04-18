@@ -11,7 +11,7 @@ export interface IAppState {
     pagination: IPaginationState;
     // piilotus: IPiilotusState;
     // kyselyApu: IKyselyApuState;
-    // tableState: ITableState;
+    tableState: ITableState;
 }
 
 export const initialAppState: IAppState = {
@@ -19,7 +19,7 @@ export const initialAppState: IAppState = {
     pagination: initialPaginationState,
     // piilotus: initialPiilotusState,
     // kyselyApu: initialKyselyApuState,
-    // tableState: initialTableState,
+    tableState: initialTableState,
 };
 
 export const getInitialState = () => {

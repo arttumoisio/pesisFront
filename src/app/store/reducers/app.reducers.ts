@@ -11,5 +11,5 @@ export const appReducers: ActionReducerMap<IAppState, any> =  {
     pagination: paginationReducers,
     // piilotus: piilotusReducers,
     // kyselyApu: kyselyApuReducers,
-    // tableState: tableDataReducers,
+    tableState: tableDataReducers,
 };

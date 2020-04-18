@@ -1,8 +1,8 @@
 
 .parillinen{background: white;}
 .pariton{background: lightgray;}
-.parillinen.sorted{background: lightgrey;}
-.pariton.sorted{background: darkgray;} 
+.parillinen .sorted{background: lightgrey;}
+.pariton .sorted{background: darkgray;} 
 .desc-sort::after {content: '\2193';}
 .asc-sort::after {content: '\2191';}
 .desc-sort {background: #0056b3;;}
