@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule} from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { StoreModule } from '@ngrx/store';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -28,6 +29,7 @@ import { TuomariFormComponent } from './components/forms/tuomari-form/tuomari-fo
 import { BasicFormComponent } from './components/forms/basic-form/basic-form.component';
 import { TeamsExtraFormComponent } from './components/forms/teams-extra-form/teams-extra-form.component';
 import { TuomaritExtraFormComponent } from './components/forms/tuomarit-extra-form/tuomarit-extra-form.component';
+import { appReducers } from './store/reducers/app.reducers';
 
 @NgModule({
   declarations: [
@@ -59,6 +61,7 @@ import { TuomaritExtraFormComponent } from './components/forms/tuomarit-extra-fo
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
+    StoreModule.forRoot(appReducers),
   ],
   providers: [
   ],
