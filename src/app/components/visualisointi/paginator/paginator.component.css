@@ -14,3 +14,7 @@ button {
 .paginator-content {
     text-align: center;
 }
+
+div.col-2 {
+    padding: 0;
+}
