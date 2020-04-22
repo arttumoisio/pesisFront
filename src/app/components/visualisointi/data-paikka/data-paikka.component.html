@@ -34,17 +34,20 @@
         
         id="body">
           <tr
-          *ngFor="let rivi of data | filter:(filters|async) | paginator:(pagination|async); index as i;"
-          [ngClass]="{ 
+          *ngFor="let rivi of data | filter:(filters|async) | paginator:(pagination|async); index as i;">
+          <td 
+          [ngClass]="{
             'pariton': i%2==1,
             'parillinen' : i%2==0
-            }">
-          <td 
->{{i+1+(((pagination|async).currentPage-1)*(pagination|async).show)}}</td>
+          }">
+            {{i+1+(((pagination|async).currentPage-1)*(pagination|async).show)}}
+          </td>
           <td *ngFor="let otsikko of otsikot; index as io," 
           [ngClass]="{
-            'sorted' : otsikko===jarjestetty,
-            'otsikollinen' : true
+              'pariton': i%2==1,
+              'parillinen' : i%2==0,
+              'sorted' : otsikko===jarjestetty,
+              'otsikollinen' : true
           }"
           [id]="io == otsikot.length-1 && i == 0 ? 'viimeinen':''">
           {{rivi[otsikko]}}</td>
