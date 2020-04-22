@@ -4,8 +4,10 @@
 
 export const environment = {
   production: false,
+  // serverUrl: 'api',
   serverUrl: 'https://pesisback.herokuapp.com',
   // serverUrl: 'https://localhost:5001',
+  hmr: false
 };
 
 /*
