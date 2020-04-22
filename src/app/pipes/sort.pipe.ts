@@ -1,6 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { SortService } from '../services/sort.service';
-import { DataService } from '../services/dataservice.service';
 
 @Pipe({
   name: 'sort',
@@ -10,10 +9,15 @@ export class SortPipe implements PipeTransform {
   returnData: object[] = [];
   constructor(private ss: SortService) {}
 
+  transform(data: object[], col= '', rev= ''): object[] {
+      if (!data) {return []; }
+      this.workerSort(data);
+      return this.returnData;
+    }
+
   workerSort(data2: object[]) {
     const {sarake, reversed} = this.ss.getSortParams();
-    if (typeof Worker !== 'undefined')
-    {
+    if (typeof Worker !== 'undefined') {
       // Create a new
       const worker = new Worker('../workers/sort.worker', { type: 'module' });
       worker.onmessage = ({ data }) => {
@@ -39,13 +43,5 @@ export class SortPipe implements PipeTransform {
       return 0;
     });
     return data;
-  }
-
-  transform(data: object[], col= '', rev= ''): object[] {
-    if (!data) {return []; }
-    this.workerSort(data);
-    // console.log(data.length)
-    // console.log(this.returnData.length);
-    return this.returnData;
   }
 }
