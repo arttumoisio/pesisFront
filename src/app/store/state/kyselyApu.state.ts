@@ -2,9 +2,11 @@ import { IKyselyApu } from '../../models/kyselyApu.model';
 
 export interface IKyselyApuState {
     kyselyApu: IKyselyApu;
+    piilotus: boolean;
 }
 
 export const initialKyselyApuState: IKyselyApuState = {
+    piilotus: false,
     kyselyApu: {
     ulkopeliPaikat: [
     '1V',
@@ -98,5 +100,5 @@ export const initialKyselyApuState: IKyselyApuState = {
     lukkarit: [
     'Eritelty',
     ],
-    }
-}
+    },
+};

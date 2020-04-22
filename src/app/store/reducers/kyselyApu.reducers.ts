@@ -1,4 +1,4 @@
-import { KyselyApuActions, EKyselyApuActions } from '../actions/KyselyApu.actions';
+import { KyselyApuActions, EKyselyApuActions } from '../actions/kyselyApu.actions';
 import { initialKyselyApuState, IKyselyApuState } from '../state/KyselyApu.state';
 
 export const kyselyApuReducers = (
@@ -10,6 +10,12 @@ export const kyselyApuReducers = (
             return {
                 ...state,
                 kyselyApu: action.payload,
+            };
+        }
+        case EKyselyApuActions.TogglePiilotus: {
+            return {
+                ...state,
+                piilotus: !state.piilotus,
             };
         }
         default:
