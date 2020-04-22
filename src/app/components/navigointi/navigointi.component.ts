@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { PiilotusService } from '../../services/piilotus.service';
+import { Store } from '@ngrx/store';
+import { IKyselyApuState } from '../../store/state/kyselyApu.state';
+import * as KyselyApuActions from '../../store/actions/kyselyApu.actions';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-navigointi',
@@ -12,18 +15,20 @@ import { PiilotusService } from '../../services/piilotus.service';
 
 export class NavigointiComponent implements OnInit {
 
-  constructor(private pis: PiilotusService) { }
+  constructor(
+    private store: Store<{
+      kyselyApu: IKyselyApuState,
+      piilotus: boolean,
+    }>,
+   ) { }
 
   ngOnInit() {
+    this.piilotaValikko = this.store.select('kyselyApu');
   }
 
-  piilotaValikko = false; // in production this is: false;
-  piilotusTeksti = 'Piilota Valikko'; // in production this is: 'Enemmän'
+  piilotaValikko: Observable<IKyselyApuState> ;
   onPiilotaValikko() {
-    this.piilotaValikko = !this.piilotaValikko;
-    this.piilotusTeksti = this.piilotaValikko ? 'Näytä Valikko' : 'Piilota Valikko';
-    this.pis.togglePiilota();
+    this.store.dispatch(new KyselyApuActions.TogglePiilotus());
   }
-
 
 }

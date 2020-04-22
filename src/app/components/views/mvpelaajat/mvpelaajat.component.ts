@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
-import { PiilotusService } from '../../../services/piilotus.service';
+import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { IKyselyApuState } from '../../../store/state/kyselyApu.state';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-mvpelaajat',
@@ -9,12 +11,11 @@ import { PiilotusService } from '../../../services/piilotus.service';
     class: 'customComponent',
   },
 })
-export class MVPelaajatComponent {
+export class MVPelaajatComponent implements OnInit {
 
-  constructor(private pis: PiilotusService) {}
-
-  get piilotaValikko(): boolean {
-    // console.log(this.pis.getPiilotus());
-    return this.pis.getPiilotus();
+  kyselyApu: Observable<IKyselyApuState> ;
+  constructor(private store: Store<{kyselyApu: IKyselyApuState}>) {}
+  ngOnInit(): void {
+    this.kyselyApu = this.store.select('kyselyApu');
   }
 }

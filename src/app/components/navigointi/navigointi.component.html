@@ -18,15 +18,12 @@
         routerLinkActive="active" 
         routerLink="/tuomarit">Tuomarit</a>
       </li>
-      
-      
-      
     </ul>
   </div>
 
   <button 
   type="button"
   class="btn nav-item"
-  (click)="onPiilotaValikko()">{{piilotusTeksti}}</button>
+  (click)="onPiilotaValikko()">{{(piilotaValikko|async).piilotus ? 'Piilota Valikko' : 'Näytä Valikko'}}</button>
 </div>
 </nav>

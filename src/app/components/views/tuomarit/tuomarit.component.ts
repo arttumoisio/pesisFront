@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { PiilotusService } from '../../../services/piilotus.service';
+import { Store } from '@ngrx/store';
+import { IKyselyApuState } from '../../../store/state/kyselyApu.state';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-tuomarit',
@@ -11,13 +13,10 @@ import { PiilotusService } from '../../../services/piilotus.service';
 })
 export class TuomaritComponent implements OnInit {
 
-  constructor(private pis: PiilotusService) { }
-
+  kyselyApu: Observable<IKyselyApuState> ;
+  constructor(private store: Store<{kyselyApu: IKyselyApuState}>) {}
   ngOnInit(): void {
-  }
-
-  get piilotaValikko(): boolean {
-    return this.pis.getPiilotus();
+    this.kyselyApu = this.store.select('kyselyApu');
   }
 
 }
