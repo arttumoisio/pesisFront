@@ -1,7 +1,7 @@
 import { RouterReducerState } from '@ngrx/router-store';
 import { IFilterState, initialFilterState } from './filters.state';
 import { IPaginationState, initialPaginationState } from './pagination.state';
-import { IKyselyApuState, initialKyselyApuState } from './kyselyApu.state';
+import { IKyselyApuState, initialKyselyApuState } from './kyselyapu.state';
 import { initialTableState, ITableState } from './table.state';
 
 export interface IAppState {

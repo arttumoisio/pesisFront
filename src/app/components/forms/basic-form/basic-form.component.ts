@@ -21,15 +21,16 @@ export class BasicFormComponent implements OnInit, OnDestroy {
   constructor(private kas: KyselyApuService) { }
 
   ngOnInit(): void {
-    const minKausi = this.apu.kaudet[this.kas.kyselyData.kaudet.length - 1];
+    // const minKausi = this.apu.kaudet[this.kas.kyselyData.kaudet.length - 1];
+    const alkuKausi = 2010;
     const maxKausi = this.apu.kaudet[0];
     this.parentForm.addControl('kaudetAlku', new FormControl(
-      minKausi,
-      [Validators.min(minKausi), Validators.max(maxKausi)],
+      alkuKausi,
+      [Validators.min(alkuKausi), Validators.max(maxKausi)],
     ));
     this.parentForm.addControl('kaudetLoppu', new FormControl(
       maxKausi,
-      [Validators.min(minKausi), Validators.max(maxKausi)],
+      [Validators.min(alkuKausi), Validators.max(maxKausi)],
     ));
     this.parentForm.addControl('vuosittain', new FormControl(false));
     this.parentForm.addControl('sarjavaihe', new FormControl('Runkosarja'));

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { IKyselyApuState } from '../../../store/state/kyselyApu.state';
+import { IKyselyApuState } from '../../../store/state/kyselyapu.state';
 import { Observable } from 'rxjs';
 
 @Component({

@@ -39,6 +39,7 @@ export class KyselyApuService {
 
     kaudet: [
     2020,
+    2010,
     1994,
     ],
 
