@@ -1,5 +1,5 @@
 import { KyselyApuActions, EKyselyApuActions } from '../actions/kyselyApu.actions';
-import { initialKyselyApuState, IKyselyApuState } from '../state/kyselyapu.state';
+import { initialKyselyApuState, IKyselyApuState } from '../state/kyselyApu.state';
 
 export const kyselyApuReducers = (
     state = initialKyselyApuState,

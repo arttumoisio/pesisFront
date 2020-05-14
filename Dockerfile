@@ -1,7 +1,39 @@
-FROM nginx:alpine
+#############
+### build ###
+#############
+
+# base image
+FROM node:14 as build
+
+# add `/app/node_modules/.bin` to $PATH
+ENV PATH /app/node_modules/.bin:$PATH
+
+# set working directory
+WORKDIR /app/
+
+# install and cache app dependencies
+COPY package.json ./package.json
+COPY yarn.lock ./yarn.lock
+
+RUN yarn install
+
+# add app
+COPY . /app
+
+# generate build
+RUN ng build --output-path dist
+
+############
+### prod ###
+############
+
+# base image
+FROM nginx:latest
 
 # copy artifact build from the 'build environment'
-COPY /dist /usr/share/nginx/html
-COPY nginx.conf /etc/nginx/nginx.conf
-CMD sed -i -e 's/PORT/'"$PORT"'/g' /etc/nginx/nginx.conf && nginx -g 'daemon off;'
-# CMD nginx -g 'daemon off;'
+COPY --from=build /app/dist /usr/share/nginx/html
+COPY nginx.conf /etc/nginx/
+
+# run nginx
+# CMD sed -i -e 's/PORT/'"$PORT"'/g' /etc/nginx/nginx.conf && nginx -g 'daemon off;'
+CMD ["nginx", "-g", "daemon off;"]
