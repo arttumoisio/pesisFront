@@ -53,6 +53,10 @@ tbody{
   left: 0;
 }
 
+#tableheadd {
+  will-change: left;
+}
+
 
 th:nth-child(1), td:nth-child(1) {
   position: sticky;
