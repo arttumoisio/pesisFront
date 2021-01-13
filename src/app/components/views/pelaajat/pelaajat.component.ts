@@ -4,14 +4,14 @@ import { IKyselyApuState } from '../../../store/state/kyselyApu.state';
 import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'app-mvpelaajat',
-  templateUrl: './mvpelaajat.component.html',
-  styleUrls: ['./mvpelaajat.component.css'],
+  selector: 'app-pelaajat',
+  templateUrl: './pelaajat.component.html',
+  styleUrls: ['./pelaajat.component.css'],
   host: {
     class: 'customComponent',
   },
 })
-export class MVPelaajatComponent implements OnInit {
+export class PelaajatComponent implements OnInit {
 
   kyselyApu: Observable<IKyselyApuState> ;
   constructor(private store: Store<{kyselyApu: IKyselyApuState}>) {}

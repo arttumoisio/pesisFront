@@ -109,3 +109,7 @@ td:last-child {
   text-align: left;
   white-space: nowrap;
 }
+
+table#datataulu {
+  table-layout: fixed;
+}

@@ -7,8 +7,8 @@ import { StoreModule } from '@ngrx/store';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavigointiComponent } from './components/navigointi/navigointi.component';
-import { MVPelaajatComponent } from './components/views/mvpelaajat/mvpelaajat.component';
-import { MVJoukkueetComponent } from './components/views/mvjoukkueet/mvjoukkueet.component';
+import { PelaajatComponent } from './components/views/pelaajat/pelaajat.component';
+import { JoukkueetComponent } from './components/views/joukkueet/joukkueet.component';
 import { TuomaritComponent } from './components/views/tuomarit/tuomarit.component';
 
 import { DataPaikkaComponent } from './components/visualisointi/data-paikka/data-paikka.component';
@@ -39,8 +39,8 @@ import { appReducers } from './store/reducers/app.reducers';
     PaginatorPipe,
 
     NavigointiComponent,
-    MVPelaajatComponent,
-    MVJoukkueetComponent,
+    PelaajatComponent,
+    JoukkueetComponent,
     TuomaritComponent,
     VisualisointiComponent,
     DataPaikkaComponent,

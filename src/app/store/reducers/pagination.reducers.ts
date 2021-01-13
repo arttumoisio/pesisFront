@@ -39,8 +39,6 @@ export const paginationReducers = (
             }
             case EPaginationActions.ChangeShow: {
                 const newShow = Number(action.payload);
-                console.log(newShow);
-                console.log(state);
 
                 const newMaxPage = countMaxPage(state.records, newShow);
                 const newCurrentPage = countNewPage(state.currentPage, newMaxPage);

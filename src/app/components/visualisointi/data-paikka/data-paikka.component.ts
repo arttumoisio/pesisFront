@@ -5,8 +5,10 @@ import { Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
 import { first } from 'rxjs/operators';
 import { IPaginationState } from '../../../store/state/pagination.state';
+import { ISortState } from '../../../store/state/sort.state';
 import * as PaginationActions from '../../../store/actions/pagination.actions';
 import * as TableActions from '../../../store/actions/table.actions';
+import * as SortActions from '../../../store/actions/sort.actions';
 import { IFilterState } from '../../../store/state/filters.state';
 import { ITableState } from 'src/app/store/state/table.state';
 
@@ -23,9 +25,10 @@ export class DataPaikkaComponent implements OnInit, AfterViewInit, OnDestroy {
   get data(): object[] {return this.ds.getData(); }
   pagination: Observable< IPaginationState >;
   filters: Observable< IFilterState >;
+  sort: Observable< ISortState >;
 
-  get jarjestetty(): string {return this.ss.getSortParams().sarake; }
-  get reversed(): boolean {return this.ss.getSortParams().reversed; }
+  // get jarjestetty(): string {return this.ss.getSortParams().sarake; }
+  // get reversed(): boolean {return this.ss.getSortParams().reversed; }
   get otsikot(): string[] {return this.ds.getOtsikot(); }
 
   subscriptions: Subscription[] = [];
@@ -36,7 +39,8 @@ export class DataPaikkaComponent implements OnInit, AfterViewInit, OnDestroy {
     private store: Store<{
       pagination: IPaginationState,
       filters: IFilterState,
-      tableState: ITableState,
+      table: ITableState,
+      sort: ISortState,
      }>,
     ) {
   }
@@ -44,7 +48,10 @@ export class DataPaikkaComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnInit() {
     this.pagination = this.store.select('pagination');
     this.filters = this.store.select('filters');
-    this.subscriptions.push(this.pagination.subscribe((data) => console.log(data)));
+    this.sort = this.store.select('sort');
+
+    // this.subscriptions.push(this.pagination.subscribe((data) => console.log(data)));
+    this.subscriptions.push(this.sort.subscribe((data) => console.log(data)));
   }
 
   ngAfterViewInit() {
@@ -52,7 +59,7 @@ export class DataPaikkaComponent implements OnInit, AfterViewInit, OnDestroy {
     const lastColWidth: number = document.getElementById('viimeinen').scrollWidth;
     document.getElementById('viimeinenotsikko').style.minWidth = `${lastColWidth}px`;
 
-    this.store.select('tableState').pipe(first()).subscribe(({tableScroll}) => {
+    this.store.select('table').pipe(first()).subscribe(({tableScroll}) => {
       document.getElementById('bodyscroll').scrollLeft = tableScroll;
     });
   }
@@ -72,5 +79,6 @@ export class DataPaikkaComponent implements OnInit, AfterViewInit, OnDestroy {
 
   sortData(sarake: string) {
     this.ss.setSortParams(sarake);
+    this.store.dispatch( new SortActions.SetSortColumn(sarake));
   }
 }

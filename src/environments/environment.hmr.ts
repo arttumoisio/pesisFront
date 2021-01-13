@@ -6,8 +6,8 @@ export const environment = {
     production: false,
     hmr: true,
     // serverUrl: 'api',
-    serverUrl: 'https://pesisback.herokuapp.com',
-    // serverUrl: 'https://localhost:5001',
+    // serverUrl: 'https://pesisback.herokuapp.com',
+    serverUrl: 'https://localhost:5001',
   };
   
   /*

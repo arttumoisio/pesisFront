@@ -1,12 +1,17 @@
-import { Injectable, EventEmitter } from '@angular/core';
+import { Injectable, EventEmitter, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { Observable, Subscription } from 'rxjs';
+import { ISortState } from '../store/state/sort.state';
 
 @Injectable({
   providedIn: 'root',
 })
-export class SortService {
+export class SortService implements OnInit {
 
   sortEmitter = new EventEmitter();
   sortedEmitter = new EventEmitter<object[]>();
+
+  private sort: Observable<ISortState>;
 
   private sarake: string = '';
   private reversed: boolean = false;
@@ -14,7 +19,10 @@ export class SortService {
   private worker: Worker;
   private workerSupport: boolean;
 
-  constructor() {
+  constructor(private store: Store<{
+                sort: ISortState,
+              }>,
+            ) {
     if (typeof Worker !== 'undefined') {
       this.workerSupport = true;
     } else {
@@ -22,10 +30,13 @@ export class SortService {
       console.log('Worker not supported');
       this.workerSupport = false;
     }
+  }
+  ngOnInit(){
+    this.sort = this.store.select('sort');
+  }
+  
 
-   }
-
-  getSortParams(): {sarake: string; reversed: boolean; } {
+  getSortParams(): ISortState {
     return {sarake: this.sarake, reversed: this.reversed};
   }
   setSortParams(sarake: string): void {

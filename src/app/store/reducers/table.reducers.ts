@@ -12,12 +12,6 @@ export const tableDataReducers = (
                 tableState: action.payload,
             };
         }
-        case ETableActions.GetTableSortSuccess: {
-            return {
-                ...state,
-                sort: action.payload,
-            };
-        }
         case ETableActions.GetTableScrollSuccess: {
             return {
                 ...state,

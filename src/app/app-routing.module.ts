@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { MVPelaajatComponent } from './components/views/mvpelaajat/mvpelaajat.component';
-import { MVJoukkueetComponent } from './components/views/mvjoukkueet/mvjoukkueet.component';
+import { PelaajatComponent } from './components/views/pelaajat/pelaajat.component';
+import { JoukkueetComponent } from './components/views/joukkueet/joukkueet.component';
 import { TuomaritComponent } from './components/views/tuomarit/tuomarit.component';
 
 const routes: Routes = [
   { path: '',   redirectTo: '/joukkueet', pathMatch: 'full' },
-  {path: 'pelaajat', component: MVPelaajatComponent},
-  {path: 'joukkueet', component: MVJoukkueetComponent},
+  {path: 'pelaajat', component: PelaajatComponent},
+  {path: 'joukkueet', component: JoukkueetComponent},
   {path: 'tuomarit', component: TuomaritComponent},
 
 ];

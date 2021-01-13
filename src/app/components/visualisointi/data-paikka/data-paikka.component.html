@@ -12,8 +12,8 @@
             <th *ngFor="let otsikko of otsikot, index as i," 
             (click)="sortData(otsikko)"
             [ngClass]="{
-            'desc-sort': otsikko==jarjestetty&&(!reversed),
-            'asc-sort': otsikko==jarjestetty&&reversed
+            'desc-sort': otsikko==(sort|async).sarake&&(!(sort|async).reversed),
+            'asc-sort': otsikko==(sort|async).sarake&&(sort|async).reversed
           }"
           [id]="i == otsikot.length-1 ? 'viimeinenotsikko':''"
           >{{otsikko}}</th>
@@ -46,7 +46,7 @@
           [ngClass]="{
               'pariton': i%2==1,
               'parillinen' : i%2==0,
-              'sorted' : otsikko===jarjestetty,
+              'sorted' : otsikko===(sort|async).sarake,
               'otsikollinen' : true
           }"
           [id]="io == otsikot.length-1 && i == 0 ? 'viimeinen':''">
