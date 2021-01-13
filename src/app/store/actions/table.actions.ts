@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
 import { ITable } from '../../models/table.interface';
-import { ISort } from 'src/app/models/sort.interface';
+import { ISort } from '../../models/sort.interface';
 
 export enum ETableActions {
     GetTableState = '[Table] Get Table State',
