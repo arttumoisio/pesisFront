@@ -9,6 +9,9 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "hmr": "ng serve --configuration hmr"
+  },  
+  "engines": {
+    "node": "15.x"
   },
   "private": true,
   "dependencies": {
