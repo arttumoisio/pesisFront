@@ -3,7 +3,7 @@
 #############
 
 # base image
-FROM node:14 as build
+FROM node:15 as build
 
 # add `/app/node_modules/.bin` to $PATH
 ENV PATH /app/node_modules/.bin:$PATH
