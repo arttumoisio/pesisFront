@@ -3,14 +3,14 @@
   command = "yarn prod"
   
 [[redirects]]
-  from = "/api"
+  from = "/api*"
   to = "https://pesisback.herokuapp.com"
   status = 200
   force = true
   headers = {X-From = "Netlify"}
 
 [[redirects]]
-  from = "/api2"
+  from = "/api2*"
   to = "http://pesisback.herokuapp.com"
   status = 200
   force = true
