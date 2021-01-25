@@ -11,7 +11,7 @@
     "hmr": "ng serve --configuration hmr"
   },
   "engines": {
-    "node": "15.x"
+    "node": "12.x"
   },
   "private": true,
   "dependencies": {
