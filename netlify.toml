@@ -4,28 +4,7 @@
   
 [[redirects]]
   from = "/api*"
-  to = "https://pesisback.herokuapp.com"
-  status = 200
-  force = true
-  headers = {X-From = "Netlify"}
-
-[[redirects]]
-  from = "/api2*"
-  to = "http://pesisback.herokuapp.com"
-  status = 200
-  force = true
-  headers = {X-From = "Netlify"}
-  
-[[redirects]]
-  from = "/appi"
-  to = "https://pesisback.herokuapp.com"
-  status = 200
-  force = true
-  headers = {X-From = "Netlify"}
-
-[[redirects]]
-  from = "/appi2/"
-  to = "https://pesisback.herokuapp.com/"
+  to = "https://pesisback.herokuapp.com/:splat"
   status = 200
   force = true
   headers = {X-From = "Netlify"}
